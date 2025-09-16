@@ -1,0 +1,35 @@
+// 新项目应该修改为：
+buildscript {
+    repositories {
+        google()
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'org.greenrobot:greendao-gradle-plugin:3.3.1' // GreenDAO
+        classpath "com.jakewharton:butterknife-gradle-plugin:9.0.0-rc3" // ButterKnife
+        classpath 'com.android.tools.build:gradle:7.4.1' // 保持与原项目一致的AGP版本
+    }
+}
+
+plugins {
+//    id 'com.android.application' version '7.4.1' apply false
+    id 'com.android.library' version '7.4.1' apply false
+    // 新项目的libs.plugins可以保留，但需要确保版本兼容
+    alias(libs.plugins.android.application) apply false
+}
+ext {
+    androidXVersion = '1.1.0'
+    versionCompiler = 28
+    // when target=27, 9.0 is ok
+    versionTarget = 27
+    // if hope supporting 4.4
+    // please modify it to 16
+    minSdkVersion = 16
+//    versionCode = 101
+    versionNameString = '2.3.6.20211117'
+    javaSourceCompatibility = JavaVersion.VERSION_1_8
+    javaTargetCompatibility = JavaVersion.VERSION_1_8
+    versionCode = 2507
+    versionName = '1.0.1' // 继承原项目版本号
+    aiVersion = '1.0.0' // ai版本号
+}

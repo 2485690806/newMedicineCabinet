@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="net_interrupt">Please check the \n network connection</string>
+    <string name="cannot_access_sys">Unable to access system \n services normally</string>
+    <string name="check_network_traffic">Please check the \n network connection</string>
+    <string name="data_parse_error">Data from sever \n parsing exception</string>
+    <string name="user_not_exist">User does not exists</string>
+    <string name="request_error">An error occurred \n in request server</string>
+
+
+    <string name="app_downloading" translatable="false">Downloading Update…</string>
+    <string name="app_downloaded" translatable="false">Update Ready for Installation</string>
+
+</resources>

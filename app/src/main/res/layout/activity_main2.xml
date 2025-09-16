@@ -1,0 +1,1201 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/device_msg"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:layoutDirection="ltr">
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context=".ui.hardware.WeightFragment">
+
+            <LinearLayout
+                android:id="@+id/linearLayout3"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:text="称重模块收到消息："
+                        android:textAlignment="center"
+                        android:textSize="20dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/weighresult"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:background="@color/gray_d9d9d9"
+                        android:text=""
+                        android:textAlignment="center"
+                        android:textColor="@color/black"
+                        android:textSize="20dp"
+
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:text="称重模块发送消息："
+                        android:textAlignment="center"
+                        android:textSize="20dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/weighsend"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:background="@color/actionsheet_red"
+                        android:text=""
+                        android:textAlignment="center"
+                        android:textColor="@color/white"
+                        android:textSize="20dp"
+
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/linearLayout4"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+
+                    android:orientation="horizontal"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <Button
+                        android:id="@+id/weigh_path_change"
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp"
+                        android:background="#6200ee"
+
+                        android:text="更换串口"
+                        android:textColor="#fff"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/appBarLayout" />
+
+
+                    <Button
+                        android:id="@+id/get_weight"
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp"
+                        android:layout_marginRight="20dp"
+                        android:background="#6200ee"
+                        android:text="读取称重数据"
+                        android:textColor="#fff"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent" />
+
+                    <Button
+                        android:id="@+id/read_temperature_and_humidity"
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp"
+                        android:layout_marginRight="20dp"
+                        android:background="#6200ee"
+                        android:text="读取温湿度"
+                        android:textColor="#fff"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent" />
+
+                    <Button
+                        android:id="@+id/get_weight_model_status"
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp"
+                        android:layout_marginRight="20dp"
+                        android:background="#6200ee"
+                        android:text="多参数一次性读取"
+                        android:textColor="#fff"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent" />
+
+
+                    <Button
+                        android:id="@+id/btn_left_lock"
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp"
+                        android:layout_marginRight="20dp"
+                        android:background="#6200ee"
+                        android:text="开左柜门锁"
+                        android:textColor="#fff"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent" />
+
+                    <Button
+                        android:id="@+id/btn_right_lock"
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp"
+                        android:layout_marginRight="20dp"
+                        android:background="#6200ee"
+                        android:text="开右柜门锁"
+                        android:textColor="#fff"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent" />
+
+
+                    <Button
+                        android:id="@+id/close_left_lock"
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp"
+                        android:layout_marginRight="20dp"
+                        android:background="#6200ee"
+                        android:text="关左柜门锁"
+                        android:textColor="#fff"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent" />
+
+                    <Button
+                        android:id="@+id/close_right_lock"
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp"
+                        android:layout_marginRight="20dp"
+                        android:background="#6200ee"
+                        android:text="关右柜门锁"
+                        android:textColor="#fff"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent" />
+
+
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp"
+                        android:layout_marginRight="20dp"
+                        android:background="#6200ee"
+                        android:onClick="readIcCard"
+                        android:text="读取 IC 卡"
+                        android:textColor="#fff"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent" />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/linearLayout7"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+
+                    android:orientation="horizontal"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp"
+                        android:background="#6200ee"
+                        android:onClick="readSoftwareVersion"
+                        android:text="查询软件版本"
+                        android:textColor="#fff"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent" />
+
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp"
+                        android:layout_marginRight="20dp"
+                        android:background="#6200ee"
+                        android:onClick="readHardwareVersion"
+                        android:text="查询硬件版本"
+                        android:textColor="#fff"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent" />
+
+                    <Button
+                        android:id="@+id/read_weight_wdx"
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp"
+                        android:layout_marginRight="20dp"
+                        android:background="#6200ee"
+                        android:onClick="readWeightWdx"
+                        android:text="读称重传感器稳定性"
+                        android:textColor="#fff"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent" />
+
+                    <Button
+                        android:id="@+id/test_finish"
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp"
+                        android:layout_marginRight="20dp"
+                        android:background="#6200ee"
+                        android:onClick="testFinish"
+                        android:text="测试结账"
+                        android:textColor="#fff"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent" />
+
+                    <Button
+                        android:id="@+id/openWHMId"
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp"
+                        android:layout_marginRight="20dp"
+                        android:background="#6200ee"
+                        android:onClick="openWHM"
+                        android:text="维护门开锁"
+                        android:textColor="#fff"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent" />
+
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp"
+                        android:layout_marginRight="20dp"
+                        android:background="#6200ee"
+                        android:onClick="backHome"
+                        android:text="返回主页"
+                        android:textColor="#fff"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/weight_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:padding="16dp"
+                    app:layout_constraintTop_toTopOf="parent">
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="80dp"
+                        android:orientation="horizontal"
+                        android:padding="16dp">
+
+                        <TextView
+                            android:id="@+id/layer_1"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="0.5"
+                            android:text="重力传感器1"
+                            android:textSize="22sp" />
+
+                        <TextView
+                            android:id="@+id/layer_1_weight"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:textSize="22sp" />
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1">
+
+                            <Button
+                                android:id="@+id/layer_1_ql"
+                                android:layout_width="wrap_content"
+                                android:layout_height="40dp"
+                                android:layout_marginRight="20dp"
+                                android:background="#6200ee"
+                                android:onClick="ql"
+                                android:text="重量清零"
+                                android:textColor="#fff"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent" />
+
+
+                            <Button
+                                android:id="@+id/layer_1_xz"
+                                android:layout_width="wrap_content"
+                                android:layout_height="40dp"
+                                android:layout_marginRight="20dp"
+                                android:background="#6200ee"
+                                android:onClick="xz"
+                                android:text="称重校准"
+                                android:textColor="#fff"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent" />
+
+                            <Button
+                                android:id="@+id/layer_1_bqqp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="40dp"
+                                android:layout_marginRight="20dp"
+                                android:background="#6200ee"
+
+                                android:onClick="bqqp"
+                                android:text="价签清屏"
+                                android:textColor="#fff"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent" />
+
+                            <Button
+                                android:id="@+id/layer_1_bqsz"
+                                android:layout_width="wrap_content"
+                                android:layout_height="40dp"
+                                android:layout_marginRight="20dp"
+                                android:background="#6200ee"
+
+                                android:onClick="bqsz"
+                                android:text="测试价签设置"
+                                android:textColor="#fff"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent" />
+
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="80dp"
+                        android:orientation="horizontal"
+                        android:padding="16dp">
+
+                        <TextView
+                            android:id="@+id/layer_2"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="0.5"
+                            android:text="重力传感器3"
+                            android:textSize="22sp" />
+
+                        <TextView
+                            android:id="@+id/layer_2_weight"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:textSize="22sp" />
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1">
+
+                            <Button
+                                android:id="@+id/layer_2_ql"
+                                android:layout_width="wrap_content"
+                                android:layout_height="40dp"
+                                android:layout_marginRight="20dp"
+                                android:background="#6200ee"
+                                android:onClick="ql"
+                                android:text="重量清零"
+                                android:textColor="#fff"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent" />
+
+
+                            <Button
+                                android:id="@+id/layer_2_xz"
+                                android:layout_width="wrap_content"
+                                android:layout_height="40dp"
+                                android:layout_marginRight="20dp"
+                                android:background="#6200ee"
+                                android:onClick="xz"
+                                android:text="称重校准"
+                                android:textColor="#fff"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent" />
+
+                            <Button
+                                android:id="@+id/layer_2_bqqp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="40dp"
+                                android:layout_marginRight="20dp"
+                                android:background="#6200ee"
+
+                                android:onClick="bqqp"
+                                android:text="价签清屏"
+                                android:textColor="#fff"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent" />
+
+                            <Button
+                                android:id="@+id/layer_2_bqsz"
+                                android:layout_width="wrap_content"
+                                android:layout_height="40dp"
+                                android:layout_marginRight="20dp"
+                                android:background="#6200ee"
+
+                                android:onClick="bqsz"
+                                android:text="测试价签设置"
+                                android:textColor="#fff"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent" />
+
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="80dp"
+                        android:orientation="horizontal"
+                        android:padding="16dp">
+
+                        <TextView
+                            android:id="@+id/layer_3"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="0.5"
+                            android:text="重力传感器5"
+                            android:textSize="22sp" />
+
+                        <TextView
+                            android:id="@+id/layer_3_weight"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:textSize="22sp" />
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1">
+
+                            <Button
+                                android:id="@+id/layer_3_ql"
+                                android:layout_width="wrap_content"
+                                android:layout_height="40dp"
+                                android:layout_marginRight="20dp"
+                                android:background="#6200ee"
+                                android:onClick="ql"
+                                android:text="重量清零"
+                                android:textColor="#fff"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent" />
+
+
+                            <Button
+                                android:id="@+id/layer_3_xz"
+                                android:layout_width="wrap_content"
+                                android:layout_height="40dp"
+                                android:layout_marginRight="20dp"
+                                android:background="#6200ee"
+                                android:onClick="xz"
+                                android:text="称重校准"
+                                android:textColor="#fff"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent" />
+
+                            <Button
+                                android:id="@+id/layer_3_bqqp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="40dp"
+                                android:layout_marginRight="20dp"
+                                android:background="#6200ee"
+
+                                android:onClick="bqqp"
+                                android:text="价签清屏"
+                                android:textColor="#fff"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent" />
+
+                            <Button
+                                android:id="@+id/layer_3_bqsz"
+                                android:layout_width="wrap_content"
+                                android:layout_height="40dp"
+                                android:layout_marginRight="20dp"
+                                android:background="#6200ee"
+
+                                android:onClick="bqsz"
+                                android:text="测试价签设置"
+                                android:textColor="#fff"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent" />
+
+
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="80dp"
+                        android:orientation="horizontal"
+                        android:padding="16dp">
+
+                        <TextView
+                            android:id="@+id/layer_4"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="0.5"
+                            android:text="重力传感器7"
+                            android:textSize="22sp" />
+
+                        <TextView
+                            android:id="@+id/layer_4_weight"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:textSize="22sp" />
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1">
+
+                            <Button
+                                android:id="@+id/layer_4_ql"
+                                android:layout_width="wrap_content"
+                                android:layout_height="40dp"
+                                android:layout_marginRight="20dp"
+                                android:background="#6200ee"
+                                android:onClick="ql"
+                                android:text="重量清零"
+                                android:textColor="#fff"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent" />
+
+
+                            <Button
+                                android:id="@+id/layer_4_xz"
+                                android:layout_width="wrap_content"
+                                android:layout_height="40dp"
+                                android:layout_marginRight="20dp"
+                                android:background="#6200ee"
+                                android:onClick="xz"
+                                android:text="称重校准"
+                                android:textColor="#fff"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent" />
+
+                            <Button
+                                android:id="@+id/layer_4_bqqp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="40dp"
+                                android:layout_marginRight="20dp"
+                                android:background="#6200ee"
+
+                                android:onClick="bqqp"
+                                android:text="价签清屏"
+                                android:textColor="#fff"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent" />
+
+                            <Button
+                                android:id="@+id/layer_4_bqsz"
+                                android:layout_width="wrap_content"
+                                android:layout_height="40dp"
+                                android:layout_marginRight="20dp"
+                                android:background="#6200ee"
+
+                                android:onClick="bqsz"
+                                android:text="测试价签设置"
+                                android:textColor="#fff"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent" />
+
+
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="80dp"
+                        android:orientation="horizontal"
+                        android:padding="16dp">
+
+                        <TextView
+                            android:id="@+id/layer_5"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="0.5"
+                            android:text="重力传感器9"
+                            android:textSize="22sp" />
+
+                        <TextView
+                            android:id="@+id/layer_5_weight"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:textSize="22sp" />
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1">
+
+                            <Button
+                                android:id="@+id/layer_5_ql"
+                                android:layout_width="wrap_content"
+                                android:layout_height="40dp"
+                                android:layout_marginRight="20dp"
+                                android:background="#6200ee"
+                                android:onClick="ql"
+                                android:text="重量清零"
+                                android:textColor="#fff"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent" />
+
+
+                            <Button
+                                android:id="@+id/layer_5_xz"
+                                android:layout_width="wrap_content"
+                                android:layout_height="40dp"
+                                android:layout_marginRight="20dp"
+                                android:background="#6200ee"
+                                android:onClick="xz"
+                                android:text="称重校准"
+                                android:textColor="#fff"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent" />
+
+                            <Button
+                                android:id="@+id/layer_5_bqqp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="40dp"
+                                android:layout_marginRight="20dp"
+                                android:background="#6200ee"
+
+                                android:onClick="bqqp"
+                                android:text="价签清屏"
+                                android:textColor="#fff"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent" />
+
+                            <Button
+                                android:id="@+id/layer_5_bqsz"
+                                android:layout_width="wrap_content"
+                                android:layout_height="40dp"
+                                android:layout_marginRight="20dp"
+                                android:background="#6200ee"
+
+                                android:onClick="bqsz"
+                                android:text="测试价签设置"
+                                android:textColor="#fff"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent" />
+
+
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="80dp"
+                        android:orientation="horizontal"
+                        android:padding="16dp">
+
+                        <TextView
+                            android:id="@+id/layer_6"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="0.5"
+                            android:text="重力传感器2"
+                            android:textSize="22sp" />
+
+                        <TextView
+                            android:id="@+id/layer_6_weight"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:textSize="22sp" />
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1">
+
+                            <Button
+                                android:id="@+id/layer_6_ql"
+                                android:layout_width="wrap_content"
+                                android:layout_height="40dp"
+                                android:layout_marginRight="20dp"
+                                android:background="#6200ee"
+                                android:onClick="ql"
+                                android:text="重量清零"
+                                android:textColor="#fff"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent" />
+
+
+                            <Button
+                                android:id="@+id/layer_6_xz"
+                                android:layout_width="wrap_content"
+                                android:layout_height="40dp"
+                                android:layout_marginRight="20dp"
+                                android:background="#6200ee"
+                                android:onClick="xz"
+                                android:text="称重校准"
+                                android:textColor="#fff"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent" />
+
+                            <Button
+                                android:id="@+id/layer_6_bqqp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="40dp"
+                                android:layout_marginRight="20dp"
+                                android:background="#6200ee"
+
+                                android:onClick="bqqp"
+                                android:text="价签清屏"
+                                android:textColor="#fff"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent" />
+
+                            <Button
+                                android:id="@+id/layer_6_bqsz"
+                                android:layout_width="wrap_content"
+                                android:layout_height="40dp"
+                                android:layout_marginRight="20dp"
+                                android:background="#6200ee"
+
+                                android:onClick="bqsz"
+                                android:text="测试价签设置"
+                                android:textColor="#fff"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent" />
+
+
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="80dp"
+                        android:orientation="horizontal"
+                        android:padding="16dp">
+
+                        <TextView
+                            android:id="@+id/layer_7"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="0.5"
+                            android:text="重力传感器4"
+                            android:textSize="22sp" />
+
+                        <TextView
+                            android:id="@+id/layer_7_weight"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:textSize="22sp" />
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1">
+
+                            <Button
+                                android:id="@+id/layer_7_ql"
+                                android:layout_width="wrap_content"
+                                android:layout_height="40dp"
+                                android:layout_marginRight="20dp"
+                                android:background="#6200ee"
+                                android:onClick="ql"
+                                android:text="重量清零"
+                                android:textColor="#fff"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent" />
+
+
+                            <Button
+                                android:id="@+id/layer_7_xz"
+                                android:layout_width="wrap_content"
+                                android:layout_height="40dp"
+                                android:layout_marginRight="20dp"
+                                android:background="#6200ee"
+                                android:onClick="xz"
+                                android:text="称重校准"
+                                android:textColor="#fff"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent" />
+
+                            <Button
+                                android:id="@+id/layer_7_bqqp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="40dp"
+                                android:layout_marginRight="20dp"
+                                android:background="#6200ee"
+
+                                android:onClick="bqqp"
+                                android:text="价签清屏"
+                                android:textColor="#fff"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent" />
+
+                            <Button
+                                android:id="@+id/layer_7_bqsz"
+                                android:layout_width="wrap_content"
+                                android:layout_height="40dp"
+                                android:layout_marginRight="20dp"
+                                android:background="#6200ee"
+
+                                android:onClick="bqsz"
+                                android:text="测试价签设置"
+                                android:textColor="#fff"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent" />
+
+
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="80dp"
+                        android:orientation="horizontal"
+                        android:padding="16dp">
+
+                        <TextView
+                            android:id="@+id/layer_8"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="0.5"
+                            android:text="重力传感器6"
+                            android:textSize="22sp" />
+
+                        <TextView
+                            android:id="@+id/layer_8_weight"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:textSize="22sp" />
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1">
+
+                            <Button
+                                android:id="@+id/layer_8_ql"
+                                android:layout_width="wrap_content"
+                                android:layout_height="40dp"
+                                android:layout_marginRight="20dp"
+                                android:background="#6200ee"
+                                android:onClick="ql"
+                                android:text="重量清零"
+                                android:textColor="#fff"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent" />
+
+
+                            <Button
+                                android:id="@+id/layer_8_xz"
+                                android:layout_width="wrap_content"
+                                android:layout_height="40dp"
+                                android:layout_marginRight="20dp"
+                                android:background="#6200ee"
+                                android:onClick="xz"
+                                android:text="称重校准"
+                                android:textColor="#fff"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent" />
+
+                            <Button
+                                android:id="@+id/layer_8_bqqp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="40dp"
+                                android:layout_marginRight="20dp"
+                                android:background="#6200ee"
+
+                                android:onClick="bqqp"
+                                android:text="价签清屏"
+                                android:textColor="#fff"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent" />
+
+                            <Button
+                                android:id="@+id/layer_8_bqsz"
+                                android:layout_width="wrap_content"
+                                android:layout_height="40dp"
+                                android:layout_marginRight="20dp"
+                                android:background="#6200ee"
+
+                                android:onClick="bqsz"
+                                android:text="测试价签设置"
+                                android:textColor="#fff"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent" />
+
+
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="80dp"
+                        android:orientation="horizontal"
+                        android:padding="16dp">
+
+                        <TextView
+                            android:id="@+id/layer_9"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="0.5"
+                            android:text="重力传感器8"
+                            android:textSize="22sp" />
+
+                        <TextView
+                            android:id="@+id/layer_9_weight"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:textSize="22sp" />
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1">
+
+                            <Button
+                                android:id="@+id/layer_9_ql"
+                                android:layout_width="wrap_content"
+                                android:layout_height="40dp"
+                                android:layout_marginRight="20dp"
+                                android:background="#6200ee"
+                                android:onClick="ql"
+                                android:text="重量清零"
+                                android:textColor="#fff"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent" />
+
+
+                            <Button
+                                android:id="@+id/layer_9_xz"
+                                android:layout_width="wrap_content"
+                                android:layout_height="40dp"
+                                android:layout_marginRight="20dp"
+                                android:background="#6200ee"
+                                android:onClick="xz"
+                                android:text="称重校准"
+                                android:textColor="#fff"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent" />
+
+                            <Button
+                                android:id="@+id/layer_9_bqqp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="40dp"
+                                android:layout_marginRight="20dp"
+                                android:background="#6200ee"
+
+                                android:onClick="bqqp"
+                                android:text="价签清屏"
+                                android:textColor="#fff"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent" />
+
+                            <Button
+                                android:id="@+id/layer_9_bqsz"
+                                android:layout_width="wrap_content"
+                                android:layout_height="40dp"
+                                android:layout_marginRight="20dp"
+                                android:background="#6200ee"
+
+                                android:onClick="bqsz"
+                                android:text="测试价签设置"
+                                android:textColor="#fff"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent" />
+
+
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="80dp"
+                        android:orientation="horizontal"
+                        android:padding="16dp">
+
+                        <TextView
+                            android:id="@+id/layer_10"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="0.5"
+                            android:text="重力传感器10"
+                            android:textSize="22sp" />
+
+                        <TextView
+                            android:id="@+id/layer_10_weight"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:textSize="22sp" />
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1">
+
+                            <Button
+                                android:id="@+id/layer_10_ql"
+                                android:layout_width="wrap_content"
+                                android:layout_height="40dp"
+                                android:layout_marginRight="20dp"
+                                android:background="#6200ee"
+                                android:onClick="ql"
+                                android:text="重量清零"
+                                android:textColor="#fff"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent" />
+
+
+                            <Button
+                                android:id="@+id/layer_10_xz"
+                                android:layout_width="wrap_content"
+                                android:layout_height="40dp"
+                                android:layout_marginRight="20dp"
+                                android:background="#6200ee"
+                                android:onClick="xz"
+                                android:text="称重校准"
+                                android:textColor="#fff"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent" />
+
+                            <Button
+                                android:id="@+id/layer_10_bqqp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="40dp"
+                                android:layout_marginRight="20dp"
+                                android:background="#6200ee"
+
+                                android:onClick="bqqp"
+                                android:text="价签清屏"
+                                android:textColor="#fff"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent" />
+
+                            <Button
+                                android:id="@+id/layer_10_bqsz"
+                                android:layout_width="wrap_content"
+                                android:layout_height="40dp"
+                                android:layout_marginRight="20dp"
+                                android:background="#6200ee"
+
+                                android:onClick="bqsz"
+                                android:text="测试价签设置"
+                                android:textColor="#fff"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent" />
+
+
+                        </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>
+
+

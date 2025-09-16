@@ -1,0 +1,148 @@
+apply plugin: 'com.android.library'
+apply plugin: 'org.greenrobot.greendao'
+
+android {
+    namespace 'leesche.smartrecycling.base'  // 替换为你的实际包名
+    compileSdkVersion 34
+    defaultConfig {
+        minSdkVersion 24
+        targetSdkVersion 34
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles 'consumer-rules.pro'
+        multiDexEnabled true
+        ndk {
+            //选择要添加的对应 cpu 类型的 .so 库。
+            abiFilters 'armeabi-v7a'
+        }
+    }
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+            assets.srcDirs = ['src/main/assets', 'src/main/assets/']
+            jni.srcDirs = []
+        }
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    greendao {
+        schemaVersion 14
+        daoPackage 'leesche.smartrecycling.base.dao'
+        targetGenDir 'src/main/java'
+    }
+
+    buildFeatures {
+        aidl true
+        buildConfig true  // 必须启用
+    }
+
+}
+
+dependencies {
+//    implementation fileTree(dir: 'libs', include: ['*.jar', '*.aar']) // 导入本地jar和aar
+
+    //    串口依赖
+    implementation 'io.github.xmaihh:serialport:2.1.1'
+//    api fileTree(include: ['*.jar'], dir: 'libs')
+//    api project(path: ':LocalRepo:libipcamera')
+    api project(path: ':LocalRepo:libuvccamera')
+//    api project(path: ':LocalRepo:libusbCameraCommon')
+//    api project(path: ':LocalRepo:libyyyiot')
+//    api project(path: ':LocalRepo:libonvif')
+    api project(path: ':LocalRepo:liblogger')
+
+    compileOnly 'org.projectlombok:lombok:1.18.38'
+    annotationProcessor 'org.projectlombok:lombok:1.18.38'
+
+//    api project(path: ':LocalRepo:libmodbus4android')
+    implementation files('libs\\20220124ZtlApi.jar')
+    implementation files('libs\\usdk_v2024112602.jar')
+//    implementation files('libs\\POSSDKForAndroid2072.jar')
+    implementation files('libs\\pldroid-player-2.2.0.jar')
+    testImplementation 'junit:junit:4.12'
+//    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
+//    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    api 'androidx.constraintlayout:constraintlayout:1.1.3'
+    api 'androidx.appcompat:appcompat:1.0.0'
+    api 'com.google.android.material:material:1.0.0'
+    api 'org.greenrobot:eventbus:3.1.1'
+    api 'com.jakewharton:butterknife:10.0.0'
+    annotationProcessor  'com.jakewharton:butterknife-compiler:10.0.0'  // 添加这行
+    //Gson
+    api 'com.google.code.gson:gson:2.8.5'
+//    api files('libs/jna.jar')
+    //glide
+    api 'com.github.bumptech.glide:glide:4.11.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
+    //Zxing二维码
+    api 'com.google.zxing:core:3.3.3'
+    api 'com.amap.api:location:3.3.0'
+    api 'com.amap.api:search:5.0.0'
+    //greenDao
+    api 'org.greenrobot:greendao:3.2.2'
+    implementation 'com.github.yuweiguocn:GreenDaoUpgradeHelper:v2.2.1'
+    api 'com.github.shuai132:NetworkDetector:v0.1.0'
+    //Retrofit
+    api 'com.squareup.retrofit2:retrofit:3.0.0'
+    api 'com.squareup.retrofit2:converter-gson:3.0.0'
+    api 'com.squareup.retrofit2:adapter-rxjava3:3.0.0'
+    //Rx java
+    api 'io.reactivex.rxjava3:rxjava:3.1.10'
+    api 'io.reactivex.rxjava3:rxandroid:3.0.2'
+    api 'com.alibaba:arouter-api:1.5.0'
+    //BaseAdapter
+    api 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.30'
+//    api project(path: ':logger')
+    api 'com.aliyun.dpa:oss-android-sdk:2.9.11'
+    //fastJson
+    api 'com.alibaba:fastjson:1.1.71.android'
+    api 'com.facebook.stetho:stetho:1.5.0'
+    //时间选择
+    api 'com.contrarywind:Android-PickerView:4.1.9'
+//    api files('libs/pldroid-player-2.1.8.jar')
+    // 文件下载器
+    api 'com.liulishuo.filedownloader:library:1.7.7'
+    implementation 'org.eclipse.paho:org.eclipse.paho.client.mqttv3:1.2.0'
+    implementation 'org.eclipse.paho:org.eclipse.paho.android.service:1.1.1'
+    implementation 'com.blankj:utilcode:1.30.6'
+    api("com.serenegiant:common:2.15.3") {
+        exclude module: 'support-v4'
+    }
+    api 'com.amazonaws:aws-android-sdk-s3:2.16.+'
+    implementation 'com.jcraft:jsch:0.1.55'
+    // pag库的库
+    api 'com.tencent.tav:libpag:4.4.31'
+
+/// pag的依赖库 必须添加
+    api "androidx.exifinterface:exifinterface:1.3.3"
+    api 'com.arthenica:ffmpeg-kit-video:6.0-2'
+
+    implementation 'org.apache.commons:commons-lang3:3.14.0' // 添加这行
+
+    implementation 'com.google.android.flexbox:flexbox:3.0.0'
+    //长连接工具
+    implementation 'org.java-websocket:Java-WebSocket:1.5.3'
+
+    // 轮播图
+    implementation 'com.bigkoo:ConvenientBanner:2.1.4'
+//    //相芯美颜
+//    implementation 'com.faceunity:model:8.7.0'
+//    implementation 'com.faceunity:core:8.7.0'
+}
+// 在 base/build.gradle 文件底部添加
+afterEvaluate {
+    tasks.named('extractReleaseAnnotations') {
+        dependsOn tasks.named('greendao')
+    }
+    tasks.named('extractDebugAnnotations') {
+        dependsOn tasks.named('greendao')
+    }
+}

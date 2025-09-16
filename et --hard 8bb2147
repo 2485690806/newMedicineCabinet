@@ -1,0 +1,50 @@
+[33mc623100[m[33m ([m[1;36mHEAD -> [m[1;32mlogic-handler-rework[m[33m, [m[1;31morigin/logic-handler-rework[m[33m)[m HEAD@{0}: checkout: moving from logic-handler-rework to logic-handler-rework
+[33mc623100[m[33m ([m[1;36mHEAD -> [m[1;32mlogic-handler-rework[m[33m, [m[1;31morigin/logic-handler-rework[m[33m)[m HEAD@{1}: branch: Reset to origin/logic-handler-rework
+[33mc623100[m[33m ([m[1;36mHEAD -> [m[1;32mlogic-handler-rework[m[33m, [m[1;31morigin/logic-handler-rework[m[33m)[m HEAD@{2}: checkout: moving from europe/logic-rework to logic-handler-rework
+[33m8bb2147[m[33m ([m[1;31morigin/europe/logic-rework[m[33m, [m[1;32meurope/logic-rework[m[33m)[m HEAD@{3}: merge origin/europe/logic-rework: Fast-forward
+[33md38e77b[m HEAD@{4}: checkout: moving from master to europe/logic-rework
+[33m8bbeb84[m[33m ([m[1;31morigin/master[m[33m, [m[1;32mmaster[m[33m)[m HEAD@{5}: checkout: moving from europe/logic-rework to master
+[33md38e77b[m HEAD@{6}: checkout: moving from master to europe/logic-rework
+[33m8bbeb84[m[33m ([m[1;31morigin/master[m[33m, [m[1;32mmaster[m[33m)[m HEAD@{7}: checkout: moving from europe/logic-rework to master
+[33md38e77b[m HEAD@{8}: merge origin/europe/logic-rework: Fast-forward
+[33m7ad00a3[m HEAD@{9}: commit: When logging in, because the initialization of the scan version is not so fast, there is a delay of 3 seconds
+[33me5bc356[m HEAD@{10}: commit: Added language switching, and some test bug fixes
+[33mad53277[m HEAD@{11}: commit: Added AI detection, and some process bugs
+[33m9f07f1e[m HEAD@{12}: commit: Added AI detection, and some process bugs
+[33md1d0485[m HEAD@{13}: merge origin/europe/logic-rework: Fast-forward
+[33m2ee3ae2[m HEAD@{14}: commit: some init color fix
+[33m7e1f47d[m HEAD@{15}: checkout: moving from master to europe/logic-rework
+[33m8bbeb84[m[33m ([m[1;31morigin/master[m[33m, [m[1;32mmaster[m[33m)[m HEAD@{16}: commit: some init color fix
+[33m96ccf0d[m HEAD@{17}: commit: some init color fix
+[33m81e7152[m HEAD@{18}: merge origin/master: Fast-forward
+[33m06bf879[m HEAD@{19}: commit: Message: "There is an object inside the entrance. Please remove it and try again."
+[33m4df6ed5[m HEAD@{20}: merge origin/master: Fast-forward
+[33m9809e72[m HEAD@{21}: commit: L88LogicHandler.getInstance().initWeight()
+[33mb65a97f[m HEAD@{22}: commit: yoloDetector.release()
+[33m3ead7f6[m HEAD@{23}: commit: 更新登录时，由于重量还没稳定，重量初始化的值还没有得出，用户就放瓶子进去导致初始化重量不正确的问题
+[33m3132a89[m HEAD@{24}: merge origin/master: Fast-forward
+[33m6b8b465[m HEAD@{25}: reset: moving to 6b8b465c98833de5df26a65c01c8abef0ffd4313
+[33m3132a89[m HEAD@{26}: merge origin/master: Fast-forward
+[33m6b8b465[m HEAD@{27}: commit: 更新小瓶子停在第二和第三光眼之间不动的bug，更新ai摄像头卡顿bug，更新动画内存泄露
+[33m6359f9b[m HEAD@{28}: merge origin/master: Fast-forward
+[33m1c7d70a[m HEAD@{29}: commit: ip地址改
+[33mf7d3f01[m HEAD@{30}: commit: 拒绝履带没停下
+[33md0ca5d4[m HEAD@{31}: commit: 增加重量配置和录入条码
+[33mf387b49[m HEAD@{32}: merge origin/master: Fast-forward
+[33m61b0c72[m HEAD@{33}: commit: 修改停止履带时没有停止加速度的时间导致卡瓶子问题，修改重量问题
+[33m2fcd75d[m HEAD@{34}: commit: 修改停止履带时没有停止加速度的时间导致卡瓶子问题，修改重量问题
+[33m538d39d[m HEAD@{35}: commit: Fix the duplicate upload issue
+[33m52d745b[m HEAD@{36}: merge origin/master: Fast-forward
+[33m4a13110[m HEAD@{37}: commit: update ai camera stoppREVIEW
+[33m5bda7bb[m HEAD@{38}: commit: tijiao
+[33mbe5c192[m HEAD@{39}: commit: ji cheng AI
+[33m3128da8[m HEAD@{40}: commit: 修复一些bug
+[33m2073aec[m HEAD@{41}: commit: 修复一些bug
+[33m29dd74f[m HEAD@{42}: commit: 修复一些bug
+[33m7093e2e[m HEAD@{43}: commit: 修改认证的一些问题，准备修改欺诈问题
+[33m10d3088[m HEAD@{44}: commit: ai通过第二个app完成
+[33mb0fee6f[m HEAD@{45}: commit: ai通过第二个app完成
+[33m354e5e1[m HEAD@{46}: commit: 准备接入ai
+[33m6b743a4[m HEAD@{47}: merge origin/master: Fast-forward
+[33me589413[m HEAD@{48}: commit: 优化
+[33m4683ebf[m HEAD@{49}: commit (initial): 第一次提交

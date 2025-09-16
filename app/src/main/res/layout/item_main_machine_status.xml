@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout android:layout_width="match_parent"
+    android:layout_height="280dp"
+    android:layout_weight="3"
+    android:background="@drawable/right_bottom_bacimg"
+    android:gravity="top|center"
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <LinearLayout
+        android:layout_width="260dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="8dp"
+
+        android:background="@drawable/device_status_bac"
+        android:gravity="center|top"
+        android:textColor="@color/white">
+
+        <TextView
+            android:id="@+id/button_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:text="@string/device_status"
+            android:textColor="#FFFFFF"
+            android:textSize="25dp" />
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="-4dp"
+
+        android:textColor="@color/white"
+        android:textSize="30dp">
+
+        <LinearLayout
+            android:background="@drawable/device_status_text_bac"
+            android:layout_width="310dp"
+            android:layout_height="150dp"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:gravity="center"
+                android:textColor="@color/white">
+                <TextView
+                    android:layout_width="180dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/warehouse_cargo_inspection"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/item_main_machine_status" />
+                <TextView
+                    android:id="@+id/warehouse_status"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/close"
+                    android:layout_marginLeft="30dp"
+                    android:textColor="#6BFFA6"
+                    android:textSize="@dimen/item_main_machine_status" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:gravity="center"
+                android:layout_marginTop="10dp"
+                android:textColor="@color/white">
+                <TextView
+                    android:layout_width="180dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/cabinet_door_status"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/item_main_machine_status" />
+                <TextView
+                    android:id="@+id/dmzt_status"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/close"
+                    android:layout_marginLeft="30dp"
+                    android:textColor="#6BFFA6"
+                    android:textSize="@dimen/item_main_machine_status" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:background="@drawable/device_status_text_bac"
+            android:layout_width="310dp"
+            android:layout_height="150dp"
+            android:layout_marginLeft="20dp"
+            android:gravity="center"
+            android:orientation="vertical">
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:gravity="center"
+                android:textColor="@color/white">
+                <TextView
+                    android:layout_width="180dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/Y_axis_upper_limit"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/item_main_machine_status" />
+                <TextView
+                    android:id="@+id/Y_axis_upper_limit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/close"
+                    android:layout_marginLeft="30dp"
+                    android:textColor="#6BFFA6"
+                    android:textSize="@dimen/item_main_machine_status" />
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:gravity="center"
+                android:textColor="@color/white">
+                <TextView
+                    android:layout_width="180dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/Y_axis_lower_limit"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/item_main_machine_status" />
+                <TextView
+                    android:id="@+id/Y_axis_lower_limit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/close"
+                    android:layout_marginLeft="30dp"
+                    android:textColor="#6BFFA6"
+                    android:textSize="@dimen/item_main_machine_status" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+</LinearLayout>

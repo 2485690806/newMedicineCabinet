@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="20dp"
+    android:layout_marginBottom="-40dp"
+    android:elevation="2dp"
+    android:gravity="center_vertical">
+
+    <RadioGroup
+        android:id="@+id/radio_group"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"> <!-- 保持垂直排列 -->
+
+        <!-- 控制模式选项（直接作为RadioGroup的子视图） -->
+        <RadioButton
+            android:id="@+id/rb_control_mode"
+            android:layout_width="220dp"
+            android:layout_height="105dp"
+            android:background="@drawable/control_mode_bg_selector"
+            android:button="@null"
+            android:checked="true"
+            android:gravity="center"
+            android:paddingStart="28dp"
+            android:paddingBottom="6dp"
+            android:text="@string/control_mode"
+            android:textColor="@drawable/control_componen_text_color_selector"
+            android:textSize="@dimen/item_main_control_conponent" />
+
+        <!-- 部件测试选项（直接作为RadioGroup的子视图） -->
+
+        <RadioButton
+            android:id="@+id/rb_component_test"
+            android:layout_width="220dp"
+            android:layout_height="105dp"
+            android:layout_marginLeft="-28dp"
+            android:background="@drawable/component_test_bg_selector"
+            android:button="@null"
+            android:gravity="center"
+            android:paddingStart="28dp"
+            android:paddingBottom="6dp"
+            android:text="@string/component_testing"
+            android:textColor="@drawable/control_componen_text_color_selector"
+            android:textSize="@dimen/item_main_control_conponent" />
+
+<!--        <RadioButton-->
+<!--            android:id="@+id/rb_moniter_bac"-->
+<!--            android:layout_width="240dp"-->
+<!--            android:layout_height="105dp"-->
+<!--            android:layout_marginLeft="-28dp"-->
+<!--            android:background="@drawable/moniter_bg_selector"-->
+<!--            android:button="@null"-->
+<!--            android:gravity="center"-->
+<!--            android:paddingStart="28dp"-->
+<!--            android:paddingBottom="6dp"-->
+<!--            android:text="摄像头"-->
+<!--            android:textColor="@drawable/control_componen_text_color_selector"-->
+<!--            android:textSize="25dp" />-->
+
+    </RadioGroup>
+</LinearLayout>

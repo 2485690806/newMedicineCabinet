@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RadioGroup
+    android:layout_width="match_parent"
+    android:layout_height="360dp"
+    android:background="@drawable/machine_bac_xian"
+    android:gravity="left"
+    android:id="@+id/radio_group_layers"
+    android:orientation="vertical"
+    android:paddingTop="20dp"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+</RadioGroup>

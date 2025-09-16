@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="MyRadioButton" parent="Widget.AppCompat.CompoundButton.RadioButton">
+        <item name="android:button">@null</item> <!-- 隐藏默认圆圈 -->
+<!--        <item name="android:background"></item> &lt;!&ndash; 使用自定义背景 &ndash;&gt;-->
+    </style>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/purple_200</item>
+        <item name="colorPrimaryDark">@color/purple_500</item>
+        <item name="colorAccent">@color/purple_700</item>
+        <item name="android:windowEnableSplitTouch">false</item>
+        <item name="android:splitMotionEvents">false</item>
+        <item name="android:windowNoTitle">true</item>//无标题
+        <item name="android:windowActionBar">false</item>//无ActionBar
+        <item name="android:windowFullscreen">true</item>//全屏即无通知栏
+        <item name="android:windowContentOverlay">@null</item>//是否有遮盖
+    </style>
+
+    <style name="MyCheckBox" parent="Widget.AppCompat.CompoundButton.CheckBox">
+        <!-- 隐藏系统默认复选框图标，使用自定义背景 -->
+        <item name="android:button">@null</item>
+        <!-- 保留点击交互效果（可选） -->
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+    </style>
+</resources>

@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
+    android:paddingLeft="13dp"
+    android:paddingTop="8dp"
+    android:paddingRight="13dp"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_vertical">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:background="@drawable/back_botton" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="10dp"
+                    android:text="@string/back"
+                    android:textColor="#FFFFFF"
+                    android:textSize="@dimen/theme_25dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="10dp"
+                    android:text="@string/devic_number"
+                    android:textColor="#FFFFFF"
+                    android:textSize="@dimen/item_main_control_conponent" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:layout_width="175dp"
+                    android:layout_height="48dp"
+                    android:layout_marginStart="10dp"
+                    android:background="@drawable/save_ck"
+                    android:gravity="center"
+                    android:text="@string/replace_serial_port"
+                    android:textColor="#FFFFFF"
+                    android:textSize="@dimen/item_main_control_conponent"></TextView>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="right">
+
+        <LinearLayout
+            android:layout_width="160dp"
+            android:layout_height="50dp"
+            android:background="@drawable/change_language"
+            android:gravity="center"
+            android:onClick="changeLanguage"
+            android:layout_marginRight="20dp"
+            android:orientation="horizontal">
+
+
+            <!-- 右侧文字 -->
+            <TextView
+                android:layout_marginLeft="30dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="简体中文"
+                android:id="@+id/language_text"
+                android:textColor="#FFFFFF"
+                android:textSize="@dimen/item_main_control_conponent" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="160dp"
+            android:layout_height="50dp"
+            android:background="@drawable/system_setting"
+            android:gravity="center"
+            android:onClick="toCameraActivity"
+            android:layout_marginRight="20dp"
+            android:orientation="horizontal">
+
+            <!-- 左侧图片 -->
+            <ImageView
+                android:layout_width="27dp"
+                android:layout_height="27dp"
+                android:background="@drawable/camera_img" />
+
+            <!-- 右侧文字 -->
+            <TextView
+                android:layout_marginLeft="8dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/camera"
+                android:textColor="#FFFFFF"
+                android:textSize="@dimen/item_main_control_conponent" />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="160dp"
+            android:layout_height="50dp"
+            android:background="@drawable/system_setting"
+            android:gravity="center"
+            android:onClick="toSystem"
+            android:orientation="horizontal">
+
+            <!-- 左侧图片 -->
+            <ImageView
+                android:layout_width="27dp"
+                android:layout_height="27dp"
+                android:background="@drawable/setting"
+                android:contentDescription="@string/app_name" />
+
+            <!-- 右侧文字 -->
+            <TextView
+                android:layout_marginLeft="8dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/system_settings"
+                android:textColor="#FFFFFF"
+                android:textSize="@dimen/item_main_control_conponent" />
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+</LinearLayout>

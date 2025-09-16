@@ -1,0 +1,121 @@
+apply plugin: 'com.android.application'
+apply plugin: 'com.jakewharton.butterknife'
+
+android {
+    namespace 'com.ycmachine.smartdevice'
+    compileSdk 34
+
+    defaultConfig {
+        applicationId "com.ycmachine.smartdevice"
+        minSdk 24
+        targetSdk 34
+        versionCode rootProject.ext.versionCode
+        versionName rootProject.ext.versionName
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        resValue "string", "ai_version", "${rootProject.ext.aiVersion}"
+
+        ndk {
+            //noinspection ChromeOsAbiSupport
+            abiFilters "armeabi-v7a","arm64-v8a",
+                    "x86",
+                    "x86_64"
+        }
+
+    }
+
+    packagingOptions {
+        exclude 'AndroidManifest.xml'
+    }
+    lint {
+        baseline = file("lint-baseline.xml")
+    }
+
+    android.applicationVariants.configureEach {
+        variant ->
+            variant.outputs.configureEach {
+                outputFileName = "YCMedicine" + "-LR-" + rootProject.ext.versionName + ".apk"
+            }
+    }
+    buildTypes {
+        debug {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            buildConfigField "boolean", "isTestSelf", "false"
+
+            // 将 ext 中的变量注入 BuildConfig
+            buildConfigField "String", "AI_VERSION", "\"${rootProject.ext.aiVersion}\""
+        }
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            buildConfigField "boolean", "isTestSelf", "false"
+
+            // 将 ext 中的变量注入 BuildConfig
+            buildConfigField "String", "AI_VERSION", "\"${rootProject.ext.aiVersion}\""
+        }
+    }
+
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    buildFeatures {
+        aidl true
+        buildConfig true  // 必须启用
+    }
+    lintOptions {
+        // 明确配置基线文件路径
+        baseline file("lint-baseline.xml")
+        // 设置严重级别阈值
+        abortOnError true
+        warningsAsErrors true
+    }
+}
+dependencies {
+//    implementation fileTree(dir: 'libs', include: ['*.jar'])
+//    implementation files('src/libs/ztlai-debug.aar') // 确保aar文件路径正确
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'com.google.android.material:material:1.11.0'
+    implementation libs.core
+    implementation libs.serialport
+//    implementation 'org.openpnp:opencv:4.5.5-1'
+
+    implementation 'org.apache.commons:commons-lang3:3.14.0'
+    implementation libs.flexbox// 添加这行
+    testImplementation 'junit:junit:4.13.2'
+    testImplementation 'org.mockito:mockito-core:5.0.0'
+    testImplementation 'org.mockito:mockito-inline:5.0.0'
+    testImplementation 'org.robolectric:robolectric:4.10.3'
+
+    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+
+
+    compileOnly 'org.projectlombok:lombok:1.18.38'
+    annotationProcessor 'org.projectlombok:lombok:1.18.38'
+
+    implementation project(path: ':base')
+//    implementation project(path: ':libserialport')
+
+    implementation 'androidx.viewpager2:viewpager2:1.0.0'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:10.0.0'
+//    implementation 'com.google.code.gson:gson:2.8.5'
+//    implementation 'io.reactivex.rxjava2:rxjava:2.2.2'
+//    implementation 'io.reactivex.rxjava2:rxandroid:2.1.0'
+//    implementation 'io.reactivex.rxjava3:rxjava:3.1.10'
+//    implementation 'io.reactivex.rxjava3:rxandroid:3.0.2'
+//    implementation 'com.squareup.retrofit2:retrofit:3.0.0'
+
+    implementation 'com.bigkoo:ConvenientBanner:2.1.4' // 轮播图
+    api('io.jsonwebtoken:jjwt-api:0.12.6')
+    runtimeOnly('io.jsonwebtoken:jjwt-impl:0.12.6')
+    runtimeOnly('io.jsonwebtoken:jjwt-orgjson:0.12.6') {
+        exclude(group: 'org.json', module: 'json') //provided by Android natively
+    }
+
+    //长连接工具
+    implementation 'org.java-websocket:Java-WebSocket:1.5.3'
+}

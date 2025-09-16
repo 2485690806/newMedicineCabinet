@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?><!-- 根布局：水平排列（左按钮区 + 右日志区） -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:baselineAligned="false"
+    android:orientation="horizontal"
+    android:padding="10dp">
+
+    <!-- 左侧：垂直排列的按钮列表 -->
+    <LinearLayout
+        android:layout_width="220dp"
+        android:layout_height="match_parent"
+        android:gravity="start"
+        android:orientation="vertical"
+        android:spacing="8dp">  <!-- 按钮间距 -->
+
+        <!-- 1. 健康检查按钮 -->
+        <Button
+            android:id="@+id/btn_health_check"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="1. Test health check"
+            android:textSize="14sp" />
+
+        <!-- 2. 认证按钮 -->
+        <Button
+            android:id="@+id/btn_authentication"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="2.Test Certification (Obtain Token)"
+            android:textSize="14sp" />
+
+        <!-- 3. 袋子管理按钮 -->
+        <Button
+            android:id="@+id/btn_bag_management"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="3. Test bag management (get BagId)"
+            android:textSize="14sp" />
+
+        <!-- 4. 袋子收集按钮 -->
+        <Button
+            android:id="@+id/btn_bag_collection"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="4. Test bag collection (must execute 3 first)"
+            android:textSize="14sp" />
+
+        <!-- 5. 处方投递按钮 -->
+        <Button
+            android:id="@+id/btn_prescription_drop"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="5. Test prescription delivery"
+            android:textSize="14sp" />
+
+        <!-- 6. 事件上报按钮 -->
+        <Button
+            android:id="@+id/btn_machine_event"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="6. Test machine event reporting"
+            android:textSize="14sp" />
+
+        <!-- 7. 状态更新按钮 -->
+        <Button
+            android:id="@+id/btn_machine_status"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="7. Test machine status update"
+            android:textSize="14sp" />
+
+        <!-- 8. 完整测试按钮（可选） -->
+        <Button
+            android:id="@+id/btn_full_test"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#FF5722"
+            android:text="8. Execute complete testing (all steps)"
+            android:textSize="14sp" />
+
+    </LinearLayout>
+
+    <!-- 右侧：黑色背景+绿色字体的日志显示区（带滚动） -->
+    <ScrollView
+        android:id="@+id/sc_view"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_marginStart="10dp"
+        android:layout_weight="1"
+        android:background="#000000">  <!-- 黑色背景 -->
+
+        <TextView
+            android:id="@+id/tv_log"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:lineSpacingExtra="2dp"
+            android:padding="10dp"
+            android:textColor="#00FF00"
+            android:textSize="14sp" />  <!-- 行间距优化 -->
+
+    </ScrollView>
+
+</LinearLayout>

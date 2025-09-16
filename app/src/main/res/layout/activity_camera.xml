@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/ypg_bacc">
+
+
+    <include
+        android:id="@+id/item_camera_top"
+        layout="@layout/item_camera_top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+
+    <LinearLayout
+        android:id="@+id/camera_area_center"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="70dp"
+        android:orientation="horizontal"
+        android:weightSum="3">
+
+        <!-- 摄像头1区域 -->
+
+        <!-- 摄像头2区域 -->
+        <include
+            android:id="@+id/camera_area_1"
+            layout="@layout/camera_area"
+            android:layout_width="0dp"
+            android:layout_height="500dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginRight="10dp"
+            android:layout_weight="1" />
+
+        <!-- 摄像头2区域 -->
+        <include
+            android:id="@+id/camera_area_2"
+            layout="@layout/camera_area"
+            android:layout_width="0dp"
+            android:layout_height="500dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginRight="10dp"
+            android:layout_weight="1" />
+
+        <!-- 摄像头3区域 -->
+        <include
+            android:id="@+id/camera_area_3"
+            layout="@layout/camera_area"
+            android:layout_width="0dp"
+            android:layout_height="500dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_weight="1" />
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="30dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+
+        <!-- 复选框容器（支持多选） -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="top|center"
+            android:orientation="vertical">
+
+            <!-- 复选框行容器 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:paddingVertical="8dp">
+
+                <!-- 1号复选框（默认选中） -->
+                <CheckBox
+                    android:id="@+id/cb_1"
+                    style="@style/MyCheckBox"
+                    android:layout_width="55dp"
+                    android:layout_height="55dp"
+                    android:background="@drawable/machine_number_radio_selector_xml"
+                    android:gravity="center"
+                    android:paddingLeft="3dp"
+                    android:text="1"
+                    android:textColor="@color/white"
+                    android:textSize="22sp" />
+
+                <!-- 2号复选框 -->
+                <CheckBox
+                    android:id="@+id/cb_2"
+                    style="@style/MyCheckBox"
+                    android:layout_width="55dp"
+                    android:layout_height="55dp"
+                    android:layout_marginLeft="8dp"
+                    android:background="@drawable/machine_number_radio_selector_xml"
+                    android:gravity="center"
+                    android:paddingLeft="3dp"
+                    android:text="2"
+                    android:textColor="@color/white"
+                    android:textSize="22sp" />
+
+                <!-- 3号复选框 -->
+                <CheckBox
+                    android:id="@+id/cb_3"
+                    style="@style/MyCheckBox"
+                    android:layout_width="55dp"
+                    android:layout_height="55dp"
+                    android:layout_marginLeft="8dp"
+                    android:background="@drawable/machine_number_radio_selector_xml"
+                    android:gravity="center"
+                    android:paddingLeft="3dp"
+                    android:text="3"
+                    android:textColor="@color/white"
+                    android:textSize="22sp" />
+
+                <!-- 4号复选框 -->
+                <CheckBox
+                    android:id="@+id/cb_4"
+                    style="@style/MyCheckBox"
+                    android:layout_width="55dp"
+                    android:layout_height="55dp"
+                    android:layout_marginLeft="8dp"
+                    android:background="@drawable/machine_number_radio_selector_xml"
+                    android:gravity="center"
+                    android:paddingLeft="3dp"
+                    android:text="4"
+                    android:textColor="@color/white"
+                    android:textSize="22sp" />
+
+                <!-- 5号复选框 -->
+                <CheckBox
+                    android:id="@+id/cb_5"
+                    style="@style/MyCheckBox"
+                    android:layout_width="55dp"
+                    android:layout_height="55dp"
+                    android:layout_marginLeft="8dp"
+                    android:background="@drawable/machine_number_radio_selector_xml"
+                    android:gravity="center"
+                    android:paddingLeft="3dp"
+                    android:text="5"
+                    android:textColor="@color/white"
+                    android:textSize="22sp" />
+
+                <!-- 6号复选框 -->
+                <CheckBox
+                    android:id="@+id/cb_6"
+                    style="@style/MyCheckBox"
+                    android:layout_width="55dp"
+                    android:layout_height="55dp"
+                    android:layout_marginLeft="8dp"
+                    android:background="@drawable/machine_number_radio_selector_xml"
+                    android:gravity="center"
+                    android:paddingLeft="3dp"
+                    android:text="6"
+                    android:textColor="@color/white"
+                    android:textSize="22sp" />
+
+                <!-- 7号复选框 -->
+                <CheckBox
+                    android:id="@+id/cb_7"
+                    style="@style/MyCheckBox"
+                    android:layout_width="55dp"
+                    android:layout_height="55dp"
+                    android:layout_marginLeft="8dp"
+                    android:background="@drawable/machine_number_radio_selector_xml"
+                    android:gravity="center"
+                    android:paddingLeft="3dp"
+                    android:text="7"
+                    android:textColor="@color/white"
+                    android:textSize="22sp" />
+
+                <!-- 8号复选框 -->
+                <CheckBox
+                    android:id="@+id/cb_8"
+                    style="@style/MyCheckBox"
+                    android:layout_width="55dp"
+                    android:layout_height="55dp"
+                    android:layout_marginLeft="8dp"
+                    android:background="@drawable/machine_number_radio_selector_xml"
+                    android:gravity="center"
+                    android:paddingLeft="3dp"
+                    android:text="8"
+                    android:textColor="@color/white"
+                    android:textSize="22sp" />
+
+                <!-- 取货层复选框 -->
+                <CheckBox
+                    android:id="@+id/cb_pick"
+                    style="@style/MyCheckBox"
+                    android:layout_width="110dp"
+                    android:layout_height="45dp"
+                    android:layout_marginStart="15dp"
+                    android:background="@drawable/radio_btn_selector"
+                    android:gravity="center"
+
+                    android:text="@string/pickup_layer"
+                    android:textColor="#FFFFFF"
+                    android:textSize="@dimen/item_main_machine_status" />
+
+                <!-- 回收层复选框 -->
+                <CheckBox
+                    android:id="@+id/cb_recycle"
+                    style="@style/MyCheckBox"
+                    android:layout_width="110dp"
+                    android:layout_height="45dp"
+                    android:layout_marginStart="15dp"
+                    android:background="@drawable/radio_btn_selector"
+                    android:gravity="center"
+                    android:text="@string/recycling_layer"
+                    android:textColor="#FFFFFF"
+                    android:textSize="@dimen/item_main_machine_status" />
+
+                <!-- 一键拍照按钮 -->
+                <LinearLayout
+                    android:layout_width="240dp"
+                    android:layout_height="45dp"
+                    android:layout_marginLeft="10dp"
+                    android:background="@drawable/yijianpaizhao_bac"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:gravity="center"
+                    android:onClick="snapDevice"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/one_key_photo"
+                        android:textColor="#FFFFFF"
+                        android:textSize="17sp" />
+                </LinearLayout>
+
+            </LinearLayout>
+        </LinearLayout>
+
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

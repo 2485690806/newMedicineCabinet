@@ -1,0 +1,93 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="nav_header_vertical_spacing">8dp</dimen>
+    <dimen name="nav_header_height">176dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+    <!-- 选中状态高度 -->
+    <dimen name="height_checked">65dp</dimen>
+    <!-- 未选中状态高度 -->
+    <dimen name="theme_55dp">55dp</dimen>
+
+    <dimen name="theme_32sp">32sp</dimen>
+    <dimen name="theme_30sp">30sp</dimen>
+    <dimen name="them_48sp">48sp</dimen>
+    <dimen name="them_24sp">24sp</dimen>
+    <dimen name="them_18sp">18sp</dimen>
+    <dimen name="them_42sp">42sp</dimen>
+    <dimen name="theme_40dp">40dp</dimen>
+    <dimen name="theme_48dp">48dp</dimen>
+    <dimen name="theme_60dp">60dp</dimen>
+    <dimen name="theme_75dp">75dp</dimen>
+    <dimen name="theme_36sp">36sp</dimen>
+    <dimen name="theme_10dp">10dp</dimen>
+    <dimen name="theme_80dp">80dp</dimen>
+    <dimen name="theme_385dp">385dp</dimen>
+    <dimen name="theme_96dp">96dp</dimen>
+    <dimen name="theme_90dp">90dp</dimen>
+    <dimen name="theme_44sp">44sp</dimen>
+    <dimen name="theme_200dp">200dp</dimen>
+    <dimen name="theme_8dp">8dp</dimen>
+    <dimen name="theme_160dp">160dp</dimen>
+    <dimen name="theme_182dp">182dp</dimen>
+    <dimen name="theme_131dp">131dp</dimen>
+    <dimen name="theme_128dp">128dp</dimen>
+    <dimen name="theme_100dp">100dp</dimen>
+    <dimen name="theme_16dp">16dp</dimen>
+    <dimen name="theme_650dp">650dp</dimen>
+    <dimen name="theme_20dp">20dp</dimen>
+    <dimen name="item_main_machine_status">18dp</dimen>
+    <dimen name="fragment_layer_test">15dp</dimen>
+    <dimen name="activity_camera">13dp</dimen>
+    <dimen name="theme_25dp">25dp</dimen>
+    <dimen name="item_main_control_conponent">21dp</dimen>
+    <dimen name="item_main_stauts_botton_left_padding">42dp</dimen>
+    <dimen name="theme_30dp">30dp</dimen>
+    <dimen name="theme_56dp">56dp</dimen>
+    <dimen name="theme_196sp">196sp</dimen>
+    <dimen name="theme_172sp">172sp</dimen>
+    <dimen name="theme_360dp">360dp</dimen>
+    <dimen name="theme_261dp">261dp</dimen>
+    <dimen name="theme_300dp">300dp</dimen>
+    <dimen name="theme_308dp">308dp</dimen>
+    <dimen name="theme_320dp">320dp</dimen>
+    <dimen name="theme_645dp">645dp</dimen>
+    <dimen name="theme_250dp">250dp</dimen>
+    <dimen name="theme_148sp">148sp</dimen>
+    <dimen name="theme_800dp">800dp</dimen>
+    <dimen name="theme_730dp">730dp</dimen>
+    <dimen name="theme_32dp">32dp</dimen>
+    <dimen name="theme_96sp">96sp</dimen>
+    <dimen name="theme_58sp">58sp</dimen>
+    <dimen name="theme_54sp">54sp</dimen>
+    <dimen name="theme_86sp">86sp</dimen>
+    <dimen name="theme_144dp">144dp</dimen>
+    <dimen name="theme_120dp">120dp</dimen>
+    <dimen name="theme_195dp">195dp</dimen>
+    <dimen name="theme_136sp">136sp</dimen>
+    <dimen name="theme_184dp">184dp</dimen>
+    <dimen name="theme_78sp">78sp</dimen>
+    <dimen name="theme_65sp">65sp</dimen>
+    <dimen name="theme_60sp">60sp</dimen>
+    <dimen name="theme_70sp">70sp</dimen>
+    <dimen name="theme_260dp">260dp</dimen>
+    <dimen name="theme_280dp">280dp</dimen>
+    <dimen name="theme_140dp">140dp</dimen>
+    <dimen name="theme_40sp">40sp</dimen>
+    <dimen name="theme_220dp">220dp</dimen>
+    <dimen name="theme_4dp">4dp</dimen>
+    <dimen name="theme_500dp">500dp</dimen>
+    <dimen name="theme_600dp">600dp</dimen>
+    <dimen name="theme_72sp">72sp</dimen>
+    <dimen name="theme_28sp">28sp</dimen>
+    <dimen name="theme_22sp">22sp</dimen>
+    <dimen name="theme_384dp">384dp</dimen>
+    <dimen name="theme_355dp">355dp</dimen>
+    <dimen name="theme_420dp">420dp</dimen>
+    <dimen name="theme_720dp">720dp</dimen>
+    <dimen name="theme_745dp">745dp</dimen>
+
+
+
+</resources>

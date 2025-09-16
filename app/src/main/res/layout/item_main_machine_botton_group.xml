@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="284dp"
+    android:layout_weight="1"
+    android:background="@drawable/machine_test_left_img"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="283dp"
+            android:layout_marginTop="50dp"
+            android:layout_weight="1"
+            android:gravity="center">
+
+            <RadioButton
+                android:id="@+id/rb_lift"
+                style="@style/MyRadioButton"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:checked="true"
+                android:background="@drawable/machine_radio_selector"
+                android:gravity="center"
+                android:text="@string/lift"
+                android:textColor="@color/white"
+                android:textSize="@dimen/item_main_control_conponent" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="wrap_content"
+                android:background="@color/white" />
+
+            <RadioButton
+                android:id="@+id/rb_x_axis"
+                style="@style/MyRadioButton"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_weight="1"
+                android:background="@drawable/machine_radio_selector"
+                android:gravity="center"
+                android:text="@string/X_axis"
+                android:textColor="@color/white"
+                android:textSize="@dimen/item_main_control_conponent" />
+
+        </LinearLayout>
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/white" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="285dp"
+            android:layout_weight="1"
+            android:gravity="center">
+
+            <RadioButton
+                android:id="@+id/rb_upper_door"
+                style="@style/MyRadioButton"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/machine_radio_selector"
+                android:gravity="center"
+                android:paddingHorizontal="16dp"
+                android:text="@string/upper_side_door"
+                android:textColor="@color/white"
+                android:textSize="@dimen/item_main_control_conponent" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="wrap_content"
+                android:background="@color/white" />
+
+            <RadioButton
+                android:id="@+id/rb_lower_door"
+                style="@style/MyRadioButton"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/machine_radio_selector"
+                android:gravity="center"
+                android:paddingHorizontal="16dp"
+                android:text="@string/lower_side_door"
+                android:textColor="@color/white"
+                android:textSize="@dimen/item_main_control_conponent" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/white" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="285dp"
+            android:layout_weight="1"
+            android:gravity="center">
+
+            <RadioButton
+                android:id="@+id/rb_recycle_door"
+                style="@style/MyRadioButton"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/machine_radio_selector"
+                android:gravity="center"
+                android:paddingHorizontal="16dp"
+                android:text="@string/recycling_door"
+                android:textColor="@color/white"
+                android:textSize="@dimen/item_main_control_conponent" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="wrap_content"
+                android:background="@color/white" />
+
+            <RadioButton
+                android:id="@+id/rb_pick_door"
+                style="@style/MyRadioButton"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/machine_radio_selector"
+                android:gravity="center"
+                android:paddingHorizontal="16dp"
+                android:text="@string/pickup_door"
+                android:textColor="@color/white"
+                android:textSize="@dimen/item_main_control_conponent" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/white" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="285dp"
+            android:layout_weight="1"
+            android:gravity="center">
+
+            <RadioButton
+                android:id="@+id/rb_single_test"
+                style="@style/MyRadioButton"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/machine_radio_selector"
+                android:gravity="center"
+                android:paddingHorizontal="16dp"
+                android:text="@string/single_layer_testing"
+                android:textColor="@color/white"
+                android:textSize="@dimen/item_main_control_conponent" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="wrap_content"
+                android:background="@color/white" />
+
+            <RadioButton
+                android:id="@+id/rb_layer_setting"
+                style="@style/MyRadioButton"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/machine_radio_selector"
+                android:gravity="center"
+                android:paddingHorizontal="16dp"
+                android:text="@string/layer_setting"
+                android:textColor="@color/white"
+                android:textSize="@dimen/item_main_control_conponent" />
+
+        </LinearLayout>
+
+    </RadioGroup>
+
+</LinearLayout>

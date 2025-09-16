@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="300dp"
+    android:layout_marginTop="-10dp"
+    android:layout_weight="1"
+    android:background="@drawable/right_top_bacimg"
+
+    android:gravity="center|top"
+    android:orientation="vertical"
+    android:paddingLeft="30dp">
+
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="65dp"
+            android:gravity="center_vertical">
+
+
+            <!-- 正转选项 -->
+            <RelativeLayout
+                android:layout_width="140dp"
+                android:layout_height="55dp">
+
+                <!-- 透明的RadioButton（用于单选逻辑） -->
+                <RadioButton
+                    android:id="@+id/rb_forward"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/radio_btn_selector"
+                    android:button="@null"
+                    android:checked="true"
+                    android:clickable="true"
+                    android:focusable="true" />
+
+                <!-- 实际显示的内容布局 -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:clickable="false"
+                    android:focusable="false"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:background="@drawable/production_opinion" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginLeft="8dp"
+                        android:text="@string/positive_rotation"
+                        android:textColor="#FFFFFF"
+                        android:textSize="22sp" />
+                </LinearLayout>
+            </RelativeLayout>
+            <!-- 反转选项 -->
+            <RelativeLayout
+                android:layout_width="140dp"
+                android:layout_height="55dp"
+                android:layout_marginLeft="30dp">
+
+                <RadioButton
+                    android:id="@+id/rb_backward"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/radio_btn_selector"
+                    android:button="@null"
+                    android:clickable="true"
+                    android:focusable="true" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:clickable="false"
+                    android:focusable="false"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:background="@drawable/reverse_icon" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginLeft="8dp"
+                        android:text="@string/rollback"
+                        android:textColor="#FFFFFF"
+                        android:textSize="22sp" />
+                </LinearLayout>
+            </RelativeLayout>
+
+            <!-- 停止选项 -->
+            <RelativeLayout
+                android:layout_width="140dp"
+                android:layout_height="55dp"
+                android:layout_marginLeft="30dp">
+
+                <RadioButton
+                    android:id="@+id/rb_stop"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:button="@null"
+                    android:background="@drawable/radio_btn_selector"
+                    android:clickable="true"
+                    android:focusable="true" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:clickable="false"
+                    android:focusable="false"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:background="@drawable/stop_icon" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginLeft="8dp"
+                        android:text="@string/stop"
+                        android:textColor="#FFFFFF"
+                        android:textSize="22sp" />
+                </LinearLayout>
+            </RelativeLayout>
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:gravity="center_vertical">
+
+
+            <!-- 标准取货层选项 -->
+            <RelativeLayout
+                android:layout_width="260dp"
+                android:layout_height="55dp">
+
+                <RadioButton
+                    android:id="@+id/rb_standard"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:button="@null"
+                    android:background="@drawable/radio_btn_selector"
+                    android:clickable="true"
+                    android:focusable="true" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:clickable="false"
+                    android:focusable="false"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginLeft="8dp"
+                        android:text="@string/pickup_mode"
+                        android:textColor="#FFFFFF"
+                        android:textSize="22sp" />
+                </LinearLayout>
+            </RelativeLayout>
+
+            <!-- 回收层选项 -->
+            <RelativeLayout
+                android:layout_width="280dp"
+                android:layout_height="55dp"
+                android:layout_marginLeft="20dp">
+
+                <RadioButton
+                    android:id="@+id/rb_recycle"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:button="@null"
+                    android:background="@drawable/radio_btn_selector"
+                    android:clickable="true"
+                    android:focusable="true" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:clickable="false"
+                    android:focusable="false"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginLeft="8dp"
+                        android:text="@string/recycling_mode"
+                        android:textColor="#FFFFFF"
+                        android:textSize="22sp" />
+                </LinearLayout>
+            </RelativeLayout>
+
+        </LinearLayout>
+
+    </RadioGroup>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:text="@string/mode_tip"
+        android:textColor="@color/white"
+
+        android:textSize="25dp" />
+
+
+</LinearLayout>

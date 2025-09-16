@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="right"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <LinearLayout
+        android:layout_width="200dp"
+        android:layout_height="75dp"
+        android:background="@drawable/machine_status_select"
+        android:gravity="center"
+        android:orientation="horizontal">
+        <!-- 右侧文字 -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/item_main_stauts_botton_left_padding"
+            android:layout_marginBottom="4dp"
+            android:text="@string/status_check"
+            android:textColor="#FFFFFF"
+            android:textSize="@dimen/item_main_control_conponent" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="200dp"
+        android:layout_height="75dp"
+        android:layout_marginLeft="10dp"
+        android:background="@drawable/machine_status_check"
+        android:gravity="center"
+        android:onClick="selfCheck"
+        android:orientation="horizontal">
+        <!-- 右侧文字 -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginBottom="4dp"
+            android:text="@string/status_self_check"
+            android:textColor="#FFFFFF"
+            android:textSize="@dimen/item_main_control_conponent" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="200dp"
+        android:layout_height="75dp"
+        android:layout_marginLeft="10dp"
+        android:background="@drawable/machine_reline"
+        android:gravity="center"
+        android:orientation="horizontal">
+        <!-- 右侧文字 -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginBottom="4dp"
+            android:text="@string/reconnect"
+            android:textColor="#FFFFFF"
+            android:textSize="@dimen/item_main_control_conponent" />
+    </LinearLayout>
+
+
+</LinearLayout>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 圆弧进度条 -->
+    <declare-styleable name="ArcProgressView">
+        <attr name="liys_progress_arc_text" format="string"/> //中间文字
+        <attr name="liys_progress_arc_textSize" format="dimension"/> //文字大小
+        <attr name="liys_progress_arc_textColor" format="color"/> //文字颜色
+        <attr name="liys_progress_arc_inCircleColor" format="color"/> //进度条 内层颜色
+        <attr name="liys_progress_arc_outCircleColor" format="color"/>//进度条 外层颜色
+        <attr name="liys_progress_arc_inCircleSize" format="dimension"/>//进度条 内层大小
+        <attr name="liys_progress_arc_outCircleSize" format="dimension"/>//进度条 外层大小
+        <attr name="liys_progress_arc_startAngle" format="integer"/> //开始角度
+        <attr name="liys_progress_arc_drawAngle" format="integer"/> //绘制角度,默认360, 例如:180时为一个半圆
+    </declare-styleable>
+
+    <!--这里的名字要和自定义的View名称一样，不然在xml布局中无法引用-->
+    <declare-styleable name="HorizontalWaveProgressView">
+        <!--波浪的颜色-->
+        <attr name="wave_color" format="color" />
+        <!--圆形背景颜色-->
+        <attr name="wave_background_color" format="color" />
+        <!--边框的颜色-->
+        <attr name="border_color" format="color" />
+        <!--波浪长度-->
+        <attr name="wave_length" format="dimension" />
+        <!--波浪高度-->
+        <attr name="wave_height" format="dimension" />
+        <!--当前进度-->
+        <attr name="currentProgress" format="integer" />
+        <!--最大进度-->
+        <attr name="maxProgress" format="integer" />
+        <!--第二层波浪是否显示-->
+        <attr name="second_show" format="boolean" />
+        <!--第二层波浪的颜色-->
+        <attr name="second_color" format="color" />
+    </declare-styleable>
+</resources>

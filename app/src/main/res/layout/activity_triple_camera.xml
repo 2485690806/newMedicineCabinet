@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:weightSum="3">
+
+    <!-- 第一个摄像头区域 -->
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:background="#CCCCCC">
+
+        <TextureView
+            android:id="@+id/texture_view1"
+            android:layout_width="640px"
+            android:layout_height="360px" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="20dp"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/toggle_button1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="开启摄像头1"
+                android:padding="8dp" />
+
+            <Button
+                android:id="@+id/capture_button1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="拍照1"
+                android:padding="8dp"
+                android:enabled="false" />
+
+            <Button
+                android:id="@+id/mirror_button1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="镜像1"
+                android:padding="8dp"
+                android:enabled="false" />
+        </LinearLayout>
+    </RelativeLayout>
+
+    <!-- 第二个摄像头区域 -->
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:background="#CCCCCC">
+
+        <TextureView
+            android:id="@+id/texture_view2"
+            android:layout_width="640px"
+            android:layout_height="360px" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="20dp"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/toggle_button2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="开启摄像头2"
+                android:padding="8dp" />
+
+            <Button
+                android:id="@+id/capture_button2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="拍照2"
+                android:padding="8dp"
+                android:enabled="false" />
+
+            <Button
+                android:id="@+id/mirror_button2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="镜像2"
+                android:padding="8dp"
+                android:enabled="false" />
+        </LinearLayout>
+    </RelativeLayout>
+
+    <!-- 第三个摄像头(录像)区域 -->
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:background="#CCCCCC">
+
+        <TextureView
+            android:id="@+id/texture_view3"
+            android:layout_width="640px"
+            android:layout_height="360px" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="20dp"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/toggle_button3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="开启摄像头3"
+                android:padding="8dp" />
+
+            <Button
+                android:id="@+id/record_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="开始录像"
+                android:padding="8dp"
+                android:enabled="false" />
+
+            <Button
+                android:id="@+id/stop_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="停止录像"
+                android:padding="8dp"
+                android:enabled="false" />
+
+            <Button
+                android:id="@+id/mirror_button3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="镜像3"
+                android:padding="8dp"
+                android:enabled="false" />
+        </LinearLayout>
+    </RelativeLayout>
+
+</LinearLayout>

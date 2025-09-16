@@ -1,0 +1,646 @@
+2025.08.05 14:38:20.411,[L88LogicHandler] 打开扫描器电源
+2025.08.05 14:38:20.413,WELCOME - WAIT_FRAUD - [L88LogicHandler] change workflow: WELCOME => PROCESSING
+2025.08.05 14:38:20.415,setMessageHint:processingcsada:Initializing system...Please wait
+2025.08.05 14:38:20.416, ClientConstant.MACHINE_FAULT_CODE.getErrorMsg():No error
+2025.08.05 14:38:20.417,UPDATE_RVM_WORK_STATUS4
+2025.08.05 14:38:20.420,setStatusColor3
+2025.08.05 14:38:21.710,[BackendRequestHandler] Login request successful: CommonUserEntity{app_user_token='81a031d7adecaeacdbbb8e95364ab6b7c8ec38477400d46f451bebf9eb66c0340d21b9aeb5b7893113c40df87489a8ee', agentId=2997, userId=-2997, user_type='user', app_recycler_token='null', role='null', headImgUrl='null', phone='666666', nickName='Social recycling', licensePlateNumber='', icCard='', tareOrder=null, weightValue=0, userAddress='null', totalPoint=87275, loginType='publicAccount', loginValue='-', startTimeStamp=0, endTimeStamp=0}
+2025.08.05 14:38:21.731,PROCESSING - WAIT_FRAUD - [L88LogicHandler] change workflow: PROCESSING => Object_On_Belt_Detected
+2025.08.05 14:38:21.734,setMessageHint:warning4csada:There is an object inside the entrance. Please remove it and try again.
+2025.08.05 14:38:21.735, ClientConstant.MACHINE_FAULT_CODE.getErrorMsg():No error
+2025.08.05 14:38:21.738,setStatusColor4
+2025.08.05 14:38:21.774,setMessageHint:warning4csada:There is an object inside the entrance. Please remove it and try again.
+2025.08.05 14:38:21.775, ClientConstant.MACHINE_FAULT_CODE.getErrorMsg():No error
+2025.08.05 14:38:21.777,UPDATE_RVM_WORK_STATUS6
+2025.08.05 14:38:21.778,setStatusColor4
+2025.08.05 14:38:22.516,Object_On_Belt_Detected - WAIT_FRAUD - [System] detected metal removal.
+2025.08.05 14:38:22.721,Object_On_Belt_Detected - WAIT_FRAUD - [L88LogicHandler] processPeripheralStatus: LightSensor - S1: OFF, S2: OFF, S3: OFF, S4: OFF
+2025.08.05 14:38:25.015,Object_On_Belt_Detected - WAIT_FRAUD - [L88LogicHandler] change workflow: Object_On_Belt_Detected => PROCESSING
+2025.08.05 14:38:25.018,setMessageHint:processingcsada:Initializing system...Please wait
+2025.08.05 14:38:25.019, ClientConstant.MACHINE_FAULT_CODE.getErrorMsg():No error
+2025.08.05 14:38:25.021,UPDATE_RVM_WORK_STATUS4
+2025.08.05 14:38:25.023,setStatusColor3
+2025.08.05 14:38:25.300,[BackendRequestHandler] Login request successful: CommonUserEntity{app_user_token='5f967b9fb8b5b6ca50eabfd9f5a4070ac8ec38477400d46f451bebf9eb66c0340d21b9aeb5b7893113c40df87489a8ee', agentId=2997, userId=-2997, user_type='user', app_recycler_token='null', role='null', headImgUrl='null', phone='666666', nickName='Social recycling', licensePlateNumber='', icCard='', tareOrder=null, weightValue=0, userAddress='null', totalPoint=87275, loginType='publicAccount', loginValue='-', startTimeStamp=0, endTimeStamp=0}
+2025.08.05 14:38:25.312,PROCESSING - WAIT_FRAUD - [L88LogicHandler].initWeight...
+2025.08.05 14:38:25.313,PROCESSING - WAIT_FRAUD - [WeightHandler] Zero the weight....
+2025.08.05 14:38:25.315,PROCESSING - WAIT_FRAUD - [WeightHandler] Start weight monitoring/measurement....
+2025.08.05 14:38:25.316,[BackendRequestHandler] ... user_type='user'... isContinousLoginToDeposit: true
+2025.08.05 14:38:25.317,[系统]FFMPEG 未获取到RTSP URL
+2025.08.05 14:38:25.351,PROCESSING - WAIT_FRAUD - [WeightHandler] onWeightUpdate Current weight: 0g
+2025.08.05 14:38:25.387,[系统]打印机 状态获取成功：Query success
+Paper Near End
+ 原因：Query success
+Paper Near End
+
+2025.08.05 14:38:25.466,PROCESSING - WAIT_FRAUD - [WeightHandler] onWeightUpdate Current weight: 0g
+2025.08.05 14:38:25.571,[系统]数据无法正解析 {"code":200,"msg":"operation successful","timestamp":1754397570912,"backendInstance":"NO-BACKEND-NAME","result":null,"success":true}
+2025.08.05 14:38:25.573,[系统]发送状态成功：{"result":"无结果"}
+2025.08.05 14:38:25.586,PROCESSING - WAIT_FRAUD - [WeightHandler] onWeightUpdate Current weight: 0g
+2025.08.05 14:38:25.687,PROCESSING - WAIT_FRAUD - [WeightHandler] onWeightUpdate Current weight: 0g
+2025.08.05 14:38:25.690,PROCESSING - WAIT_FRAUD - [WeightHandler] Weight is stable: 0g. Measurement duration: 375ms
+2025.08.05 14:38:25.692,PROCESSING - WAIT_FRAUD - [WeightHandler] Real Weight is not calculated, it is the measured weight: 0g
+2025.08.05 14:38:26.774,setMessageHint:welcomecsada:Select Login Method
+2025.08.05 14:38:26.776, ClientConstant.MACHINE_FAULT_CODE.getErrorMsg():No error
+2025.08.05 14:38:26.779,setStatusColor2
+2025.08.05 14:38:26.827,PROCESSING - WAIT_FRAUD - [L88LogicHandler] change workflow: PROCESSING => WELCOME
+2025.08.05 14:38:26.828,setMessageHint:welcomecsada:Please choose the login method
+2025.08.05 14:38:26.829, ClientConstant.MACHINE_FAULT_CODE.getErrorMsg():No error
+2025.08.05 14:38:26.831,UPDATE_RVM_WORK_STATUS0
+2025.08.05 14:38:26.834,setStatusColor2
+2025.08.05 14:38:28.698,WELCOME - WAIT_FRAUD - [L88LogicHandler] change workflow: WELCOME => INIT_WORKFLOW
+2025.08.05 14:38:28.699,setMessageHint:readycsada:Please put your container 
+ into the entrance
+2025.08.05 14:38:28.701, ClientConstant.MACHINE_FAULT_CODE.getErrorMsg():No error
+2025.08.05 14:38:28.704,UPDATE_RVM_WORK_STATUS3
+2025.08.05 14:38:28.707,setStatusColor2
+2025.08.05 14:38:28.718,INIT_WORKFLOW - WAIT_FRAUD - [L88LogicHandler].startNewTransaction...
+2025.08.05 14:38:28.721,INIT_WORKFLOW - WAIT_FRAUD - [L88LogicHandler] change processing: WAIT_FRAUD -> WAIT_LIGHT_SENSOR1
+2025.08.05 14:38:28.723,INIT_WORKFLOW - WAIT_LIGHT_SENSOR1 - [L88LogicHandler].startNewTransaction multithreading active.. add AI listener.
+2025.08.05 14:38:28.986,[AiCameraHandler] take picture: BlockedDoor-ReferenceImage folder:blocked
+2025.08.05 14:38:28.987,INIT_WORKFLOW - WAIT_LIGHT_SENSOR1 - [L88LogicHandler] change workflow: INIT_WORKFLOW => READY_ONE
+2025.08.05 14:38:28.988,[AiCameraHandler] Picture timestamp-difference in ms:16
+2025.08.05 14:38:28.989,setMessageHint:readycsada:Please put your container 
+ into the entrance
+2025.08.05 14:38:28.990, ClientConstant.MACHINE_FAULT_CODE.getErrorMsg():No error
+2025.08.05 14:38:28.991,UPDATE_RVM_WORK_STATUS3
+2025.08.05 14:38:28.993,setStatusColor2
+2025.08.05 14:38:28.998,READY_ONE - WAIT_LIGHT_SENSOR1 - [System] Waiting for the bottle to be scanned...
+2025.08.05 14:38:28.999,READY_ONE - WAIT_LIGHT_SENSOR1 - [L88LogicHandler] stopActionForConveyorUnit
+2025.08.05 14:38:29.027,[系统]AI  productId: 1
+2025.08.05 14:38:29.029,[ClosedDoorHandler] referenceImage: /storage/emulated/0/RVM/poc_video/blocked/BlockedDoor-ReferenceImage.jpg
+2025.08.05 14:38:29.029,[系统]AI  serialNumber: 20230913
+2025.08.05 14:38:29.032,[系统]AI Camera  onConnect:1
+2025.08.05 14:38:29.038,READY_ONE - WAIT_LIGHT_SENSOR1 - Conveyor Unit send action cmd successful: 0
+2025.08.05 14:38:32.243,READY_ONE - WAIT_LIGHT_SENSOR1 - [L88LogicHandler] processPeripheralStatus: LightSensor - S1: ON, S2: OFF, S3: OFF, S4: OFF
+2025.08.05 14:38:32.303,READY_ONE - WAIT_LIGHT_SENSOR1 - Conveyor Unit send action cmd successful: 44
+2025.08.05 14:38:32.345,READY_ONE - WAIT_LIGHT_SENSOR1 - [L88LogicHandler] new barcode scanned:7610113029879
+2025.08.05 14:38:32.356,READY_ONE - WAIT_LIGHT_SENSOR1 - Conveyor Unit send action cmd successful: 44
+2025.08.05 14:38:32.357,READY_ONE - WAIT_LIGHT_SENSOR1 - [TransactionHandler] create attempt:202505190001-1754397512
+2025.08.05 14:38:32.381,READY_ONE - WAIT_LIGHT_SENSOR1 - [L88LogicHandler] new barcode scanned:7610113029879
+2025.08.05 14:38:32.420,[系统]条形码 查询不存在：7610113029879
+2025.08.05 14:38:32.425,READY_ONE - WAIT_LIGHT_SENSOR1 - [FraudDetectionHandler] stop fraud detection
+2025.08.05 14:38:32.430,READY_ONE - WAIT_LIGHT_SENSOR1 - [L88LogicHandler] doReject: REJECT_QRCODE code:1
+2025.08.05 14:38:32.436,[系统]条码拒绝：7610113029879
+2025.08.05 14:38:32.441,REJECT_QRCODE - WAIT_LIGHT_SENSOR1 - Conveyor Unit send action cmd successful: 44
+2025.08.05 14:38:32.450,setMessageHint:reject2csada:The barcode is not in the database.
+Please replace it with another container and try again.
+2025.08.05 14:38:32.451, ClientConstant.MACHINE_FAULT_CODE.getErrorMsg():No error
+2025.08.05 14:38:32.454,setStatusColor4
+2025.08.05 14:38:32.468,REJECT_QRCODE - WAIT_LIGHT_SENSOR1 - Conveyor Unit send action cmd successful: 44
+2025.08.05 14:38:32.517,REJECT_QRCODE - WAIT_LIGHT_SENSOR1 - Conveyor Unit send action cmd successful: 44
+2025.08.05 14:38:32.568,REJECT_QRCODE - WAIT_LIGHT_SENSOR1 - Conveyor Unit send action cmd successful: 44
+2025.08.05 14:38:32.666,REJECT_QRCODE - WAIT_LIGHT_SENSOR1 - [L88LogicHandler] processPeripheralStatus: LightSensor - S1: ON, S2: ON, S3: OFF, S4: OFF
+2025.08.05 14:38:32.676,REJECT_QRCODE - WAIT_LIGHT_SENSOR1 - [L88LogicHandler] metal detected: Probably aluminum.
+2025.08.05 14:38:32.719,REJECT_QRCODE - WAIT_LIGHT_SENSOR1 - Conveyor Unit send action cmd successful: 4
+2025.08.05 14:38:32.765,REJECT_QRCODE - WAIT_LIGHT_SENSOR1 - [L88LogicHandler] processPeripheralStatus: LightSensor - S1: OFF, S2: ON, S3: OFF, S4: OFF
+2025.08.05 14:38:32.769,REJECT_QRCODE - WAIT_LIGHT_SENSOR1 - Conveyor Unit send action cmd successful: 4
+2025.08.05 14:38:32.819,REJECT_QRCODE - WAIT_LIGHT_SENSOR1 - Conveyor Unit send action cmd successful: 4
+2025.08.05 14:38:32.859,REJECT_QRCODE - WAIT_LIGHT_SENSOR1 - [L88LogicHandler] processPeripheralStatus: LightSensor - S1: ON, S2: ON, S3: OFF, S4: OFF
+2025.08.05 14:38:32.870,REJECT_QRCODE - WAIT_LIGHT_SENSOR1 - Conveyor Unit send action cmd successful: 4
+2025.08.05 14:38:32.920,REJECT_QRCODE - WAIT_LIGHT_SENSOR1 - Conveyor Unit send action cmd successful: 4
+2025.08.05 14:38:32.961,REJECT_QRCODE - WAIT_LIGHT_SENSOR1 - [TransactionHandler] rejectAttempt: 202505190001-1754397512
+2025.08.05 14:38:32.963,REJECT_QRCODE - WAIT_LIGHT_SENSOR1 - [TransactionHandler] addAttempt: 202505190001-1754397512 - Accepted: N
+2025.08.05 14:38:32.965,Attempt: 202505190001-1754397512, Accepted: N, Material: P
+2025.08.05 14:38:32.967,REJECT_QRCODE - WAIT_LIGHT_SENSOR1 - [TransactionHandler] Count Can: 0, Count Bottle: 0, Count Rejected: 1, Total Voucher Amount: 0.0
+2025.08.05 14:38:32.969,更新投递数量：塑料瓶 0, 易拉罐 0, 拒收 1, 总金额 0.0
+2025.08.05 14:38:32.972,REJECT_QRCODE - WAIT_LIGHT_SENSOR1 - Conveyor Unit send action cmd successful: 4
+2025.08.05 14:38:32.973,REJECT_QRCODE - WAIT_LIGHT_SENSOR1 - [L88LogicHandler] processPeripheralStatus: LightSensor - S1: ON, S2: OFF, S3: OFF, S4: OFF
+2025.08.05 14:38:32.975,REJECT_QRCODE - WAIT_LIGHT_SENSOR1 - [L88LogicHandler] stopActionForConveyorUnit
+2025.08.05 14:38:33.021,REJECT_QRCODE - WAIT_LIGHT_SENSOR1 - Conveyor Unit send action cmd successful: 0
+2025.08.05 14:38:34.364,REJECT_QRCODE - WAIT_LIGHT_SENSOR1 - [L88LogicHandler] change workflow: REJECT_QRCODE => WAIT_PICK_UP
+2025.08.05 14:38:34.381,WAIT_PICK_UP - WAIT_LIGHT_SENSOR1 - [L88LogicHandler] stopActionForConveyorUnit
+2025.08.05 14:38:34.392,setMessageHint:warningcsada:Wait pick up the object.
+2025.08.05 14:38:34.394, ClientConstant.MACHINE_FAULT_CODE.getErrorMsg():No error
+2025.08.05 14:38:34.397,UPDATE_RVM_WORK_STATUS6
+2025.08.05 14:38:34.400,setStatusColor4
+2025.08.05 14:38:34.776,WAIT_PICK_UP - WAIT_LIGHT_SENSOR1 - [System] detected metal removal.
+2025.08.05 14:38:34.868,WAIT_PICK_UP - WAIT_LIGHT_SENSOR1 - [L88LogicHandler] processPeripheralStatus: LightSensor - S1: OFF, S2: OFF, S3: OFF, S4: OFF
+2025.08.05 14:38:34.876,WAIT_PICK_UP - WAIT_LIGHT_SENSOR1 - [L88LogicHandler] change processing: WAIT_LIGHT_SENSOR1 -> WAIT_LIGHT_SENSOR1
+2025.08.05 14:38:34.877,WAIT_PICK_UP - WAIT_LIGHT_SENSOR1 - [L88LogicHandler] stopActionForConveyorUnit
+2025.08.05 14:38:34.878,WAIT_PICK_UP - WAIT_LIGHT_SENSOR1 - [L88LogicHandler] change workflow: WAIT_PICK_UP => READY_AFTER_REJECT
+2025.08.05 14:38:34.879,[系统]瓶子拒绝 个数：1  条码：7610113029879
+2025.08.05 14:38:34.880,setMessageHint:warningcsada:Wait pick up the object.
+2025.08.05 14:38:34.880, ClientConstant.MACHINE_FAULT_CODE.getErrorMsg():No error
+2025.08.05 14:38:34.881,UPDATE_RVM_WORK_STATUS6
+2025.08.05 14:38:34.883,setStatusColor4
+2025.08.05 14:38:34.884,更新投递数量：塑料瓶 0, 易拉罐 0, 拒收 1, 总金额 0.0
+2025.08.05 14:38:34.930,READY_AFTER_REJECT - WAIT_LIGHT_SENSOR1 - [L88LogicHandler] change workflow: READY_AFTER_REJECT => READY_ONE
+2025.08.05 14:38:34.931,setMessageHint:readycsada:Please put your container 
+ into the entrance
+2025.08.05 14:38:34.932, ClientConstant.MACHINE_FAULT_CODE.getErrorMsg():No error
+2025.08.05 14:38:34.934,UPDATE_RVM_WORK_STATUS3
+2025.08.05 14:38:34.936,setStatusColor2
+2025.08.05 14:38:34.963,更新投递数量：塑料瓶 0, 易拉罐 0, 拒收 1, 总金额 0.0
+2025.08.05 14:38:35.036,READY_ONE - WAIT_LIGHT_SENSOR1 - [System] Waiting for the bottle to be scanned...
+2025.08.05 14:38:35.037,READY_ONE - WAIT_LIGHT_SENSOR1 - [L88LogicHandler] stopActionForConveyorUnit
+2025.08.05 14:38:35.071,READY_ONE - WAIT_LIGHT_SENSOR1 - [L88LogicHandler] new barcode scanned:7610113029879
+2025.08.05 14:38:35.079,READY_ONE - WAIT_LIGHT_SENSOR1 - [TransactionHandler] create attempt:202505190001-1754397515
+2025.08.05 14:38:35.084,[系统]条形码 查询不存在：7610113029879
+2025.08.05 14:38:35.085,READY_ONE - WAIT_LIGHT_SENSOR1 - [FraudDetectionHandler] stop fraud detection
+2025.08.05 14:38:35.086,READY_ONE - WAIT_LIGHT_SENSOR1 - [L88LogicHandler] doReject: REJECT_QRCODE code:1
+2025.08.05 14:38:35.087,[系统]条码拒绝：7610113029879
+2025.08.05 14:38:35.089,setMessageHint:reject2csada:The barcode is not in the database.
+Please replace it with another container and try again.
+2025.08.05 14:38:35.089, ClientConstant.MACHINE_FAULT_CODE.getErrorMsg():No error
+2025.08.05 14:38:35.091,setStatusColor4
+2025.08.05 14:38:35.607,REJECT_QRCODE - WAIT_LIGHT_SENSOR1 - [TransactionHandler] rejectAttempt: 202505190001-1754397515
+2025.08.05 14:38:35.608,REJECT_QRCODE - WAIT_LIGHT_SENSOR1 - [TransactionHandler] addAttempt: 202505190001-1754397515 - Accepted: N
+2025.08.05 14:38:35.609,Attempt: 202505190001-1754397512, Accepted: N, Material: P
+2025.08.05 14:38:35.610,Attempt: 202505190001-1754397515, Accepted: N, Material: P
+2025.08.05 14:38:35.612,REJECT_QRCODE - WAIT_LIGHT_SENSOR1 - [TransactionHandler] Count Can: 0, Count Bottle: 0, Count Rejected: 2, Total Voucher Amount: 0.0
+2025.08.05 14:38:35.613,更新投递数量：塑料瓶 0, 易拉罐 0, 拒收 2, 总金额 0.0
+2025.08.05 14:38:37.085,REJECT_QRCODE - WAIT_LIGHT_SENSOR1 - [L88LogicHandler] change workflow: REJECT_QRCODE => WAIT_PICK_UP
+2025.08.05 14:38:37.093,WAIT_PICK_UP - WAIT_LIGHT_SENSOR1 - [L88LogicHandler] stopActionForConveyorUnit
+2025.08.05 14:38:37.097,setMessageHint:warningcsada:Wait pick up the object.
+2025.08.05 14:38:37.099, ClientConstant.MACHINE_FAULT_CODE.getErrorMsg():No error
+2025.08.05 14:38:37.101,UPDATE_RVM_WORK_STATUS6
+2025.08.05 14:38:37.105,setStatusColor4
+2025.08.05 14:38:37.108,WAIT_PICK_UP - WAIT_LIGHT_SENSOR1 - [L88LogicHandler] change processing: WAIT_LIGHT_SENSOR1 -> WAIT_LIGHT_SENSOR1
+2025.08.05 14:38:37.109,WAIT_PICK_UP - WAIT_LIGHT_SENSOR1 - [L88LogicHandler] stopActionForConveyorUnit
+2025.08.05 14:38:37.111,WAIT_PICK_UP - WAIT_LIGHT_SENSOR1 - [L88LogicHandler] change workflow: WAIT_PICK_UP => READY_AFTER_REJECT
+2025.08.05 14:38:37.113,[系统]瓶子拒绝 个数：2  条码：7610113029879
+2025.08.05 14:38:37.120,setMessageHint:warningcsada:Wait pick up the object.
+2025.08.05 14:38:37.121, ClientConstant.MACHINE_FAULT_CODE.getErrorMsg():No error
+2025.08.05 14:38:37.123,UPDATE_RVM_WORK_STATUS6
+2025.08.05 14:38:37.125,setStatusColor4
+2025.08.05 14:38:37.128,更新投递数量：塑料瓶 0, 易拉罐 0, 拒收 2, 总金额 0.0
+2025.08.05 14:38:37.166,READY_AFTER_REJECT - WAIT_LIGHT_SENSOR1 - [L88LogicHandler] change workflow: READY_AFTER_REJECT => READY_ONE
+2025.08.05 14:38:37.167,setMessageHint:readycsada:Please put your container 
+ into the entrance
+2025.08.05 14:38:37.169, ClientConstant.MACHINE_FAULT_CODE.getErrorMsg():No error
+2025.08.05 14:38:37.171,UPDATE_RVM_WORK_STATUS3
+2025.08.05 14:38:37.173,setStatusColor2
+2025.08.05 14:38:37.206,更新投递数量：塑料瓶 0, 易拉罐 0, 拒收 2, 总金额 0.0
+2025.08.05 14:38:37.270,READY_ONE - WAIT_LIGHT_SENSOR1 - [System] Waiting for the bottle to be scanned...
+2025.08.05 14:38:37.271,READY_ONE - WAIT_LIGHT_SENSOR1 - [L88LogicHandler] stopActionForConveyorUnit
+2025.08.05 14:38:42.273,READY_ONE - WAIT_LIGHT_SENSOR1 - [System] Waiting for the bottle to be scanned...
+2025.08.05 14:38:42.277,READY_ONE - WAIT_LIGHT_SENSOR1 - [L88LogicHandler] stopActionForConveyorUnit
+2025.08.05 14:38:43.406,READY_ONE - WAIT_LIGHT_SENSOR1 - [L88LogicHandler] processPeripheralStatus: LightSensor - S1: ON, S2: OFF, S3: OFF, S4: OFF
+2025.08.05 14:38:43.433,READY_ONE - WAIT_LIGHT_SENSOR1 - [L88LogicHandler] new barcode scanned:7610113029879
+2025.08.05 14:38:43.457,READY_ONE - WAIT_LIGHT_SENSOR1 - Conveyor Unit send action cmd successful: 44
+2025.08.05 14:38:43.466,READY_ONE - WAIT_LIGHT_SENSOR1 - [TransactionHandler] create attempt:202505190001-1754397523
+2025.08.05 14:38:43.479,[系统]条码存在：7610113029879  ：{"barcode":"7610113029879","capacity":250,"containerType":"C","dMRecognitionType":"N","depositFee":0.25,"heightMax":65,"heightMin":45,"id":200653,"lengthMax":166,"lengthMin":106,"material":"A","name":"Cans","weightMax":21,"weightMin":0}
+2025.08.05 14:38:43.485,READY_ONE - WAIT_LIGHT_SENSOR1 - [L88LogicHandler] change workflow: READY_ONE => PROCESSING
+2025.08.05 14:38:43.487,setMessageHint:processingcsada:Initializing system...Please wait
+2025.08.05 14:38:43.488, ClientConstant.MACHINE_FAULT_CODE.getErrorMsg():No error
+2025.08.05 14:38:43.499,UPDATE_RVM_WORK_STATUS4
+2025.08.05 14:38:43.503,setStatusColor3
+2025.08.05 14:38:43.507,[系统]条码存在：7610113029879  ：{"barcode":"7610113029879","capacity":250,"containerType":"C","dMRecognitionType":"N","depositFee":0.25,"heightMax":65,"heightMin":45,"id":200653,"lengthMax":166,"lengthMin":106,"material":"A","name":"Cans","weightMax":21,"weightMin":0}
+2025.08.05 14:38:43.509,PROCESSING - WAIT_LIGHT_SENSOR1 - Conveyor Unit send action cmd successful: 44
+2025.08.05 14:38:43.510,[系统]条码存在：7610113029879  名字：Cans  材质：A  重量范围：0-21
+2025.08.05 14:38:43.512,PROCESSING - WAIT_LIGHT_SENSOR1 - [L88LogicHandler].isBarCodeExist The barcode exists:7610113029879 minWeight:0 maxWeight:21
+2025.08.05 14:38:43.514,PROCESSING - WAIT_LIGHT_SENSOR1 - [L88LogicHandler].isBarCodeExist Can scanned
+2025.08.05 14:38:43.555,PROCESSING - WAIT_LIGHT_SENSOR1 - [L88LogicHandler] change processing: WAIT_LIGHT_SENSOR1 -> WAIT_LIGHT_SENSOR2
+2025.08.05 14:38:43.556,PROCESSING - WAIT_LIGHT_SENSOR2 - [L88LogicHandler].processBottleReceiveStatus: The first photo-eye signal is detected.
+2025.08.05 14:38:43.558,PROCESSING - WAIT_LIGHT_SENSOR2 - Conveyor Unit send action cmd successful: 44
+2025.08.05 14:38:43.568,PROCESSING - WAIT_LIGHT_SENSOR2 - [L88LogicHandler] change processing: WAIT_LIGHT_SENSOR2 -> WAIT_LIGHT_SENSOR3
+2025.08.05 14:38:43.608,PROCESSING - WAIT_LIGHT_SENSOR3 - [L88MotorHandler] compactor send action cmd successful: 1
+2025.08.05 14:38:43.776,PROCESSING - WAIT_LIGHT_SENSOR3 - [L88LogicHandler] metal detected: Probably aluminum.
+2025.08.05 14:38:43.798,PROCESSING - WAIT_LIGHT_SENSOR3 - [L88LogicHandler] processPeripheralStatus: LightSensor - S1: OFF, S2: ON, S3: OFF, S4: OFF
+2025.08.05 14:38:44.203,PROCESSING - WAIT_LIGHT_SENSOR3 - [L88LogicHandler] processPeripheralStatus: LightSensor - S1: OFF, S2: ON, S3: ON, S4: OFF
+2025.08.05 14:38:44.210,PROCESSING - WAIT_LIGHT_SENSOR3 - [L88LogicHandler] The third photo-eye signal is detected.
+2025.08.05 14:38:44.211,PROCESSING - WAIT_LIGHT_SENSOR3 - [L88LogicHandler] change processing: WAIT_LIGHT_SENSOR3 -> START_GET_WEIGHT
+2025.08.05 14:38:44.215,PROCESSING - START_GET_WEIGHT - [System] detected metal removal.
+2025.08.05 14:38:44.222,PROCESSING - START_GET_WEIGHT - [L88LogicHandler] stopActionForConveyorUnit
+2025.08.05 14:38:44.224,PROCESSING - START_GET_WEIGHT - [WeightHandler] Start weight monitoring/measurement....
+2025.08.05 14:38:44.225,PROCESSING - START_GET_WEIGHT - [L88LogicHandler] change processing: START_GET_WEIGHT -> WAIT_GET_WEIGHT
+2025.08.05 14:38:44.259,[系统]Camera NO.1 取帧时间：1754397524259
+2025.08.05 14:38:44.261,PROCESSING - WAIT_GET_WEIGHT - Conveyor Unit send action cmd successful: 0
+2025.08.05 14:38:44.268,PROCESSING - WAIT_GET_WEIGHT - [WeightHandler] onWeightUpdate Current weight: 11g
+2025.08.05 14:38:44.291,[系统]拍照路径---: /storage/emulated/0/RVM/poc_video/compress/202505190001-1754397523.jpg
+2025.08.05 14:38:44.321,PROCESSING - WAIT_GET_WEIGHT - [L88LogicHandler] processPeripheralStatus: LightSensor - S1: OFF, S2: OFF, S3: ON, S4: OFF
+2025.08.05 14:38:44.332,[系统]拍照路径: /storage/emulated/0/RVM/poc_video/compress/box01_18_202508051438441754397524.jpg
+2025.08.05 14:38:44.358,PROCESSING - WAIT_GET_WEIGHT - [WeightHandler] onWeightUpdate Current weight: 10g
+2025.08.05 14:38:44.454,识别到的物体{"bottom":267,"className":"can","confidence":0.9326172,"info":"can (93,3%) 坐标: (235,196)-(400,267)","left":235,"right":400,"top":196}
+2025.08.05 14:38:44.454,left:235top196right400bottom267
+2025.08.05 14:38:44.455,Bottle coordinates bottleLength：136mm, bottleHeight：55mm
+2025.08.05 14:38:44.462,PROCESSING - WAIT_GET_WEIGHT - [WeightHandler] onWeightUpdate Current weight: 11g
+2025.08.05 14:38:44.485,[系统]拍照路径: /storage/emulated/0/RVM/poc_video/compress/AI-202505190001-1754397523.jpg
+2025.08.05 14:38:44.505,[系统]uploadImageOnNextSuccess：{"fileNames":[{"picType":"jpg","url":"202505190001/202505190001-1754397523.jpg"}]}
+2025.08.05 14:38:44.518,[系统]拍照路径: /storage/emulated/0/RVM/poc_video/compress/box01_18_202508051438441754397524.jpg
+2025.08.05 14:38:44.527,[DataSourceOperator] Local data has been deleted leesche.smartrecycling.base.entity.MonitorImgEntity@f1552b
+2025.08.05 14:38:44.579,PROCESSING - WAIT_GET_WEIGHT - [WeightHandler] onWeightUpdate Current weight: 11g
+2025.08.05 14:38:44.581,PROCESSING - WAIT_GET_WEIGHT - [WeightHandler] Weight is stable: 11g. Measurement duration: 356ms
+2025.08.05 14:38:44.582,PROCESSING - WAIT_GET_WEIGHT - [WeightHandler] Real Weight calculation: measuredWeight: 11g - initWeight: 0g + weightCorrection: 2g = realWeight: 13g
+2025.08.05 14:38:44.586,PROCESSING - WAIT_GET_WEIGHT - [L88LogicHandler]: check weight: 13g :0~21
+2025.08.05 14:38:44.587,PROCESSING - WAIT_GET_WEIGHT - [L88LogicHandler]: measured weight: 11g initWeight: 0
+2025.08.05 14:38:44.589,PROCESSING - WAIT_GET_WEIGHT - [L88LogicHandler] change processing: WAIT_GET_WEIGHT -> BACKEND_MATERIAL_JUDGMENT
+2025.08.05 14:38:44.600,PROCESSING - BACKEND_MATERIAL_JUDGMENT - [L88LogicHandler] change processing: BACKEND_MATERIAL_JUDGMENT -> MATERIAL_JUDGMENT
+2025.08.05 14:38:44.613,PROCESSING - MATERIAL_JUDGMENT - [L88LogicHandler] change processing: MATERIAL_JUDGMENT -> WAIT_GET_AI_RESULT
+2025.08.05 14:38:44.624,PROCESSING - WAIT_GET_AI_RESULT - [L88LogicHandler] change processing: WAIT_GET_AI_RESULT -> OPEN_DOOR
+2025.08.05 14:38:44.635,PROCESSING - OPEN_DOOR - [FraudDetectionHandler] start fraud detection
+2025.08.05 14:38:44.637,PROCESSING - OPEN_DOOR - [FraudCheck] States - 0 - OFF,OFF,ON,OFF
+2025.08.05 14:38:44.638,PROCESSING - OPEN_DOOR - [L88LogicHandler] change processing: OPEN_DOOR -> STOP_CONVEYOR
+2025.08.05 14:38:44.640,PROCESSING - STOP_CONVEYOR - [L88LogicHandler] closeByLength: 133mm -> sysFlowDt: 962ms
+2025.08.05 14:38:44.641,PROCESSING - STOP_CONVEYOR - [L88LogicHandler.startTrack] Start conveyor belt acceleration process
+2025.08.05 14:38:44.663,[系统]分拣轴 发送 动作指令 成功：3
+2025.08.05 14:38:44.696,[系统]uploadAiFile：{"fileNames":[{"picType":"jpg","url":"202505190001/AI-202505190001-1754397523.jpg"}]}
+2025.08.05 14:38:44.738,[DataSourceOperator] Local data has been deleted leesche.smartrecycling.base.entity.MonitorImgEntity@231813d
+2025.08.05 14:38:44.741,[YOLO] NEW result onDetection: 1
+2025.08.05 14:38:44.742,PROCESSING - STOP_CONVEYOR - new TestObject("can",0.9453125f,255,197,420,268)
+2025.08.05 14:38:44.746,PROCESSING - STOP_CONVEYOR - [FraudCheck] States - 0 - OFF,OFF,ON,OFF
+2025.08.05 14:38:44.748,PROCESSING - STOP_CONVEYOR - [FraudCheck] Container: Left: 235 Right: 400
+2025.08.05 14:38:44.749,PROCESSING - STOP_CONVEYOR - [FraudCheck] second container: false
+2025.08.05 14:38:44.750,PROCESSING - STOP_CONVEYOR - [FraudCheck] AI-Pos - 109 - Left: 255, Right: 420
+2025.08.05 14:38:44.753,PROCESSING - STOP_CONVEYOR - [FraudCheck] FraudDetected - 114 - 0 (FALSE)
+2025.08.05 14:38:44.754,PROCESSING - STOP_CONVEYOR - [FraudDetectionHandler] isEyeFraudDetected: FALSE
+2025.08.05 14:38:44.756,PROCESSING - STOP_CONVEYOR - [FraudDetectionHandler] main object finished.
+2025.08.05 14:38:44.757,PROCESSING - STOP_CONVEYOR - [FraudCheck] setHasFinishedAiDetection EMPTY RESULT: 1
+2025.08.05 14:38:44.817,[BackendRequestHandler]图片 上传失败  服务器错误码：InvalidAccessKeyId 服务器错误原因：The OSS Access Key Id you provided does not exist in our records.
+2025.08.05 14:38:44.823,[YOLO] NEW result onDetection: 1
+2025.08.05 14:38:44.823,PROCESSING - STOP_CONVEYOR - new TestObject("can",0.9453125f,255,197,421,269)
+2025.08.05 14:38:44.826,PROCESSING - STOP_CONVEYOR - [FraudCheck] States - 0 - OFF,OFF,ON,OFF
+2025.08.05 14:38:44.827,PROCESSING - STOP_CONVEYOR - [FraudCheck] Container: Left: 235 Right: 400
+2025.08.05 14:38:44.828,PROCESSING - STOP_CONVEYOR - [FraudCheck] second container: false
+2025.08.05 14:38:44.829,PROCESSING - STOP_CONVEYOR - [FraudCheck] AI-Pos - 109 - Left: 255, Right: 420
+2025.08.05 14:38:44.830,PROCESSING - STOP_CONVEYOR - [FraudCheck] AI-Pos - 189 - Left: 255, Right: 421
+2025.08.05 14:38:44.831,PROCESSING - STOP_CONVEYOR - [FraudCheck] FraudDetected - 194 - 0 (FALSE)
+2025.08.05 14:38:44.832,PROCESSING - STOP_CONVEYOR - [FraudDetectionHandler] isEyeFraudDetected: FALSE
+2025.08.05 14:38:44.864,PROCESSING - STOP_CONVEYOR - Conveyor Unit send action cmd successful: 33
+2025.08.05 14:38:44.921,[YOLO] NEW result onDetection: 1
+2025.08.05 14:38:44.922,PROCESSING - STOP_CONVEYOR - new TestObject("can",0.94628906f,255,197,420,268)
+2025.08.05 14:38:44.926,PROCESSING - STOP_CONVEYOR - [FraudCheck] States - 0 - OFF,OFF,ON,OFF
+2025.08.05 14:38:44.926,PROCESSING - STOP_CONVEYOR - [FraudCheck] Container: Left: 235 Right: 400
+2025.08.05 14:38:44.927,PROCESSING - STOP_CONVEYOR - [FraudCheck] second container: false
+2025.08.05 14:38:44.928,PROCESSING - STOP_CONVEYOR - [FraudCheck] AI-Pos - 109 - Left: 255, Right: 420
+2025.08.05 14:38:44.930,PROCESSING - STOP_CONVEYOR - [FraudCheck] AI-Pos - 189 - Left: 255, Right: 421
+2025.08.05 14:38:44.931,PROCESSING - STOP_CONVEYOR - [FraudCheck] AI-Pos - 288 - Left: 255, Right: 420
+2025.08.05 14:38:44.932,PROCESSING - STOP_CONVEYOR - [FraudCheck] FraudDetected - 295 - 0 (FALSE)
+2025.08.05 14:38:44.933,PROCESSING - STOP_CONVEYOR - [FraudDetectionHandler] isEyeFraudDetected: FALSE
+2025.08.05 14:38:44.966,PROCESSING - STOP_CONVEYOR - Conveyor Unit send action cmd successful: 22
+2025.08.05 14:38:45.014,[BackendRequestHandler]图片 上传失败  服务器错误码：InvalidAccessKeyId 服务器错误原因：The OSS Access Key Id you provided does not exist in our records.
+2025.08.05 14:38:45.022,[YOLO] NEW result onDetection: 1
+2025.08.05 14:38:45.023,PROCESSING - STOP_CONVEYOR - new TestObject("can",0.94677734f,255,197,420,268)
+2025.08.05 14:38:45.025,PROCESSING - STOP_CONVEYOR - [FraudCheck] States - 0 - OFF,OFF,ON,OFF
+2025.08.05 14:38:45.026,PROCESSING - STOP_CONVEYOR - [FraudCheck] Container: Left: 235 Right: 400
+2025.08.05 14:38:45.027,PROCESSING - STOP_CONVEYOR - [FraudCheck] second container: false
+2025.08.05 14:38:45.027,PROCESSING - STOP_CONVEYOR - [FraudCheck] AI-Pos - 109 - Left: 255, Right: 420
+2025.08.05 14:38:45.028,PROCESSING - STOP_CONVEYOR - [FraudCheck] AI-Pos - 189 - Left: 255, Right: 421
+2025.08.05 14:38:45.029,PROCESSING - STOP_CONVEYOR - [FraudCheck] AI-Pos - 288 - Left: 255, Right: 420
+2025.08.05 14:38:45.030,PROCESSING - STOP_CONVEYOR - [FraudCheck] AI-Pos - 388 - Left: 255, Right: 420
+2025.08.05 14:38:45.031,PROCESSING - STOP_CONVEYOR - [FraudCheck] FraudDetected - 394 - 0 (FALSE)
+2025.08.05 14:38:45.031,PROCESSING - STOP_CONVEYOR - [FraudDetectionHandler] isEyeFraudDetected: FALSE
+2025.08.05 14:38:45.066,PROCESSING - STOP_CONVEYOR - Conveyor Unit send action cmd successful: 11
+2025.08.05 14:38:45.122,[YOLO] NEW result onDetection: 1
+2025.08.05 14:38:45.123,PROCESSING - STOP_CONVEYOR - new TestObject("can",0.94921875f,258,197,423,269)
+2025.08.05 14:38:45.127,PROCESSING - STOP_CONVEYOR - [FraudCheck] States - 0 - OFF,OFF,ON,OFF
+2025.08.05 14:38:45.128,PROCESSING - STOP_CONVEYOR - [FraudCheck] Container: Left: 235 Right: 400
+2025.08.05 14:38:45.129,PROCESSING - STOP_CONVEYOR - [FraudCheck] second container: false
+2025.08.05 14:38:45.130,PROCESSING - STOP_CONVEYOR - [FraudCheck] AI-Pos - 109 - Left: 255, Right: 420
+2025.08.05 14:38:45.131,PROCESSING - STOP_CONVEYOR - [FraudCheck] AI-Pos - 189 - Left: 255, Right: 421
+2025.08.05 14:38:45.132,PROCESSING - STOP_CONVEYOR - [FraudCheck] AI-Pos - 288 - Left: 255, Right: 420
+2025.08.05 14:38:45.133,PROCESSING - STOP_CONVEYOR - [FraudCheck] AI-Pos - 388 - Left: 255, Right: 420
+2025.08.05 14:38:45.134,PROCESSING - STOP_CONVEYOR - [FraudCheck] AI-Pos - 490 - Left: 258, Right: 423
+2025.08.05 14:38:45.135,PROCESSING - STOP_CONVEYOR - [FraudCheck] FraudDetected - 498 - 3 (FALSE)
+2025.08.05 14:38:45.136,PROCESSING - STOP_CONVEYOR - [FraudDetectionHandler] isEyeFraudDetected: FALSE
+2025.08.05 14:38:45.139,[EyeLightHandler] add eyelight history
+2025.08.05 14:38:45.140,PROCESSING - STOP_CONVEYOR - [FraudCheck] States - 0 - OFF,OFF,ON,OFF
+2025.08.05 14:38:45.141,PROCESSING - STOP_CONVEYOR - [FraudCheck] States - 503 - OFF,OFF,ON,ON
+2025.08.05 14:38:45.142,PROCESSING - STOP_CONVEYOR - [FraudCheck] Container: Left: 235 Right: 400
+2025.08.05 14:38:45.143,PROCESSING - STOP_CONVEYOR - [FraudCheck] second container: false
+2025.08.05 14:38:45.144,PROCESSING - STOP_CONVEYOR - [FraudCheck] AI-Pos - 109 - Left: 255, Right: 420
+2025.08.05 14:38:45.145,PROCESSING - STOP_CONVEYOR - [FraudCheck] AI-Pos - 189 - Left: 255, Right: 421
+2025.08.05 14:38:45.147,PROCESSING - STOP_CONVEYOR - [FraudCheck] AI-Pos - 288 - Left: 255, Right: 420
+2025.08.05 14:38:45.148,PROCESSING - STOP_CONVEYOR - [FraudCheck] AI-Pos - 388 - Left: 255, Right: 420
+2025.08.05 14:38:45.149,PROCESSING - STOP_CONVEYOR - [FraudCheck] AI-Pos - 490 - Left: 258, Right: 423
+2025.08.05 14:38:45.150,PROCESSING - STOP_CONVEYOR - [FraudCheck] FraudDetected - 513 - 0 (FALSE)
+2025.08.05 14:38:45.153,PROCESSING - STOP_CONVEYOR - [FraudDetectionHandler] isEyeFraudDetected: FALSE
+2025.08.05 14:38:45.154,PROCESSING - STOP_CONVEYOR - [L88LogicHandler] processPeripheralStatus: LightSensor - S1: OFF, S2: OFF, S3: ON, S4: ON
+2025.08.05 14:38:45.239,[EyeLightHandler] add eyelight history
+2025.08.05 14:38:45.240,PROCESSING - STOP_CONVEYOR - [FraudCheck] States - 0 - OFF,OFF,ON,OFF
+2025.08.05 14:38:45.241,PROCESSING - STOP_CONVEYOR - [FraudCheck] States - 503 - OFF,OFF,ON,ON
+2025.08.05 14:38:45.242,PROCESSING - STOP_CONVEYOR - [FraudCheck] States - 603 - OFF,OFF,OFF,ON
+2025.08.05 14:38:45.243,PROCESSING - STOP_CONVEYOR - [FraudCheck] Container: Left: 235 Right: 400
+2025.08.05 14:38:45.244,PROCESSING - STOP_CONVEYOR - [FraudCheck] second container: false
+2025.08.05 14:38:45.246,PROCESSING - STOP_CONVEYOR - [FraudCheck] AI-Pos - 109 - Left: 255, Right: 420
+2025.08.05 14:38:45.246,PROCESSING - STOP_CONVEYOR - [FraudCheck] AI-Pos - 189 - Left: 255, Right: 421
+2025.08.05 14:38:45.248,PROCESSING - STOP_CONVEYOR - [FraudCheck] AI-Pos - 288 - Left: 255, Right: 420
+2025.08.05 14:38:45.249,PROCESSING - STOP_CONVEYOR - [FraudCheck] AI-Pos - 388 - Left: 255, Right: 420
+2025.08.05 14:38:45.250,PROCESSING - STOP_CONVEYOR - [FraudCheck] AI-Pos - 490 - Left: 258, Right: 423
+2025.08.05 14:38:45.251,PROCESSING - STOP_CONVEYOR - [FraudCheck] FraudDetected - 614 - 0 (FALSE)
+2025.08.05 14:38:45.252,PROCESSING - STOP_CONVEYOR - [FraudDetectionHandler] isEyeFraudDetected: FALSE
+2025.08.05 14:38:45.253,PROCESSING - STOP_CONVEYOR - [L88LogicHandler] processPeripheralStatus: LightSensor - S1: OFF, S2: OFF, S3: OFF, S4: ON
+2025.08.05 14:38:45.255,[YOLO] NEW result onDetection: 1
+2025.08.05 14:38:45.256,PROCESSING - STOP_CONVEYOR - new TestObject("can",0.9355469f,267,197,432,267)
+2025.08.05 14:38:45.259,PROCESSING - STOP_CONVEYOR - [FraudCheck] States - 0 - OFF,OFF,ON,OFF
+2025.08.05 14:38:45.260,PROCESSING - STOP_CONVEYOR - [FraudCheck] States - 503 - OFF,OFF,ON,ON
+2025.08.05 14:38:45.261,PROCESSING - STOP_CONVEYOR - [FraudCheck] States - 603 - OFF,OFF,OFF,ON
+2025.08.05 14:38:45.262,PROCESSING - STOP_CONVEYOR - [FraudCheck] Container: Left: 235 Right: 400
+2025.08.05 14:38:45.263,PROCESSING - STOP_CONVEYOR - [FraudCheck] second container: false
+2025.08.05 14:38:45.264,PROCESSING - STOP_CONVEYOR - [FraudCheck] AI-Pos - 109 - Left: 255, Right: 420
+2025.08.05 14:38:45.265,PROCESSING - STOP_CONVEYOR - [FraudCheck] AI-Pos - 189 - Left: 255, Right: 421
+2025.08.05 14:38:45.266,PROCESSING - STOP_CONVEYOR - [FraudCheck] AI-Pos - 288 - Left: 255, Right: 420
+2025.08.05 14:38:45.268,PROCESSING - STOP_CONVEYOR - [FraudCheck] AI-Pos - 388 - Left: 255, Right: 420
+2025.08.05 14:38:45.269,PROCESSING - STOP_CONVEYOR - [FraudCheck] AI-Pos - 490 - Left: 258, Right: 423
+2025.08.05 14:38:45.271,PROCESSING - STOP_CONVEYOR - [FraudCheck] AI-Pos - 622 - Left: 267, Right: 432
+2025.08.05 14:38:45.272,PROCESSING - STOP_CONVEYOR - [FraudCheck] FraudDetected - 635 - 9 (FALSE)
+2025.08.05 14:38:45.273,PROCESSING - STOP_CONVEYOR - [FraudDetectionHandler] isEyeFraudDetected: FALSE
+2025.08.05 14:38:45.358,[YOLO] NEW result onDetection: 1
+2025.08.05 14:38:45.359,PROCESSING - STOP_CONVEYOR - new TestObject("can",0.94677734f,311,197,480,269)
+2025.08.05 14:38:45.362,PROCESSING - STOP_CONVEYOR - [FraudCheck] States - 0 - OFF,OFF,ON,OFF
+2025.08.05 14:38:45.363,PROCESSING - STOP_CONVEYOR - [FraudCheck] States - 503 - OFF,OFF,ON,ON
+2025.08.05 14:38:45.364,PROCESSING - STOP_CONVEYOR - [FraudCheck] States - 603 - OFF,OFF,OFF,ON
+2025.08.05 14:38:45.365,PROCESSING - STOP_CONVEYOR - [FraudCheck] Container: Left: 235 Right: 400
+2025.08.05 14:38:45.365,PROCESSING - STOP_CONVEYOR - [FraudCheck] second container: false
+2025.08.05 14:38:45.366,PROCESSING - STOP_CONVEYOR - [FraudCheck] AI-Pos - 109 - Left: 255, Right: 420
+2025.08.05 14:38:45.367,PROCESSING - STOP_CONVEYOR - [FraudCheck] AI-Pos - 189 - Left: 255, Right: 421
+2025.08.05 14:38:45.368,PROCESSING - STOP_CONVEYOR - [FraudCheck] AI-Pos - 288 - Left: 255, Right: 420
+2025.08.05 14:38:45.368,PROCESSING - STOP_CONVEYOR - [FraudCheck] AI-Pos - 388 - Left: 255, Right: 420
+2025.08.05 14:38:45.369,PROCESSING - STOP_CONVEYOR - [FraudCheck] AI-Pos - 490 - Left: 258, Right: 423
+2025.08.05 14:38:45.370,PROCESSING - STOP_CONVEYOR - [FraudCheck] AI-Pos - 622 - Left: 267, Right: 432
+2025.08.05 14:38:45.371,PROCESSING - STOP_CONVEYOR - [FraudCheck] AI-Pos - 725 - Left: 311, Right: 480
+2025.08.05 14:38:45.373,PROCESSING - STOP_CONVEYOR - [FraudCheck] FraudDetected - 736 - 44 (FALSE)
+2025.08.05 14:38:45.374,PROCESSING - STOP_CONVEYOR - [FraudDetectionHandler] isEyeFraudDetected: FALSE
+2025.08.05 14:38:45.440,[EyeLightHandler] add eyelight history
+2025.08.05 14:38:45.441,PROCESSING - STOP_CONVEYOR - [FraudCheck] States - 0 - OFF,OFF,ON,OFF
+2025.08.05 14:38:45.443,PROCESSING - STOP_CONVEYOR - [FraudCheck] States - 503 - OFF,OFF,ON,ON
+2025.08.05 14:38:45.444,PROCESSING - STOP_CONVEYOR - [FraudCheck] States - 603 - OFF,OFF,OFF,ON
+2025.08.05 14:38:45.445,PROCESSING - STOP_CONVEYOR - [FraudCheck] States - 804 - OFF,OFF,OFF,OFF
+2025.08.05 14:38:45.446,PROCESSING - STOP_CONVEYOR - [FraudCheck] Container: Left: 235 Right: 400
+2025.08.05 14:38:45.447,PROCESSING - STOP_CONVEYOR - [FraudCheck] second container: false
+2025.08.05 14:38:45.448,PROCESSING - STOP_CONVEYOR - [FraudCheck] AI-Pos - 109 - Left: 255, Right: 420
+2025.08.05 14:38:45.450,PROCESSING - STOP_CONVEYOR - [FraudCheck] AI-Pos - 189 - Left: 255, Right: 421
+2025.08.05 14:38:45.451,PROCESSING - STOP_CONVEYOR - [FraudCheck] AI-Pos - 288 - Left: 255, Right: 420
+2025.08.05 14:38:45.452,PROCESSING - STOP_CONVEYOR - [FraudCheck] AI-Pos - 388 - Left: 255, Right: 420
+2025.08.05 14:38:45.453,PROCESSING - STOP_CONVEYOR - [FraudCheck] AI-Pos - 490 - Left: 258, Right: 423
+2025.08.05 14:38:45.454,PROCESSING - STOP_CONVEYOR - [FraudCheck] AI-Pos - 622 - Left: 267, Right: 432
+2025.08.05 14:38:45.456,PROCESSING - STOP_CONVEYOR - [FraudCheck] AI-Pos - 725 - Left: 311, Right: 480
+2025.08.05 14:38:45.457,PROCESSING - STOP_CONVEYOR - [FraudCheck] FraudDetected - 820 - 0 (FALSE)
+2025.08.05 14:38:45.458,PROCESSING - STOP_CONVEYOR - [FraudDetectionHandler] isEyeFraudDetected: FALSE
+2025.08.05 14:38:45.460,PROCESSING - STOP_CONVEYOR - [L88LogicHandler] processPeripheralStatus: LightSensor - S1: OFF, S2: OFF, S3: OFF, S4: OFF
+2025.08.05 14:38:45.473,[YOLO] NEW result onDetection: 2
+2025.08.05 14:38:45.474,PROCESSING - STOP_CONVEYOR - new TestObject("bottle",0.8383789f,406,198,591,271)
+2025.08.05 14:38:45.475,PROCESSING - STOP_CONVEYOR - new TestObject("can",0.6640625f,406,198,591,270)
+2025.08.05 14:38:45.477,PROCESSING - STOP_CONVEYOR - [FraudCheck] States - 0 - OFF,OFF,ON,OFF
+2025.08.05 14:38:45.478,PROCESSING - STOP_CONVEYOR - [FraudCheck] States - 503 - OFF,OFF,ON,ON
+2025.08.05 14:38:45.479,PROCESSING - STOP_CONVEYOR - [FraudCheck] States - 603 - OFF,OFF,OFF,ON
+2025.08.05 14:38:45.479,PROCESSING - STOP_CONVEYOR - [FraudCheck] States - 804 - OFF,OFF,OFF,OFF
+2025.08.05 14:38:45.480,PROCESSING - STOP_CONVEYOR - [FraudCheck] Container: Left: 235 Right: 400
+2025.08.05 14:38:45.481,PROCESSING - STOP_CONVEYOR - [FraudCheck] second container: false
+2025.08.05 14:38:45.481,PROCESSING - STOP_CONVEYOR - [FraudCheck] AI-Pos - 109 - Left: 255, Right: 420
+2025.08.05 14:38:45.482,PROCESSING - STOP_CONVEYOR - [FraudCheck] AI-Pos - 189 - Left: 255, Right: 421
+2025.08.05 14:38:45.483,PROCESSING - STOP_CONVEYOR - [FraudCheck] AI-Pos - 288 - Left: 255, Right: 420
+2025.08.05 14:38:45.484,PROCESSING - STOP_CONVEYOR - [FraudCheck] AI-Pos - 388 - Left: 255, Right: 420
+2025.08.05 14:38:45.484,PROCESSING - STOP_CONVEYOR - [FraudCheck] AI-Pos - 490 - Left: 258, Right: 423
+2025.08.05 14:38:45.485,PROCESSING - STOP_CONVEYOR - [FraudCheck] AI-Pos - 622 - Left: 267, Right: 432
+2025.08.05 14:38:45.486,PROCESSING - STOP_CONVEYOR - [FraudCheck] AI-Pos - 725 - Left: 311, Right: 480
+2025.08.05 14:38:45.487,PROCESSING - STOP_CONVEYOR - [FraudCheck] AI-Pos - 840 - Left: 406, Right: 591
+2025.08.05 14:38:45.488,PROCESSING - STOP_CONVEYOR - [FraudCheck] FraudDetected - 851 - 95 (FALSE)
+2025.08.05 14:38:45.490,PROCESSING - STOP_CONVEYOR - [FraudDetectionHandler] isEyeFraudDetected: FALSE
+2025.08.05 14:38:45.577,[YOLO] NEW result onDetection: 1
+2025.08.05 14:38:45.578,PROCESSING - STOP_CONVEYOR - new TestObject("bottle",0.9194336f,439,198,627,272)
+2025.08.05 14:38:45.580,PROCESSING - STOP_CONVEYOR - [FraudCheck] States - 0 - OFF,OFF,ON,OFF
+2025.08.05 14:38:45.581,PROCESSING - STOP_CONVEYOR - [FraudCheck] States - 503 - OFF,OFF,ON,ON
+2025.08.05 14:38:45.582,PROCESSING - STOP_CONVEYOR - [FraudCheck] States - 603 - OFF,OFF,OFF,ON
+2025.08.05 14:38:45.583,PROCESSING - STOP_CONVEYOR - [FraudCheck] States - 804 - OFF,OFF,OFF,OFF
+2025.08.05 14:38:45.583,PROCESSING - STOP_CONVEYOR - [FraudCheck] Container: Left: 235 Right: 400
+2025.08.05 14:38:45.584,PROCESSING - STOP_CONVEYOR - [FraudCheck] second container: false
+2025.08.05 14:38:45.585,PROCESSING - STOP_CONVEYOR - [FraudCheck] AI-Pos - 109 - Left: 255, Right: 420
+2025.08.05 14:38:45.586,PROCESSING - STOP_CONVEYOR - [FraudCheck] AI-Pos - 189 - Left: 255, Right: 421
+2025.08.05 14:38:45.587,PROCESSING - STOP_CONVEYOR - [FraudCheck] AI-Pos - 288 - Left: 255, Right: 420
+2025.08.05 14:38:45.588,PROCESSING - STOP_CONVEYOR - [FraudCheck] AI-Pos - 388 - Left: 255, Right: 420
+2025.08.05 14:38:45.588,PROCESSING - STOP_CONVEYOR - [FraudCheck] AI-Pos - 490 - Left: 258, Right: 423
+2025.08.05 14:38:45.589,PROCESSING - STOP_CONVEYOR - [FraudCheck] AI-Pos - 622 - Left: 267, Right: 432
+2025.08.05 14:38:45.590,PROCESSING - STOP_CONVEYOR - [FraudCheck] AI-Pos - 725 - Left: 311, Right: 480
+2025.08.05 14:38:45.591,PROCESSING - STOP_CONVEYOR - [FraudCheck] AI-Pos - 840 - Left: 406, Right: 591
+2025.08.05 14:38:45.592,PROCESSING - STOP_CONVEYOR - [FraudCheck] AI-Pos - 943 - Left: 439, Right: 627
+2025.08.05 14:38:45.593,PROCESSING - STOP_CONVEYOR - [FraudCheck] FraudDetected - 955 - 33 (FALSE)
+2025.08.05 14:38:45.593,PROCESSING - STOP_CONVEYOR - [FraudDetectionHandler] isEyeFraudDetected: FALSE
+2025.08.05 14:38:45.602,PROCESSING - STOP_CONVEYOR - [L88LogicHandler] change processing: STOP_CONVEYOR -> WAIT_FRAUD
+2025.08.05 14:38:45.603,PROCESSING - WAIT_FRAUD - [L88LogicHandler] stopActionForConveyorUnit
+2025.08.05 14:38:45.618,PROCESSING - WAIT_FRAUD - Conveyor Unit send action cmd successful: 0
+2025.08.05 14:38:45.691,[YOLO] NEW result onDetection: 1
+2025.08.05 14:38:45.693,PROCESSING - WAIT_FRAUD - new TestObject("bottle",0.9301758f,490,197,639,271)
+2025.08.05 14:38:45.696,PROCESSING - WAIT_FRAUD - [FraudCheck] States - 0 - OFF,OFF,ON,OFF
+2025.08.05 14:38:45.698,PROCESSING - WAIT_FRAUD - [FraudCheck] States - 503 - OFF,OFF,ON,ON
+2025.08.05 14:38:45.699,PROCESSING - WAIT_FRAUD - [FraudCheck] States - 603 - OFF,OFF,OFF,ON
+2025.08.05 14:38:45.700,PROCESSING - WAIT_FRAUD - [FraudCheck] States - 804 - OFF,OFF,OFF,OFF
+2025.08.05 14:38:45.701,PROCESSING - WAIT_FRAUD - [FraudCheck] Container: Left: 235 Right: 400
+2025.08.05 14:38:45.702,PROCESSING - WAIT_FRAUD - [FraudCheck] second container: false
+2025.08.05 14:38:45.703,PROCESSING - WAIT_FRAUD - [FraudCheck] AI-Pos - 109 - Left: 255, Right: 420
+2025.08.05 14:38:45.705,PROCESSING - WAIT_FRAUD - [FraudCheck] AI-Pos - 189 - Left: 255, Right: 421
+2025.08.05 14:38:45.706,PROCESSING - WAIT_FRAUD - [FraudCheck] AI-Pos - 288 - Left: 255, Right: 420
+2025.08.05 14:38:45.708,PROCESSING - WAIT_FRAUD - [FraudCheck] AI-Pos - 388 - Left: 255, Right: 420
+2025.08.05 14:38:45.710,PROCESSING - WAIT_FRAUD - [FraudCheck] AI-Pos - 490 - Left: 258, Right: 423
+2025.08.05 14:38:45.711,PROCESSING - WAIT_FRAUD - [FraudCheck] AI-Pos - 622 - Left: 267, Right: 432
+2025.08.05 14:38:45.713,PROCESSING - WAIT_FRAUD - [FraudCheck] AI-Pos - 725 - Left: 311, Right: 480
+2025.08.05 14:38:45.721,PROCESSING - WAIT_FRAUD - [FraudCheck] AI-Pos - 840 - Left: 406, Right: 591
+2025.08.05 14:38:45.722,PROCESSING - WAIT_FRAUD - [FraudCheck] AI-Pos - 943 - Left: 439, Right: 627
+2025.08.05 14:38:45.724,PROCESSING - WAIT_FRAUD - [FraudCheck] AI-Pos - 1059 - Left: 490, Right: 639
+2025.08.05 14:38:45.725,PROCESSING - WAIT_FRAUD - [FraudCheck] FraudDetected - 1088 - 51 (FALSE)
+2025.08.05 14:38:45.727,PROCESSING - WAIT_FRAUD - [FraudDetectionHandler] isEyeFraudDetected: FALSE
+2025.08.05 14:38:45.809,[YOLO] NEW result onDetection: 1
+2025.08.05 14:38:45.811,PROCESSING - WAIT_FRAUD - new TestObject("bottle",0.90625f,544,199,639,271)
+2025.08.05 14:38:45.813,PROCESSING - WAIT_FRAUD - [FraudCheck] States - 0 - OFF,OFF,ON,OFF
+2025.08.05 14:38:45.815,PROCESSING - WAIT_FRAUD - [FraudCheck] States - 503 - OFF,OFF,ON,ON
+2025.08.05 14:38:45.816,PROCESSING - WAIT_FRAUD - [FraudCheck] States - 603 - OFF,OFF,OFF,ON
+2025.08.05 14:38:45.817,PROCESSING - WAIT_FRAUD - [FraudCheck] States - 804 - OFF,OFF,OFF,OFF
+2025.08.05 14:38:45.818,PROCESSING - WAIT_FRAUD - [FraudCheck] Container: Left: 235 Right: 400
+2025.08.05 14:38:45.819,PROCESSING - WAIT_FRAUD - [FraudCheck] second container: false
+2025.08.05 14:38:45.820,PROCESSING - WAIT_FRAUD - [FraudCheck] AI-Pos - 109 - Left: 255, Right: 420
+2025.08.05 14:38:45.822,PROCESSING - WAIT_FRAUD - [FraudCheck] AI-Pos - 189 - Left: 255, Right: 421
+2025.08.05 14:38:45.823,PROCESSING - WAIT_FRAUD - [FraudCheck] AI-Pos - 288 - Left: 255, Right: 420
+2025.08.05 14:38:45.825,PROCESSING - WAIT_FRAUD - [FraudCheck] AI-Pos - 388 - Left: 255, Right: 420
+2025.08.05 14:38:45.826,PROCESSING - WAIT_FRAUD - [FraudCheck] AI-Pos - 490 - Left: 258, Right: 423
+2025.08.05 14:38:45.828,PROCESSING - WAIT_FRAUD - [FraudCheck] AI-Pos - 622 - Left: 267, Right: 432
+2025.08.05 14:38:45.829,PROCESSING - WAIT_FRAUD - [FraudCheck] AI-Pos - 725 - Left: 311, Right: 480
+2025.08.05 14:38:45.831,PROCESSING - WAIT_FRAUD - [FraudCheck] AI-Pos - 840 - Left: 406, Right: 591
+2025.08.05 14:38:45.832,PROCESSING - WAIT_FRAUD - [FraudCheck] AI-Pos - 943 - Left: 439, Right: 627
+2025.08.05 14:38:45.833,PROCESSING - WAIT_FRAUD - [FraudCheck] AI-Pos - 1059 - Left: 490, Right: 639
+2025.08.05 14:38:45.835,PROCESSING - WAIT_FRAUD - [FraudCheck] AI-Pos - 1176 - Left: 544, Right: 639
+2025.08.05 14:38:45.836,PROCESSING - WAIT_FRAUD - [FraudCheck] FraudDetected - 1199 - 54 (FALSE)
+2025.08.05 14:38:45.837,PROCESSING - WAIT_FRAUD - [FraudDetectionHandler] isEyeFraudDetected: FALSE
+2025.08.05 14:38:45.896,[YOLO] NEW result onDetection: 1
+2025.08.05 14:38:45.897,PROCESSING - WAIT_FRAUD - new TestObject("bottle",0.3876953f,561,200,629,278)
+2025.08.05 14:38:45.901,PROCESSING - WAIT_FRAUD - [FraudCheck] setHasFinishedAiDetection EMPTY RESULT: 2
+2025.08.05 14:38:45.992,PROCESSING - WAIT_FRAUD - [FraudCheck] setHasFinishedAiDetection EMPTY RESULT: 3
+2025.08.05 14:38:46.110,PROCESSING - WAIT_FRAUD - [FraudCheck] setHasFinishedAiDetection EMPTY RESULT: 4
+2025.08.05 14:38:46.122,[系统]分拣轴 发送 动作指令 成功：2
+2025.08.05 14:38:46.204,PROCESSING - WAIT_FRAUD - [FraudCheck] setHasFinishedAiDetection EMPTY RESULT: 5
+2025.08.05 14:38:46.314,[YOLO] NEW result onDetection: 1
+2025.08.05 14:38:46.315,PROCESSING - WAIT_FRAUD - new TestObject("bottle",0.3996582f,560,209,631,296)
+2025.08.05 14:38:46.319,PROCESSING - WAIT_FRAUD - [FraudCheck] setHasFinishedAiDetection EMPTY RESULT: 6
+2025.08.05 14:38:46.410,PROCESSING - WAIT_FRAUD - [FraudCheck] setHasFinishedAiDetection EMPTY RESULT: 7
+2025.08.05 14:38:46.513,PROCESSING - WAIT_FRAUD - [FraudCheck] setHasFinishedAiDetection EMPTY RESULT: 8
+2025.08.05 14:38:46.613,PROCESSING - WAIT_FRAUD - [FraudCheck] setHasFinishedAiDetection EMPTY RESULT: 9
+2025.08.05 14:38:46.729,PROCESSING - WAIT_FRAUD - [FraudCheck] setHasFinishedAiDetection EMPTY RESULT: 10
+2025.08.05 14:38:46.730,PROCESSING - WAIT_FRAUD - [FraudCheck] Entering AI detection finished state.
+2025.08.05 14:38:46.732,
+---------JUNIT TEST--------
+Containers refContainer = new Containers();
+refContainer.setAiX(235);
+refContainer.setAiY(196);
+refContainer.setAiW(165);
+refContainer.setAiH(71);
+handler.setCheckContainer(refContainer);
+
+List<FraudDetectionHandler.EyeLightState> lightStates = new ArrayList<>();
+lightStates.add(new FraudDetectionHandler.EyeLightState(0,false,false,true,false));
+lightStates.add(new FraudDetectionHandler.EyeLightState(503,false,false,true,true));
+lightStates.add(new FraudDetectionHandler.EyeLightState(603,false,false,false,true));
+lightStates.add(new FraudDetectionHandler.EyeLightState(804,false,false,false,false));
+handler.setLightStates(lightStates);
+
+handler.processNewFrame(createAiResult(
+      new TestObject("can",0.9453125f,255,197,420,268),
+));
+handler.processNewFrame(createAiResult(
+      new TestObject("can",0.9453125f,255,197,421,269),
+));
+handler.processNewFrame(createAiResult(
+      new TestObject("can",0.94628906f,255,197,420,268),
+));
+handler.processNewFrame(createAiResult(
+      new TestObject("can",0.94677734f,255,197,420,268),
+));
+handler.processNewFrame(createAiResult(
+      new TestObject("can",0.94921875f,258,197,423,269),
+));
+handler.processNewFrame(createAiResult(
+      new TestObject("can",0.9355469f,267,197,432,267),
+));
+handler.processNewFrame(createAiResult(
+      new TestObject("can",0.94677734f,311,197,480,269),
+));
+handler.processNewFrame(createAiResult(
+      new TestObject("bottle",0.8383789f,406,198,591,271),
+      new TestObject("can",0.6640625f,406,198,591,270),
+));
+handler.processNewFrame(createAiResult(
+      new TestObject("bottle",0.9194336f,439,198,627,272),
+));
+handler.processNewFrame(createAiResult(
+      new TestObject("bottle",0.9301758f,490,197,639,271),
+));
+handler.processNewFrame(createAiResult(
+      new TestObject("bottle",0.90625f,544,199,639,271),
+));
+handler.processNewFrame(createAiResult(
+      new TestObject("bottle",0.3876953f,561,200,629,278),
+));
+handler.processNewFrame(createAiResult(
+      new TestObject("bottle",0.3996582f,560,209,631,296),
+));
+
+---------END JUNIT TEST--------
+
+2025.08.05 14:38:46.734,PROCESSING - WAIT_FRAUD - [FraudDetectionHandler] stop fraud detection
+2025.08.05 14:38:46.735,PROCESSING - WAIT_FRAUD - [L88LogicHandler] change processing: WAIT_FRAUD -> START_CLOSE_DOOR
+2025.08.05 14:38:46.746,PROCESSING - START_CLOSE_DOOR - [L88LogicHandler] change processing: START_CLOSE_DOOR -> WAIT_CLOSE_DOOR
+2025.08.05 14:38:46.758,[L88LogicHandler] Door closing timeout, start closing2025-08-05 14:38:46.757
+2025.08.05 14:38:46.758,PROCESSING - WAIT_CLOSE_DOOR - [L88LogicHandler] change processing: WAIT_CLOSE_DOOR -> WAIT_BOTTLE_OUT
+2025.08.05 14:38:46.776,PROCESSING - WAIT_BOTTLE_OUT - [TransactionHandler] allChecksDone: 202505190001-1754397523
+2025.08.05 14:38:46.777,PROCESSING - WAIT_BOTTLE_OUT - [L88LogicHandler] handleCloseDoorAfter4
+2025.08.05 14:38:46.778,PROCESSING - WAIT_BOTTLE_OUT - [L88LogicHandler] end processing WAIT_CLOSE_DOOR. Next step go to WAIT_BOTTLE_OUT
+2025.08.05 14:38:46.780,PROCESSING - WAIT_BOTTLE_OUT - [L88LogicHandler] run closeDoorTask
+2025.08.05 14:38:46.781,PROCESSING - WAIT_BOTTLE_OUT - [EyeLightHandler] closeDoorBy4EyeLight
+2025.08.05 14:38:46.782,PROCESSING - WAIT_BOTTLE_OUT - [L88LogicHandler] door close... checkBlockedDoor
+2025.08.05 14:38:46.790,PROCESSING - WAIT_BOTTLE_OUT - [L88LogicHandler] stopActionForConveyorUnit
+2025.08.05 14:38:46.802,PROCESSING - WAIT_BOTTLE_OUT - [L88LogicHandler] stopActionForConveyorUnit
+2025.08.05 14:38:46.813,PROCESSING - WAIT_BOTTLE_OUT - [L88LogicHandler] stopActionForConveyorUnit
+2025.08.05 14:38:46.825,PROCESSING - WAIT_BOTTLE_OUT - [L88LogicHandler] stopActionForConveyorUnit
+2025.08.05 14:38:46.834,PROCESSING - WAIT_BOTTLE_OUT - [FraudCheck] Cannot set AI detection finished state. No Frauddetection running.
+2025.08.05 14:38:46.837,PROCESSING - WAIT_BOTTLE_OUT - [L88LogicHandler] stopActionForConveyorUnit
+2025.08.05 14:38:46.849,PROCESSING - WAIT_BOTTLE_OUT - [L88LogicHandler] stopActionForConveyorUnit
+2025.08.05 14:38:46.861,PROCESSING - WAIT_BOTTLE_OUT - [L88LogicHandler] stopActionForConveyorUnit
+2025.08.05 14:38:46.873,PROCESSING - WAIT_BOTTLE_OUT - [L88LogicHandler] stopActionForConveyorUnit
+2025.08.05 14:38:46.891,PROCESSING - WAIT_BOTTLE_OUT - [L88LogicHandler] stopActionForConveyorUnit
+2025.08.05 14:38:46.904,PROCESSING - WAIT_BOTTLE_OUT - [L88LogicHandler] stopActionForConveyorUnit
+2025.08.05 14:38:46.916,PROCESSING - WAIT_BOTTLE_OUT - [L88LogicHandler] stopActionForConveyorUnit
+2025.08.05 14:38:46.929,PROCESSING - WAIT_BOTTLE_OUT - [L88LogicHandler] stopActionForConveyorUnit
+2025.08.05 14:38:46.938,PROCESSING - WAIT_BOTTLE_OUT - [FraudCheck] Cannot set AI detection finished state. No Frauddetection running.
+2025.08.05 14:38:46.940,PROCESSING - WAIT_BOTTLE_OUT - [L88LogicHandler] stopActionForConveyorUnit
+2025.08.05 14:38:46.951,PROCESSING - WAIT_BOTTLE_OUT - [L88LogicHandler] stopActionForConveyorUnit
+2025.08.05 14:38:46.964,PROCESSING - WAIT_BOTTLE_OUT - [L88LogicHandler] stopActionForConveyorUnit
+2025.08.05 14:38:46.976,PROCESSING - WAIT_BOTTLE_OUT - [L88LogicHandler] stopActionForConveyorUnit
+2025.08.05 14:38:46.986,PROCESSING - WAIT_BOTTLE_OUT - [L88LogicHandler] stopActionForConveyorUnit
+2025.08.05 14:38:46.998,PROCESSING - WAIT_BOTTLE_OUT - [L88LogicHandler] stopActionForConveyorUnit
+2025.08.05 14:38:47.009,PROCESSING - WAIT_BOTTLE_OUT - [L88LogicHandler] stopActionForConveyorUnit
+2025.08.05 14:38:47.021,PROCESSING - WAIT_BOTTLE_OUT - [L88LogicHandler] stopActionForConveyorUnit
+2025.08.05 14:38:47.032,PROCESSING - WAIT_BOTTLE_OUT - [L88LogicHandler] stopActionForConveyorUnit
+2025.08.05 14:38:47.039,PROCESSING - WAIT_BOTTLE_OUT - [FraudCheck] Cannot set AI detection finished state. No Frauddetection running.
+2025.08.05 14:38:47.044,PROCESSING - WAIT_BOTTLE_OUT - [L88LogicHandler] stopActionForConveyorUnit
+2025.08.05 14:38:47.058,PROCESSING - WAIT_BOTTLE_OUT - [L88LogicHandler] stopActionForConveyorUnit
+2025.08.05 14:38:47.070,PROCESSING - WAIT_BOTTLE_OUT - [L88LogicHandler] stopActionForConveyorUnit
+2025.08.05 14:38:47.082,PROCESSING - WAIT_BOTTLE_OUT - [L88LogicHandler] stopActionForConveyorUnit
+2025.08.05 14:38:47.093,PROCESSING - WAIT_BOTTLE_OUT - [L88LogicHandler] stopActionForConveyorUnit
+2025.08.05 14:38:47.105,PROCESSING - WAIT_BOTTLE_OUT - [L88LogicHandler] stopActionForConveyorUnit
+2025.08.05 14:38:47.116,PROCESSING - WAIT_BOTTLE_OUT - [L88LogicHandler] stopActionForConveyorUnit
+2025.08.05 14:38:47.127,PROCESSING - WAIT_BOTTLE_OUT - [L88LogicHandler] stopActionForConveyorUnit
+2025.08.05 14:38:47.138,PROCESSING - WAIT_BOTTLE_OUT - [L88LogicHandler] stopActionForConveyorUnit
+2025.08.05 14:38:47.149,PROCESSING - WAIT_BOTTLE_OUT - [L88LogicHandler] stopActionForConveyorUnit
+2025.08.05 14:38:47.152,PROCESSING - WAIT_BOTTLE_OUT - [FraudCheck] Cannot set AI detection finished state. No Frauddetection running.
+2025.08.05 14:38:47.160,PROCESSING - WAIT_BOTTLE_OUT - [L88LogicHandler] stopActionForConveyorUnit
+2025.08.05 14:38:47.171,PROCESSING - WAIT_BOTTLE_OUT - [L88LogicHandler] stopActionForConveyorUnit
+2025.08.05 14:38:47.182,PROCESSING - WAIT_BOTTLE_OUT - [L88LogicHandler] stopActionForConveyorUnit
+2025.08.05 14:38:47.184,[AiCameraHandler] take picture: BlockedDoor-20250805_143847_184 folder:blocked
+2025.08.05 14:38:47.185,[AiCameraHandler] Picture timestamp-difference in ms:32
+2025.08.05 14:38:47.193,PROCESSING - WAIT_BOTTLE_OUT - [L88LogicHandler] stopActionForConveyorUnit
+2025.08.05 14:38:47.205,PROCESSING - WAIT_BOTTLE_OUT - [L88LogicHandler] stopActionForConveyorUnit
+2025.08.05 14:38:47.217,PROCESSING - WAIT_BOTTLE_OUT - [L88LogicHandler] stopActionForConveyorUnit
+2025.08.05 14:38:47.237,PROCESSING - WAIT_BOTTLE_OUT - [L88LogicHandler] stopActionForConveyorUnit
+2025.08.05 14:38:47.240,[BlockedDoorAI] picPath: /storage/emulated/0/RVM/poc_video/blocked/BlockedDoor-20250805_143847_184.jpg
+2025.08.05 14:38:47.254,PROCESSING - WAIT_BOTTLE_OUT - [L88LogicHandler] stopActionForConveyorUnit
+2025.08.05 14:38:47.266,PROCESSING - WAIT_BOTTLE_OUT - [L88LogicHandler] stopActionForConveyorUnit
+2025.08.05 14:38:47.269,PROCESSING - WAIT_BOTTLE_OUT - [FraudCheck] Cannot set AI detection finished state. No Frauddetection running.
+2025.08.05 14:38:47.277,PROCESSING - WAIT_BOTTLE_OUT - [L88LogicHandler] stopActionForConveyorUnit
+2025.08.05 14:38:47.288,PROCESSING - WAIT_BOTTLE_OUT - [L88LogicHandler] stopActionForConveyorUnit
+2025.08.05 14:38:47.300,PROCESSING - WAIT_BOTTLE_OUT - [L88LogicHandler] stopActionForConveyorUnit
+2025.08.05 14:38:47.312,PROCESSING - WAIT_BOTTLE_OUT - [L88LogicHandler] stopActionForConveyorUnit
+2025.08.05 14:38:47.324,PROCESSING - WAIT_BOTTLE_OUT - [L88LogicHandler] stopActionForConveyorUnit
+2025.08.05 14:38:47.336,PROCESSING - WAIT_BOTTLE_OUT - [L88LogicHandler] stopActionForConveyorUnit
+2025.08.05 14:38:47.347,PROCESSING - WAIT_BOTTLE_OUT - [L88LogicHandler] stopActionForConveyorUnit
+2025.08.05 14:38:47.360,PROCESSING - WAIT_BOTTLE_OUT - [L88LogicHandler] stopActionForConveyorUnit
+2025.08.05 14:38:47.363,PROCESSING - WAIT_BOTTLE_OUT - [FraudDetectionHandler] isFraudDetected INACTIVE
+2025.08.05 14:38:47.364,PROCESSING - WAIT_BOTTLE_OUT - [L88LogicHandler] checkBlockedDoor: door not blocked
+2025.08.05 14:38:47.365,PROCESSING - WAIT_BOTTLE_OUT - [TransactionHandler] validContainerPassedDoor: 202505190001-1754397523
+2025.08.05 14:38:47.366,PROCESSING - WAIT_BOTTLE_OUT - [TransactionHandler] acceptPendingAttempt: 202505190001-1754397523
+2025.08.05 14:38:47.366,PROCESSING - WAIT_BOTTLE_OUT - [TransactionHandler] addAttempt: 202505190001-1754397523 - Accepted: Y
+2025.08.05 14:38:47.367,Attempt: 202505190001-1754397512, Accepted: N, Material: P
+2025.08.05 14:38:47.368,Attempt: 202505190001-1754397523, Accepted: Y, Material: A
+2025.08.05 14:38:47.369,Attempt: 202505190001-1754397523, Price: 0.25
+2025.08.05 14:38:47.369,Attempt: 202505190001-1754397515, Accepted: N, Material: P
+2025.08.05 14:38:47.370,price==25.0objectCount==1
+2025.08.05 14:38:47.371,PROCESSING - WAIT_BOTTLE_OUT - [FraudCheck] Cannot set AI detection finished state. No Frauddetection running.
+2025.08.05 14:38:47.372,PROCESSING - WAIT_BOTTLE_OUT - [L88LogicHandler] stopActionForConveyorUnit
+2025.08.05 14:38:47.384,PROCESSING - WAIT_BOTTLE_OUT - [L88LogicHandler] stopActionForConveyorUnit
+2025.08.05 14:38:47.394,PROCESSING - WAIT_BOTTLE_OUT - [TransactionHandler] Count Can: 1, Count Bottle: 0, Count Rejected: 2, Total Voucher Amount: 0.25
+2025.08.05 14:38:47.395,PROCESSING - WAIT_BOTTLE_OUT - [L88LogicHandler] change workflow: PROCESSING => READY_TWO
+2025.08.05 14:38:47.396,READY_TWO - WAIT_BOTTLE_OUT - [L88LogicHandler] stopActionForConveyorUnit
+2025.08.05 14:38:47.397,READY_TWO - WAIT_LIGHT_SENSOR1 - [FraudDetectionHandler] stop fraud detection
+2025.08.05 14:38:47.404,更新投递数量：塑料瓶 0, 易拉罐 1, 拒收 2, 总金额 0.25
+2025.08.05 14:38:47.405,setMessageHint:wellDonecsada:Thank you for contributing to the protection of the earth.
+2025.08.05 14:38:47.406, ClientConstant.MACHINE_FAULT_CODE.getErrorMsg():No error
+2025.08.05 14:38:47.407,UPDATE_RVM_WORK_STATUS7
+2025.08.05 14:38:47.410,setStatusColor2
+2025.08.05 14:38:47.465,READY_TWO - WAIT_LIGHT_SENSOR1 - [FraudCheck] Cannot set AI detection finished state. No Frauddetection running.
+2025.08.05 14:38:47.565,READY_TWO - WAIT_LIGHT_SENSOR1 - [FraudCheck] Cannot set AI detection finished state. No Frauddetection running.
+2025.08.05 14:38:47.681,READY_TWO - WAIT_LIGHT_SENSOR1 - [FraudCheck] Cannot set AI detection finished state. No Frauddetection running.
+2025.08.05 14:38:47.800,READY_TWO - WAIT_LIGHT_SENSOR1 - [FraudCheck] Cannot set AI detection finished state. No Frauddetection running.
+2025.08.05 14:38:47.904,READY_TWO - WAIT_LIGHT_SENSOR1 - [FraudCheck] Cannot set AI detection finished state. No Frauddetection running.
+2025.08.05 14:38:48.011,READY_TWO - WAIT_LIGHT_SENSOR1 - [FraudCheck] Cannot set AI detection finished state. No Frauddetection running.
+2025.08.05 14:38:48.123,READY_TWO - WAIT_LIGHT_SENSOR1 - [FraudCheck] Cannot set AI detection finished state. No Frauddetection running.
+2025.08.05 14:38:48.202,READY_TWO - WAIT_LIGHT_SENSOR1 - [L88LogicHandler] change workflow: READY_TWO => READY_ONE
+2025.08.05 14:38:48.203,setMessageHint:readycsada:Please put your container 
+ into the entrance
+2025.08.05 14:38:48.204, ClientConstant.MACHINE_FAULT_CODE.getErrorMsg():No error
+2025.08.05 14:38:48.206,UPDATE_RVM_WORK_STATUS3
+2025.08.05 14:38:48.208,setStatusColor2
+2025.08.05 14:38:48.209,更新投递数量：塑料瓶 0, 易拉罐 1, 拒收 2, 总金额 0.25
+2025.08.05 14:38:48.224,READY_ONE - WAIT_LIGHT_SENSOR1 - [FraudCheck] Cannot set AI detection finished state. No Frauddetection running.
+2025.08.05 14:38:48.305,READY_ONE - WAIT_LIGHT_SENSOR1 - [System] Waiting for the bottle to be scanned...
+2025.08.05 14:38:48.306,READY_ONE - WAIT_LIGHT_SENSOR1 - [L88LogicHandler] stopActionForConveyorUnit
+2025.08.05 14:38:48.336,READY_ONE - WAIT_LIGHT_SENSOR1 - [FraudCheck] Cannot set AI detection finished state. No Frauddetection running.
+2025.08.05 14:38:48.442,READY_ONE - WAIT_LIGHT_SENSOR1 - [FraudCheck] Cannot set AI detection finished state. No Frauddetection running.
+2025.08.05 14:38:48.539,READY_ONE - WAIT_LIGHT_SENSOR1 - [FraudCheck] Cannot set AI detection finished state. No Frauddetection running.
+2025.08.05 14:38:53.308,READY_ONE - WAIT_LIGHT_SENSOR1 - [System] Waiting for the bottle to be scanned...
+2025.08.05 14:38:53.310,READY_ONE - WAIT_LIGHT_SENSOR1 - [L88LogicHandler] stopActionForConveyorUnit
+2025.08.05 14:38:58.309,READY_ONE - WAIT_LIGHT_SENSOR1 - [System] Waiting for the bottle to be scanned...
+2025.08.05 14:38:58.310,READY_ONE - WAIT_LIGHT_SENSOR1 - [L88LogicHandler] stopActionForConveyorUnit
+2025.08.05 14:39:03.310,READY_ONE - WAIT_LIGHT_SENSOR1 - [System] Waiting for the bottle to be scanned...
+2025.08.05 14:39:03.312,READY_ONE - WAIT_LIGHT_SENSOR1 - [L88LogicHandler] stopActionForConveyorUnit
+2025.08.05 14:39:08.319,READY_ONE - WAIT_LIGHT_SENSOR1 - [System] Waiting for the bottle to be scanned...
+2025.08.05 14:39:08.320,READY_ONE - WAIT_LIGHT_SENSOR1 - [L88LogicHandler] stopActionForConveyorUnit
+2025.08.05 14:39:13.324,READY_ONE - WAIT_LIGHT_SENSOR1 - [System] Waiting for the bottle to be scanned...
+2025.08.05 14:39:13.327,READY_ONE - WAIT_LIGHT_SENSOR1 - [L88LogicHandler] stopActionForConveyorUnit
+2025.08.05 14:39:13.617,READY_ONE - WAIT_LIGHT_SENSOR1 - [L88MotorHandler] compactor send action cmd successful: 0

@@ -1,0 +1,682 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/activity_buy_bacc"
+    android:layoutDirection="ltr"
+    tools:context=".activity.ActivityBuy">
+
+
+    <TextView
+        android:id="@+id/deviceId"
+        android:layout_width="290dp"
+        android:layout_height="70dp"
+        android:background="@color/white"
+        android:gravity="center_vertical|center_horizontal"
+        android:text="货柜编号 277372"
+        android:textColor="@color/black"
+        android:textSize="30dp"
+        android:textStyle="bold"
+
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <ImageView
+        android:id="@+id/topview"
+        android:layout_width="1038dp"
+        android:layout_height="564dp"
+        android:background="@drawable/rounded_topview"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.057"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.412" />
+
+
+    <TextView
+        android:id="@+id/men1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:text="1号门"
+        android:textColor="@color/black"
+        android:textSize="30dp"
+        app:layout_constraintEnd_toEndOf="@+id/topview"
+        app:layout_constraintHorizontal_bias="0.225"
+        app:layout_constraintStart_toStartOf="@+id/topview"
+        app:layout_constraintTop_toTopOf="@+id/topview" />
+
+    <GridLayout
+        android:id="@+id/grid1"
+        android:layout_width="519dp"
+        android:layout_height="wrap_content"
+        android:columnCount="2"
+        android:visibility="gone"
+
+        android:padding="4dp"
+
+        app:layout_constraintEnd_toEndOf="@+id/men1"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/topview"
+        app:layout_constraintTop_toBottomOf="@+id/men1">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="3dp"
+            app:cardBackgroundColor="#ffffff"
+            app:cardCornerRadius="5dp"
+            app:cardElevation="10dp"
+            app:cardPreventCornerOverlap="true"
+            app:cardUseCompatPadding="false">
+
+            <LinearLayout
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                android:paddingTop="8dp">
+
+                <!-- 左侧内容 -->
+                <ImageView
+                    android:layout_width="168dp"
+                    android:layout_height="78dp"
+                    android:layout_marginBottom="4dp"
+                    android:src="@drawable/dasuan" />
+
+                <!-- 右侧内容 -->
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="大蒜"
+                        android:textStyle="bold"
+                        android:textColor="@color/black"
+                        android:textSize="18dp" />
+
+                    <ImageView
+                        android:layout_width="200dp"
+                        android:layout_height="1dp"
+                        android:background="@color/dialog_gray"
+                        app:layout_constraintBottom_toBottomOf="@+id/nextImage"
+                        app:layout_constraintStart_toEndOf="@+id/nextImage" />
+
+                    <LinearLayout
+
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:gravity="center_vertical"
+                            android:text="139克"
+                            android:textColor="@color/black"
+                            android:textSize="16dp" />
+
+<!--                        <TextView-->
+<!--                            android:layout_width="0dp"-->
+<!--                            android:layout_height="match_parent"-->
+<!--                            android:layout_weight="2"-->
+<!--                            android:gravity="right|center_vertical"-->
+<!--                            android:paddingRight="5dp"-->
+<!--                            android:text="市场价: ￥1.06"-->
+<!--                            android:textColor="@color/actionsheet_red"-->
+<!--                            android:textSize="14dp" />-->
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="2"
+                            android:gravity="right|center_vertical"
+                            android:paddingRight="5dp"
+                            android:text="会员价: ￥1.06"
+                            android:textColor="@color/vip_color"
+                            android:textSize="16dp" />
+
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+
+
+        </androidx.cardview.widget.CardView>
+
+    </GridLayout>
+
+
+    <TextView
+        android:id="@+id/heji1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_row="0"
+
+        android:layout_column="5"
+        android:text="合计: ￥0.00"
+        android:textColor="#fa2d24"
+        android:textSize="25dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.248"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.778" />
+
+
+    <ImageView
+        android:id="@+id/code1"
+        android:layout_width="392dp"
+        android:layout_height="392dp"
+        android:layout_marginTop="64dp"
+        app:layout_constraintEnd_toEndOf="@+id/men1"
+        app:layout_constraintStart_toStartOf="@+id/men1"
+        app:layout_constraintTop_toBottomOf="@+id/men1" />
+
+
+    <TextView
+        android:id="@+id/errortip1"
+        android:layout_width="372dp"
+        android:layout_height="wrap_content"
+
+
+        android:layout_marginTop="114dp"
+        android:visibility="gone"
+
+        android:text="提示：\n请将商品放到正确的柜子上！"
+        android:textColor="#E91E63"
+        android:textSize="45dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/men1"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="@+id/men1"
+        app:layout_constraintTop_toBottomOf="@+id/men1" />
+
+
+    <ImageView
+        android:layout_width="1dp"
+        android:layout_height="472dp"
+        android:background="@color/activity_buy_bacc"
+        app:layout_constraintBottom_toBottomOf="@+id/topview"
+        app:layout_constraintEnd_toEndOf="@+id/topview"
+        app:layout_constraintStart_toStartOf="@+id/topview"
+        app:layout_constraintTop_toTopOf="@+id/topview" />
+
+    <TextView
+        android:id="@+id/men2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:text="2号门"
+        android:textColor="@color/black"
+        android:textSize="30dp"
+        app:layout_constraintEnd_toEndOf="@+id/topview"
+        app:layout_constraintHorizontal_bias="0.771"
+        app:layout_constraintStart_toStartOf="@+id/topview"
+        app:layout_constraintTop_toTopOf="@+id/topview" />
+
+
+    <GridLayout
+        android:id="@+id/grid2"
+        android:layout_width="519dp"
+        android:layout_height="wrap_content"
+        android:columnCount="2"
+        android:visibility="gone"
+        android:padding="4dp"
+
+        app:layout_constraintEnd_toEndOf="@+id/topview"
+        app:layout_constraintTop_toBottomOf="@+id/men2">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="3dp"
+            app:cardBackgroundColor="#ffffff"
+            app:cardCornerRadius="5dp"
+            app:cardElevation="10dp"
+            app:cardPreventCornerOverlap="true"
+            app:cardUseCompatPadding="false">
+
+            <LinearLayout
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                android:paddingTop="8dp">
+
+                <!-- 左侧内容 -->
+                <ImageView
+                    android:layout_width="168dp"
+                    android:layout_height="78dp"
+                    android:layout_marginBottom="4dp"
+                    android:src="@drawable/dasuan" />
+
+                <!-- 右侧内容 -->
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="大蒜"
+                        android:textStyle="bold"
+                        android:textColor="@color/black"
+                        android:textSize="18dp" />
+
+                    <ImageView
+                        android:layout_width="180dp"
+                        android:layout_height="1dp"
+                        android:background="@color/dialog_gray"
+                        app:layout_constraintBottom_toBottomOf="@+id/nextImage"
+                        app:layout_constraintStart_toEndOf="@+id/nextImage" />
+
+                    <LinearLayout
+
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:gravity="center_vertical"
+                            android:text="139克"
+                            android:textColor="@color/black"
+                            android:textSize="16dp" />
+
+                        <!--                        <TextView-->
+                        <!--                            android:layout_width="0dp"-->
+                        <!--                            android:layout_height="match_parent"-->
+                        <!--                            android:layout_weight="2"-->
+                        <!--                            android:gravity="right|center_vertical"-->
+                        <!--                            android:paddingRight="5dp"-->
+                        <!--                            android:text="市场价: ￥1.06"-->
+                        <!--                            android:textColor="@color/actionsheet_red"-->
+                        <!--                            android:textSize="14dp" />-->
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="2"
+                            android:gravity="right|center_vertical"
+                            android:paddingRight="5dp"
+                            android:text="会员价: ￥1.06"
+                            android:textColor="@color/vip_color"
+                            android:textSize="16dp" />
+
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+
+
+        </androidx.cardview.widget.CardView>
+
+    </GridLayout>
+
+
+
+    <ImageView
+        android:id="@+id/code2"
+        android:layout_width="392dp"
+        android:layout_height="392dp"
+        android:layout_marginTop="64dp"
+        app:layout_constraintEnd_toEndOf="@+id/men2"
+        app:layout_constraintStart_toStartOf="@+id/men2"
+        app:layout_constraintTop_toBottomOf="@+id/men2" />
+
+
+    <TextView
+        android:id="@+id/errortip2"
+        android:layout_width="372dp"
+        android:layout_height="wrap_content"
+
+        android:visibility="gone"
+
+        android:layout_marginTop="114dp"
+
+        android:text="提示：\n请将商品放到正确的柜子上！"
+        android:textColor="#E91E63"
+        android:textSize="45dp"
+        android:textStyle="bold"
+
+        app:layout_constraintEnd_toEndOf="@+id/men2"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="@+id/men2"
+        app:layout_constraintTop_toBottomOf="@+id/men2" />
+
+    <TextView
+        android:id="@+id/heji2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+
+        android:text="合计: ￥0.00"
+        android:textColor="#fa2d24"
+        android:textSize="25dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.65"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.778" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="53dp"
+        android:text="购物流程"
+
+        android:textColor="@color/black"
+        android:textSize="50dp"
+        app:layout_constraintEnd_toEndOf="@+id/imageView2"
+        app:layout_constraintStart_toStartOf="@+id/imageView"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <ImageView
+        android:layout_width="41dp"
+        android:layout_height="41dp"
+        android:layout_marginTop="3dp"
+        android:src="@drawable/xiajiantou2"
+        app:layout_constraintEnd_toEndOf="@+id/imageView2"
+        app:layout_constraintStart_toStartOf="@+id/imageView2"
+        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="51dp"
+        android:layout_height="51dp"
+        android:layout_marginTop="160dp"
+        android:layout_marginEnd="288dp"
+        android:rotation="180"
+        android:src="@drawable/next"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="扫码"
+        android:textColor="@color/black"
+        android:textSize="26dp"
+        app:layout_constraintStart_toEndOf="@+id/imageView"
+        app:layout_constraintTop_toTopOf="@+id/imageView" />
+
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="57dp"
+        android:layout_height="57dp"
+        android:layout_marginStart="24dp"
+        android:src="@drawable/wechat"
+        app:layout_constraintBottom_toBottomOf="@+id/textView2"
+        app:layout_constraintStart_toEndOf="@+id/textView2"
+        app:layout_constraintTop_toTopOf="@+id/textView2" />
+
+    <!--    <ImageView-->
+    <!--        android:layout_width="53dp"-->
+    <!--        android:layout_height="53dp"-->
+    <!--        android:layout_marginStart="24dp"-->
+    <!--        android:src="@drawable/alipay"-->
+    <!--        app:layout_constraintBottom_toBottomOf="@+id/textView2"-->
+    <!--        app:layout_constraintStart_toEndOf="@+id/imageView4" />-->
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="230dp"
+        android:layout_height="3dp"
+        android:layout_marginStart="16dp"
+        android:background="@color/black"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView"
+        app:layout_constraintStart_toEndOf="@+id/imageView" />
+
+
+    <ImageView
+        android:id="@+id/nextImage"
+        android:layout_width="51dp"
+        android:layout_height="51dp"
+        android:layout_marginTop="43dp"
+        android:rotation="180"
+        android:src="@drawable/next"
+        app:layout_constraintEnd_toEndOf="@+id/imageView"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/imageView"
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
+    <TextView
+        android:id="@+id/tip2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="授权免密支付(首次)"
+        android:textColor="@color/black"
+        android:textSize="26dp"
+        app:layout_constraintStart_toEndOf="@+id/nextImage"
+        app:layout_constraintTop_toTopOf="@+id/nextImage" />
+
+
+    <ImageView
+        android:id="@+id/xian2"
+        android:layout_width="230dp"
+        android:layout_height="3dp"
+        android:layout_marginStart="16dp"
+        android:background="@color/black"
+        app:layout_constraintBottom_toBottomOf="@+id/nextImage"
+        app:layout_constraintStart_toEndOf="@+id/nextImage" />
+
+    <ImageView
+        android:layout_width="41dp"
+        android:layout_height="41dp"
+        android:layout_marginTop="3dp"
+        android:src="@drawable/xiajiantou2"
+        app:layout_constraintEnd_toEndOf="@+id/xian2"
+        app:layout_constraintStart_toStartOf="@+id/xian2"
+        app:layout_constraintTop_toBottomOf="@+id/xian2" />
+
+
+    <ImageView
+        android:id="@+id/nextImage2"
+        android:layout_width="51dp"
+        android:layout_height="51dp"
+        android:layout_marginTop="43dp"
+        android:rotation="180"
+        android:src="@drawable/next"
+        app:layout_constraintEnd_toEndOf="@+id/nextImage"
+        app:layout_constraintStart_toStartOf="@+id/nextImage"
+        app:layout_constraintTop_toBottomOf="@+id/nextImage" />
+
+    <TextView
+        android:id="@+id/tip3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="开门"
+        android:textColor="@color/black"
+        android:textSize="26dp"
+        app:layout_constraintStart_toEndOf="@+id/nextImage2"
+        app:layout_constraintTop_toTopOf="@+id/nextImage2" />
+
+
+    <ImageView
+        android:id="@+id/xian3"
+        android:layout_width="230dp"
+        android:layout_height="3dp"
+        android:layout_marginStart="16dp"
+        android:background="@color/black"
+        app:layout_constraintBottom_toBottomOf="@+id/nextImage2"
+        app:layout_constraintStart_toEndOf="@+id/nextImage2" />
+
+    <ImageView
+        android:layout_width="41dp"
+        android:layout_height="41dp"
+        android:layout_marginTop="3dp"
+        android:src="@drawable/xiajiantou2"
+        app:layout_constraintEnd_toEndOf="@+id/xian3"
+        app:layout_constraintStart_toStartOf="@+id/xian3"
+        app:layout_constraintTop_toBottomOf="@+id/xian3" />
+
+
+    <ImageView
+        android:id="@+id/nextImage3"
+        android:layout_width="51dp"
+        android:layout_height="51dp"
+        android:layout_marginTop="43dp"
+        android:rotation="180"
+        android:src="@drawable/next"
+        app:layout_constraintEnd_toEndOf="@+id/nextImage2"
+        app:layout_constraintStart_toStartOf="@+id/nextImage2"
+        app:layout_constraintTop_toBottomOf="@+id/nextImage2" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="拿取商品"
+        android:textColor="@color/black"
+        android:textSize="26dp"
+        app:layout_constraintStart_toEndOf="@+id/nextImage3"
+        app:layout_constraintTop_toTopOf="@+id/nextImage3" />
+
+
+    <ImageView
+        android:id="@+id/xian4"
+        android:layout_width="230dp"
+        android:layout_height="3dp"
+        android:layout_marginStart="16dp"
+        android:background="@color/black"
+        app:layout_constraintBottom_toBottomOf="@+id/nextImage3"
+        app:layout_constraintStart_toEndOf="@+id/nextImage3" />
+
+    <ImageView
+        android:layout_width="41dp"
+        android:layout_height="41dp"
+        android:layout_marginTop="3dp"
+        android:src="@drawable/xiajiantou2"
+        app:layout_constraintEnd_toEndOf="@+id/xian4"
+        app:layout_constraintStart_toStartOf="@+id/xian4"
+        app:layout_constraintTop_toBottomOf="@+id/xian4" />
+
+
+    <ImageView
+        android:id="@+id/nextImage4"
+        android:layout_width="51dp"
+        android:layout_height="51dp"
+        android:layout_marginTop="43dp"
+        android:rotation="180"
+        android:src="@drawable/next"
+        app:layout_constraintEnd_toEndOf="@+id/nextImage3"
+        app:layout_constraintStart_toStartOf="@+id/nextImage3"
+        app:layout_constraintTop_toBottomOf="@+id/nextImage3" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="关门结算"
+        android:textColor="@color/black"
+        android:textSize="26dp"
+        app:layout_constraintStart_toEndOf="@+id/nextImage4"
+        app:layout_constraintTop_toTopOf="@+id/nextImage4" />
+
+
+    <ImageView
+        android:layout_width="230dp"
+        android:layout_height="3dp"
+        android:layout_marginStart="16dp"
+        android:background="@color/black"
+        app:layout_constraintBottom_toBottomOf="@+id/nextImage4"
+        app:layout_constraintStart_toEndOf="@+id/nextImage4" />
+
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="340dp"
+        android:layout_height="70dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="12dp"
+        android:background="@drawable/rounded_corner"
+        android:gravity="right|center_vertical"
+        android:paddingRight="13dp"
+        android:text="客服 0431-87682222"
+        android:textColor="@color/black"
+        android:textSize="26dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:layout_width="90dp"
+        android:layout_height="90dp"
+        android:layout_marginEnd="260dp"
+        android:src="@drawable/kefu_girl"
+        app:layout_constraintBottom_toBottomOf="@+id/textView"
+        app:layout_constraintEnd_toEndOf="@+id/textView" />
+
+
+    <TextView
+        android:id="@+id/saomaKaiGui"
+        android:layout_width="370dp"
+        android:layout_height="95dp"
+        android:layout_marginBottom="12dp"
+        android:background="@drawable/rounded_saoma"
+        android:gravity="center_vertical|center_horizontal"
+        android:paddingRight="20dp"
+        android:text="扫码开门"
+        android:textColor="@color/white"
+        android:textSize="58dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
+    <ImageView
+        android:id="@+id/richang"
+        android:layout_width="450dp"
+        android:layout_height="70dp"
+        android:layout_marginStart="372dp"
+        android:layout_marginTop="16dp"
+        android:visibility="gone"
+        android:background="@drawable/qipao"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/vipTip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical|center_horizontal"
+        android:text="您是会员用户，已为您展示会员价格"
+        android:textColor="@color/white"
+        android:visibility="gone"
+        android:textSize="25dp"
+        app:layout_constraintBottom_toBottomOf="@+id/richang"
+        app:layout_constraintEnd_toEndOf="@+id/richang"
+        app:layout_constraintStart_toStartOf="@+id/richang"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
