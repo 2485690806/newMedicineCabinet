@@ -6,78 +6,233 @@
     android:orientation="horizontal"
     android:padding="10dp">
 
-    <!-- 左侧：垂直排列的按钮列表 -->
+    <!-- 左侧：两列按钮（行）+ 输入框，包裹在可滚动容器中 -->
     <LinearLayout
-        android:layout_width="220dp"
+        android:layout_width="320dp"
         android:layout_height="match_parent"
         android:gravity="start"
-        android:orientation="vertical"
-        android:spacing="8dp">  <!-- 按钮间距 -->
+        android:orientation="vertical">
 
-        <!-- 1. 健康检查按钮 -->
-        <Button
-            android:id="@+id/btn_health_check"
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="1. Test health check"
-            android:textSize="14sp" />
+            android:layout_height="match_parent"
+            android:fillViewport="true">
 
-        <!-- 2. 认证按钮 -->
-        <Button
-            android:id="@+id/btn_authentication"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="2.Test Certification (Obtain Token)"
-            android:textSize="14sp" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
-        <!-- 3. 袋子管理按钮 -->
-        <Button
-            android:id="@+id/btn_bag_management"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="3. Test bag management (get BagId)"
-            android:textSize="14sp" />
+                <!-- Row 1: 1 / 2.1 -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="2"
+                    android:baselineAligned="false">
 
-        <!-- 4. 袋子收集按钮 -->
-        <Button
-            android:id="@+id/btn_bag_collection"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="4. Test bag collection (must execute 3 first)"
-            android:textSize="14sp" />
+                    <Button
+                        android:id="@+id/btn_health_check"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="1. Test health check"
+                        android:textSize="14sp" />
 
-        <!-- 5. 处方投递按钮 -->
-        <Button
-            android:id="@+id/btn_prescription_drop"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="5. Test prescription delivery"
-            android:textSize="14sp" />
+                    <Button
+                        android:id="@+id/btn_authentication"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="2.1 Register machine"
+                        android:textSize="14sp" />
+                </LinearLayout>
 
-        <!-- 6. 事件上报按钮 -->
-        <Button
-            android:id="@+id/btn_machine_event"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="6. Test machine event reporting"
-            android:textSize="14sp" />
+                <!-- Row 2: 2.2 / 2.3 -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="2"
+                    android:baselineAligned="false">
 
-        <!-- 7. 状态更新按钮 -->
-        <Button
-            android:id="@+id/btn_machine_status"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="7. Test machine status update"
-            android:textSize="14sp" />
+                    <Button
+                        android:id="@+id/btn_obtain_token"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="2.2 Obtain token"
+                        android:textSize="14sp" />
 
-        <!-- 8. 完整测试按钮（可选） -->
-        <Button
-            android:id="@+id/btn_full_test"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:backgroundTint="#FF5722"
-            android:text="8. Execute complete testing (all steps)"
-            android:textSize="14sp" />
+                    <Button
+                        android:id="@+id/btn_refresh_token"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="2.3 Refresh token"
+                        android:textSize="14sp" />
+                </LinearLayout>
+
+                <!-- Row 3: 3 / 3.A -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="2"
+                    android:baselineAligned="false">
+
+                    <Button
+                        android:id="@+id/btn_bag_management"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="3. Test bag management (get BagId)"
+                        android:textSize="14sp" />
+
+                    <Button
+                        android:id="@+id/btn_bag_update_only"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="3.A Test bag update (manual)"
+                        android:textSize="14sp" />
+                </LinearLayout>
+
+                <!-- Row 4: 3.B / 4 -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="2"
+                    android:baselineAligned="false">
+
+                    <Button
+                        android:id="@+id/btn_bag_remove"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="3.B Test bag removed"
+                        android:textSize="14sp" />
+
+                    <Button
+                        android:id="@+id/btn_bag_collection"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="4. Test bag collection (must execute 3 first)"
+                        android:textSize="14sp" />
+                </LinearLayout>
+
+                <!-- Row 5: 5 / 6 -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="2"
+                    android:baselineAligned="false">
+
+                    <Button
+                        android:id="@+id/btn_prescription_drop"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="5. Test prescription delivery"
+                        android:textSize="14sp" />
+
+                    <Button
+                        android:id="@+id/btn_machine_event"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="6. Test machine event reporting"
+                        android:textSize="14sp" />
+                </LinearLayout>
+
+                <!-- Row 6: 7 / 8 -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="2"
+                    android:baselineAligned="false">
+
+                    <Button
+                        android:id="@+id/btn_machine_status"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="7. Test machine status update"
+                        android:textSize="14sp" />
+
+                    <Button
+                        android:id="@+id/btn_full_test"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:backgroundTint="#FF5722"
+                        android:text="8. Execute complete testing (all steps)"
+                        android:textSize="14sp" />
+                </LinearLayout>
+
+                <!-- Inputs for bag operations (below buttons) -->
+                <EditText
+                    android:id="@+id/et_barcode"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:hint="Barcode"
+                    android:inputType="text" />
+
+                <EditText
+                    android:id="@+id/et_location"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:hint="Location"
+                    android:inputType="text" />
+
+                <EditText
+                    android:id="@+id/et_pin"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:hint="PIN"
+                    android:inputType="text" />
+
+
+                <!-- Row 6: 7 / 8 -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="2"
+                    android:baselineAligned="false">
+
+                    <Button
+                        android:id="@+id/select_ad_video"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:onClick="selectAD"
+                        android:text="Select the advertisement video"
+                        android:textSize="14sp" />
+
+                    <Button
+                        android:id="@+id/jump_to_user_page"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:backgroundTint="#FF5722"
+                        android:onClick="toUserPage"
+                        android:text="Jump to the user page"
+                        android:textSize="14sp" />
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+
+        </ScrollView>
 
     </LinearLayout>
 

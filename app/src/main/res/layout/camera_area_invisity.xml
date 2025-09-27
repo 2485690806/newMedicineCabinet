@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:layout_width="0dp"
+    android:layout_height="0dp"
+    android:layout_marginTop="30dp"
+    android:background="@drawable/camera_bac"
+    android:layout_weight="1"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+<!--  -->
+    <!-- 预览区域（TextureView） -->
+    <TextureView
+        android:id="@+id/texture_view"
+        android:layout_width="0dp"
+        android:layout_height="0dp"/>
+    <TextView
+        android:id="@+id/camera_num"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:text="1"
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:textSize="22dp"
+        android:paddingLeft="3dp"
+        android:visibility="gone"
+        android:background="@drawable/machine_test_layers_number"
+        android:layout_alignParentRight="true"
+        />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:orientation="horizontal">
+
+        <RadioGroup
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <RadioButton
+                android:id="@+id/toggle_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:button="@null"
+                android:drawableRight="@drawable/camera_bg_selector"
+                android:drawablePadding="8dp"
+                android:text="@string/close_camera"
+                android:textColor="#FFDB63"
+                android:textSize="18dp" />
+        </RadioGroup>
+    </LinearLayout>
+    <!-- 底部按钮容器 -->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:orientation="horizontal">
+
+        <!-- 开启/关闭按钮 -->
+
+        <!-- 拍照按钮 -->
+        <TextView
+            android:id="@+id/capture_btn"
+            android:layout_width="80dp"
+            android:layout_height="40dp"
+            android:background="@drawable/snap_botton_bac"
+            android:textSize="@dimen/activity_camera"
+            android:gravity="center"
+            android:visibility="gone"
+
+            android:textColor="@color/white"
+            android:text="@string/snap"
+            android:enabled="false"/>
+
+        <!-- 开始录像按钮 -->
+        <TextView
+            android:id="@+id/record_btn"
+            android:layout_width="80dp"
+            android:layout_height="40dp"
+            android:background="@drawable/start_record"
+            android:layout_marginStart="15dp"
+            android:textSize="@dimen/activity_camera"
+            android:gravity="center"
+            android:visibility="gone"
+
+            android:textColor="@color/white"
+            android:text="@string/start_record" />
+
+        <TextView
+            android:id="@+id/stop_btn"
+            android:layout_width="80dp"
+            android:layout_height="40dp"
+            android:background="@drawable/stop_record"
+            android:layout_marginStart="15dp"
+            android:textSize="@dimen/activity_camera"
+            android:gravity="center"
+            android:visibility="gone"
+
+            android:textColor="@color/white"
+            android:text="@string/stop_record"
+            />
+        <!-- 停止录像按钮 -->
+
+    </LinearLayout>
+
+</RelativeLayout>

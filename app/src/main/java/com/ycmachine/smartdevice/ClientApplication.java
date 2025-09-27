@@ -14,6 +14,8 @@ import com.faceunity.core.faceunity.FURenderManager;
 import com.faceunity.core.utils.FULogger;
 import com.leesche.logger.Logger;
 import com.xiaoyezi.networkdetector.NetworkDetector;
+import com.ycmachine.smartdevice.network.api.OkHttpProvider;
+import com.ycmachine.smartdevice.storage.AuthStorage;
 
 import java.util.concurrent.TimeUnit;
 
@@ -60,6 +62,9 @@ public class ClientApplication extends BaseApplication {
         initWebSocketConfig();
         initHandlerThread();
         mSubThreadHandler.sendEmptyMessage(MSG_INIT_DATABASE);
+
+        // 恢复认证信息（如存在则设置到网络层）
+        restoreAuthFromStorage();
 
         if(!BuildConfig.isTestSelf){
 
@@ -117,6 +122,17 @@ public class ClientApplication extends BaseApplication {
         }
         if (!SharedPreferencesUtils.contains(getApplicationContext(), SharedPreferencesUtils.INIT_WEIGHT)) {
             SharedPreferencesUtils.put(getApplicationContext(), SharedPreferencesUtils.INIT_WEIGHT, 0);
+        }
+    }
+
+    /**
+     * 从本地存储恢复认证凭证，并设置到OkHttp拦截器
+     */
+    private void restoreAuthFromStorage() {
+        String access = AuthStorage.getAccessToken(getApplicationContext());
+        if (access != null && !access.isEmpty()) {
+            OkHttpProvider.setAccessToken(access);
+            Logger.i("[Auth] restored access token from storage");
         }
     }
 

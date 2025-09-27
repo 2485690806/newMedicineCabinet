@@ -51,7 +51,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * 单个摄像头的封装类，管理单个摄像头的所有操作
  */
-public class CameraWrapper {
+public class UnVisityCameraWrapper {
     private static final String TAG = "CameraWrapper";
     private static final SparseIntArray ORIENTATIONS = new SparseIntArray();
 
@@ -105,8 +105,8 @@ public class CameraWrapper {
         File getExternalFilesDir();
     }
 
-    public CameraWrapper(int cameraNum, Context context, Handler backgroundHandler,
-                         Semaphore cameraOpenCloseLock, CameraCallback callback) {
+    public UnVisityCameraWrapper(int cameraNum, Context context, Handler backgroundHandler,
+                                 Semaphore cameraOpenCloseLock, CameraCallback callback) {
         this.cameraNum = cameraNum;
         this.context = context;
         this.backgroundHandler = backgroundHandler;
@@ -124,7 +124,15 @@ public class CameraWrapper {
         stopButton = cameraArea.findViewById(R.id.stop_btn);
         toggleButton.setText(context.getString(R.string.close_camera) + cameraNum);
         ((TextView) cameraArea.findViewById(R.id.camera_num)).setText(String.valueOf(cameraNum));
+
         setupListeners();
+        // 手动创建SurfaceTexture（不依赖View布局）
+        SurfaceTexture surfaceTexture = new SurfaceTexture(0); // 0表示默认纹理ID
+        textureView.setSurfaceTexture(surfaceTexture);
+        // 手动触发onSurfaceTextureAvailable回调
+        surfaceTexture.setDefaultBufferSize(1920, 1080); // 设置默认尺寸（与相机预览尺寸匹配）
+        textureView.getSurfaceTextureListener().onSurfaceTextureAvailable(surfaceTexture, 1920, 1080);
+
     }
 
     // 设置组件监听器

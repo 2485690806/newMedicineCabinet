@@ -56,7 +56,7 @@ public class RxTimer {
         this.answerTime = time;
         this.flag = flag;
         this.mTimeTv.setText(answerTime + "s");
-        this.mTimeTv.setVisibility(View.VISIBLE);
+//        this.mTimeTv.setVisibility(View.VISIBLE);
         this.onTimeCounterListener = onTimeCounterListener;
         Observable.intervalRange(playRecordTime, answerTime + 1, 0, 1, TimeUnit.SECONDS)
                 .subscribeOn(Schedulers.io())

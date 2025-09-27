@@ -159,8 +159,6 @@ public class LocalVImageHolderView extends Holder<AdEntity> {
         //播放位置
         options.setInteger(AVOptions.KEY_START_POSITION, 0);
         pl_ad_video.setAVOptions(options);
-
-
 //        String[] hour_minute = ConfigManager.getInstance().getConfigEntity().getAudioOnTime().split(":");
 //        int hour = Integer.parseInt(hour_minute[0]);
 //        int minute = Integer.parseInt(hour_minute[1]);
@@ -172,14 +170,24 @@ public class LocalVImageHolderView extends Holder<AdEntity> {
 //        } else {
 //            pl_ad_video.setVolume(0, 0);
 //        }
-
+        pl_ad_video.setVolume(1, 1);
         pl_ad_video.setOnCompletionListener(mOnCompletionListener);
         pl_ad_video.setOnErrorListener(mOnErrorListener);
-        if (type == 0) {
-            pl_ad_video.setDisplayAspectRatio(PLVideoView.ASPECT_RATIO_ORIGIN);
-        } else {
-            pl_ad_video.setDisplayAspectRatio(PLVideoView.ASPECT_RATIO_PAVED_PARENT);
-        }
+
+
+//        pl_ad_video.setOnPreparedListener(new PLOnPreparedListener() {
+//            @Override
+//            public void onPrepared(int i) {
+//
+//
+//            }
+//        });
+
+
+//        pl_ad_video.setDisplayAspectRatio(PLVideoView.ASPECT_RATIO_ORIGIN);
+        // 在设置视频路径后添加
+        pl_ad_video.setDisplayAspectRatio(PLVideoView.ASPECT_RATIO_PAVED_PARENT);
+//        pl_ad_video.setDisplayAspectRatio(PLVideoView.ASPECT_RATIO_16_9);
 //        pl_ad_video.setBufferingIndicator(loadingView);
     }
 

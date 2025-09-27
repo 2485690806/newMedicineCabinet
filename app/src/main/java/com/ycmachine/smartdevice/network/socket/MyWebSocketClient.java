@@ -4,7 +4,7 @@ package com.ycmachine.smartdevice.network.socket;
 import android.content.Context;
 import android.util.Log;
 
-import com.ycmachine.smartdevice.activity.AcitivityScreenLessDeviceSetting;
+import com.ycmachine.smartdevice.activity.vendingMachine.AcitivityScreenLessDeviceSetting;
 
 import org.java_websocket.client.WebSocketClient;
 import org.java_websocket.handshake.ServerHandshake;

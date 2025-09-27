@@ -1,8 +1,8 @@
 package com.ycmachine.smartdevice.handler;
 
 import static android.content.Context.MODE_PRIVATE;
-import static com.ycmachine.smartdevice.constent.ClientConstant.medicineCabinetLayer;
 import static com.serenegiant.utils.UIThreadHelper.runOnUiThread;
+import static com.ycmachine.smartdevice.constent.ClientConstant.medicineCabinetLayer;
 import static leesche.smartrecycling.base.utils.HexDump.toHexString;
 
 import android.app.Activity;
@@ -18,6 +18,7 @@ import com.ycmachine.smartdevice.constent.ClientConstant;
 import com.ycmachine.smartdevice.entity.ypg.LayerNumber;
 import com.ycmachine.smartdevice.entity.ypg.LayerParam;
 
+import org.apache.commons.lang3.StringUtils;
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
@@ -29,6 +30,7 @@ import java.util.List;
 import leesche.smartrecycling.base.common.EventType;
 import leesche.smartrecycling.base.eventbus.BasicMessageEvent;
 import leesche.smartrecycling.base.serial.SerialHelper;
+import leesche.smartrecycling.base.utils.DataSourceOperator;
 import leesche.smartrecycling.base.utils.HexUtil;
 import leesche.smartrecycling.base.utils.StringUtil;
 import leesche.smartrecycling.base.utils.TTSUtils;
@@ -50,7 +52,7 @@ public class YpgLogicHandler implements SerialHelper.OnSerialListener {
 
     private List<OnStatusListener> statusListeners = new ArrayList<>(); // 状态监听器列表
 
-    private static final long TIMEOUT = 10000; // 超时时间：10秒
+    private static final long TIMEOUT = 100000; // 超时时间：10秒
     private Handler mainHandler = new Handler(Looper.getMainLooper()); // 主线程Handler，处理延迟和超时
     private Runnable timeoutRunnable = () -> {
     };
@@ -284,6 +286,7 @@ public class YpgLogicHandler implements SerialHelper.OnSerialListener {
 
     public void handleBackward(int layerNumber, int buttonNumber) {
 
+        ClientConstant.IS_DOING = true;
         ComponenTestHandler.getInstance().YaxisReset();
 
         Logger.d("步骤1：移动Y轴到层数=" + layerNumber);
@@ -432,6 +435,9 @@ public class YpgLogicHandler implements SerialHelper.OnSerialListener {
                 // 检测目标状态（"aa030a0101bb"）
                 if (str.toLowerCase().contains("aa030a0101bb")) {
                     Logger.d("收到成功状态，执行完成");
+
+
+
                     // 取消超时任务
                     mainHandler.removeCallbacks(timeoutRunnable);
                     // 移除监听器

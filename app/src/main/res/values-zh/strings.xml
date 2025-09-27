@@ -22,6 +22,8 @@
     <string name="status_check">状态检查</string>
     <string name="status_self_check">状态自检</string>
     <string name="reconnect">重新连接</string>
+    <string name="userPage">用户页面</string>
+    <string name="selectAD">选择广告</string>
     <string name="positive_rotation">正转</string>
     <string name="rollback">反转</string>
     <string name="stop">停止</string>

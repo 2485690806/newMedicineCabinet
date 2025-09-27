@@ -74,4 +74,17 @@ public class ClientConstant {
             this.flag = flag;
         }
     }
+
+
+    public static final int REQUEST_CODE_SELECT_MEDIA = 100;
+
+    //连续点击5次进入设备设置
+    public static final int DEVICE_CLICK_NUM = 5;
+    //点击时间间隔3秒
+    public static final int DEVICE_CLICK_INTERVER_TIME = 1500;
+    //上一次的点击时间
+    public static long DEVICE_lastClickTime = 0;
+    //记录点击次数
+    public static int DEVICE_clickNum = 0;
+
 }

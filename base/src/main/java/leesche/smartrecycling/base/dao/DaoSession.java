@@ -14,6 +14,7 @@ import leesche.smartrecycling.base.entity.Containers;
 import leesche.smartrecycling.base.entity.DeliveryRecordEntity;
 import leesche.smartrecycling.base.entity.MonitorImgEntity;
 import leesche.smartrecycling.base.entity.PocEntity;
+import leesche.smartrecycling.base.entity.QrCodeBinding;
 import leesche.smartrecycling.base.entity.RubbishPostEntity;
 import leesche.smartrecycling.base.entity.UploadRunningLogEntity;
 import leesche.smartrecycling.base.entity.UserLoginStyleEntity;
@@ -25,6 +26,7 @@ import leesche.smartrecycling.base.dao.ContainersDao;
 import leesche.smartrecycling.base.dao.DeliveryRecordEntityDao;
 import leesche.smartrecycling.base.dao.MonitorImgEntityDao;
 import leesche.smartrecycling.base.dao.PocEntityDao;
+import leesche.smartrecycling.base.dao.QrCodeBindingDao;
 import leesche.smartrecycling.base.dao.RubbishPostEntityDao;
 import leesche.smartrecycling.base.dao.UploadRunningLogEntityDao;
 import leesche.smartrecycling.base.dao.UserLoginStyleEntityDao;
@@ -45,6 +47,7 @@ public class DaoSession extends AbstractDaoSession {
     private final DaoConfig deliveryRecordEntityDaoConfig;
     private final DaoConfig monitorImgEntityDaoConfig;
     private final DaoConfig pocEntityDaoConfig;
+    private final DaoConfig qrCodeBindingDaoConfig;
     private final DaoConfig rubbishPostEntityDaoConfig;
     private final DaoConfig uploadRunningLogEntityDaoConfig;
     private final DaoConfig userLoginStyleEntityDaoConfig;
@@ -56,6 +59,7 @@ public class DaoSession extends AbstractDaoSession {
     private final DeliveryRecordEntityDao deliveryRecordEntityDao;
     private final MonitorImgEntityDao monitorImgEntityDao;
     private final PocEntityDao pocEntityDao;
+    private final QrCodeBindingDao qrCodeBindingDao;
     private final RubbishPostEntityDao rubbishPostEntityDao;
     private final UploadRunningLogEntityDao uploadRunningLogEntityDao;
     private final UserLoginStyleEntityDao userLoginStyleEntityDao;
@@ -83,6 +87,9 @@ public class DaoSession extends AbstractDaoSession {
         pocEntityDaoConfig = daoConfigMap.get(PocEntityDao.class).clone();
         pocEntityDaoConfig.initIdentityScope(type);
 
+        qrCodeBindingDaoConfig = daoConfigMap.get(QrCodeBindingDao.class).clone();
+        qrCodeBindingDaoConfig.initIdentityScope(type);
+
         rubbishPostEntityDaoConfig = daoConfigMap.get(RubbishPostEntityDao.class).clone();
         rubbishPostEntityDaoConfig.initIdentityScope(type);
 
@@ -101,6 +108,7 @@ public class DaoSession extends AbstractDaoSession {
         deliveryRecordEntityDao = new DeliveryRecordEntityDao(deliveryRecordEntityDaoConfig, this);
         monitorImgEntityDao = new MonitorImgEntityDao(monitorImgEntityDaoConfig, this);
         pocEntityDao = new PocEntityDao(pocEntityDaoConfig, this);
+        qrCodeBindingDao = new QrCodeBindingDao(qrCodeBindingDaoConfig, this);
         rubbishPostEntityDao = new RubbishPostEntityDao(rubbishPostEntityDaoConfig, this);
         uploadRunningLogEntityDao = new UploadRunningLogEntityDao(uploadRunningLogEntityDaoConfig, this);
         userLoginStyleEntityDao = new UserLoginStyleEntityDao(userLoginStyleEntityDaoConfig, this);
@@ -112,6 +120,7 @@ public class DaoSession extends AbstractDaoSession {
         registerDao(DeliveryRecordEntity.class, deliveryRecordEntityDao);
         registerDao(MonitorImgEntity.class, monitorImgEntityDao);
         registerDao(PocEntity.class, pocEntityDao);
+        registerDao(QrCodeBinding.class, qrCodeBindingDao);
         registerDao(RubbishPostEntity.class, rubbishPostEntityDao);
         registerDao(UploadRunningLogEntity.class, uploadRunningLogEntityDao);
         registerDao(UserLoginStyleEntity.class, userLoginStyleEntityDao);
@@ -125,6 +134,7 @@ public class DaoSession extends AbstractDaoSession {
         deliveryRecordEntityDaoConfig.clearIdentityScope();
         monitorImgEntityDaoConfig.clearIdentityScope();
         pocEntityDaoConfig.clearIdentityScope();
+        qrCodeBindingDaoConfig.clearIdentityScope();
         rubbishPostEntityDaoConfig.clearIdentityScope();
         uploadRunningLogEntityDaoConfig.clearIdentityScope();
         userLoginStyleEntityDaoConfig.clearIdentityScope();
@@ -153,6 +163,10 @@ public class DaoSession extends AbstractDaoSession {
 
     public PocEntityDao getPocEntityDao() {
         return pocEntityDao;
+    }
+
+    public QrCodeBindingDao getQrCodeBindingDao() {
+        return qrCodeBindingDao;
     }
 
     public RubbishPostEntityDao getRubbishPostEntityDao() {

@@ -34,12 +34,16 @@ public class Constants {
     public static final String ACFACE_DIR = BASE_CACHE_DIR + "/acface";
     public static final String APK_CACHE_DIR = BASE_CACHE_DIR + "/apk";
     public static String AD_CACHE_DIR = BASE_CACHE_DIR + "/ad.txt";
+    public static String START_AD_CACHE_DIR = BASE_CACHE_DIR + "/start_ad.txt";
+    public static String FINISH_AD_CACHE_DIR = BASE_CACHE_DIR + "/finish_ad.txt";
+    public static String CANCEL_AD_CACHE_DIR = BASE_CACHE_DIR + "/cancel_ad.txt";
     public static final String POC_CAMERA_DIR = BASE_CACHE_DIR + "/poc_video";
     public static final String FFMPEG_RECORD_VIDEO = Constants.POC_CAMERA_DIR + "/FFMPEG";
     public static final String UPDATE_CONFIG = BASE_CACHE_DIR + "/update.json";
     public static final String FACE_FEATURES = Constants.ACFACE_DIR + File.separator + "register" + File.separator + "features";
     public static final String FACE_IMGS = Constants.ACFACE_DIR + File.separator + "register" + File.separator + "imgs";
     public static final String FACE_SYNC = FACE_FEATURES + File.separator + "/sync_record.txt";
+    public static String TEST_IMG = BASE_CACHE_DIR + "/photo_cam2_level_6_1755701602391.jpg";
 
     /**
      * http协议头

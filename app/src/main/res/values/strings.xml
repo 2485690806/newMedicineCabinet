@@ -22,6 +22,8 @@
     <string name="status_check">Status Check</string>
     <string name="status_self_check">Self-check</string>
     <string name="reconnect">Reconnect</string>
+    <string name="userPage">User Page</string>
+    <string name="selectAD">Select Advertisement</string>
     <string name="positive_rotation">Forward</string>
     <string name="rollback">Reverse</string>
     <string name="stop">Stop</string>

@@ -36,7 +36,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
             android:layout_marginBottom="4dp"
-            android:text="@string/status_self_check"
+            android:text="@string/selectAD"
+            android:onClick="selectAD"
             android:textColor="#FFFFFF"
             android:textSize="@dimen/item_main_control_conponent" />
     </LinearLayout>
@@ -54,7 +55,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
             android:layout_marginBottom="4dp"
-            android:text="@string/reconnect"
+            android:text="@string/userPage"
+            android:onClick="toUserPage"
             android:textColor="#FFFFFF"
             android:textSize="@dimen/item_main_control_conponent" />
     </LinearLayout>

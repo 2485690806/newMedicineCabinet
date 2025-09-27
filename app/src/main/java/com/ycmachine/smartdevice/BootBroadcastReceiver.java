@@ -7,7 +7,7 @@ import android.os.Handler;
 import android.os.Looper;
 
 import com.leesche.logger.Logger;
-import com.ycmachine.smartdevice.activity.YPGActivity;
+import com.ycmachine.smartdevice.activity.medicineCabinet.YPGActivity;
 
 import leesche.smartrecycling.base.common.Constants;
 import leesche.smartrecycling.base.utils.DateUtil;
@@ -24,9 +24,8 @@ public class BootBroadcastReceiver extends BroadcastReceiver {
         switch (action) {
             case Intent.ACTION_BOOT_COMPLETED:
             case Intent.ACTION_LOCKED_BOOT_COMPLETED:
-
             case "android.intent.action.PACKAGE_REPLACED":
-                startMainActivity(context);
+//                startMainActivity(context);
                 break;
 
             case "android.intent.action.PACKAGE_ADDED":
@@ -48,6 +47,7 @@ public class BootBroadcastReceiver extends BroadcastReceiver {
         Intent intent = new Intent(context, YPGActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         context.startActivity(intent);
+
         // 谨慎使用 killProcess
         // android.os.Process.killProcess(android.os.Process.myPid());
     }
@@ -66,7 +66,7 @@ public class BootBroadcastReceiver extends BroadcastReceiver {
 
                 // 延迟启动 MainActivity
                 new Handler(Looper.getMainLooper()).postDelayed(() -> {
-                    startMainActivity(context);
+//                    startMainActivity(context);
                 }, 4000);
             }
         } else {

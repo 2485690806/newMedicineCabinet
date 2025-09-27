@@ -7,24 +7,17 @@ import com.leesche.logger.Logger;
 import java.util.List;
 
 import leesche.smartrecycling.base.common.Constants;
-import leesche.smartrecycling.base.dao.BarCodeInfoDao;
-import leesche.smartrecycling.base.dao.CommonUserEntityDao;
-import leesche.smartrecycling.base.dao.ContainersDao;
 import leesche.smartrecycling.base.dao.DeliveryRecordEntityDao;
 import leesche.smartrecycling.base.dao.MonitorImgEntityDao;
 import leesche.smartrecycling.base.dao.PocEntityDao;
-import leesche.smartrecycling.base.dao.RubbishPostEntityDao;
-import leesche.smartrecycling.base.dao.UploadRunningLogEntityDao;
+import leesche.smartrecycling.base.dao.QrCodeBindingDao;
 import leesche.smartrecycling.base.dao.UserLoginStyleEntityDao;
 import leesche.smartrecycling.base.dao.WriteOffEntityDao;
-import leesche.smartrecycling.base.entity.BarCodeInfo;
 import leesche.smartrecycling.base.entity.CommonUserEntity;
-import leesche.smartrecycling.base.entity.Containers;
 import leesche.smartrecycling.base.entity.DeliveryRecordEntity;
 import leesche.smartrecycling.base.entity.MonitorImgEntity;
 import leesche.smartrecycling.base.entity.PocEntity;
-import leesche.smartrecycling.base.entity.RubbishPostEntity;
-import leesche.smartrecycling.base.entity.UploadRunningLogEntity;
+import leesche.smartrecycling.base.entity.QrCodeBinding;
 import leesche.smartrecycling.base.entity.UserLoginStyleEntity;
 import leesche.smartrecycling.base.entity.WriteOffEntity;
 
@@ -37,11 +30,8 @@ public class DataSourceOperator {
     private UserLoginStyleEntityDao userLoginStyleEntityDao;
     private MonitorImgEntityDao monitorImgEntityDao;
     private WriteOffEntityDao writeOffEntityDao;
-    private BarCodeInfoDao barCodeInfoDao;
-    private ContainersDao containersDao;
-    private RubbishPostEntityDao rubbishPostEntityDao;
-    private CommonUserEntityDao commonUserEntityDao;
-    private UploadRunningLogEntityDao uploadRunningLogEntityDaoDao;
+
+    private QrCodeBindingDao qrCodeBindingDao;
 
     public static DataSourceOperator getInstance() {
 
@@ -714,165 +704,59 @@ public class DataSourceOperator {
         }
     }
 
-    /***********************************************************************************
-     *  2022年9月13日16:13:12  添加条形码表数据操作
-     *  ********************************************************************************
-     */
-    public BarCodeInfoDao getBarCodeDao() {
-        if (barCodeInfoDao == null) {
-            barCodeInfoDao = DatabaseUtil.getInstance().getDaoSession().getBarCodeInfoDao();
-        }
-        return barCodeInfoDao;
-    }
-
-    public List<BarCodeInfo> getBarCodeDaoList() {
-        return getBarCodeDao().queryBuilder().list();
-
-//        return DatabaseUtil.getInstance().getDaoSession().getBarCodeInfoDao().queryBuilder().list();
-    }
-
-    public void insertBarCodeInfoToDb(BarCodeInfo barCodeInfo) {
-        BarCodeInfo _barCodeInfo = getBarCodeDao().queryBuilder()
-                .where(BarCodeInfoDao.Properties.Barcode.eq(barCodeInfo.getBarcode())).limit(1).unique();
-        if (_barCodeInfo != null) {
-            barCodeInfo.setId(_barCodeInfo.getId());
-            barCodeInfoDao.update(barCodeInfo);
-//            Logger.i("[系统]条形码 更新：" + barCodeInfo.getBarcode() +" 价格" + barCodeInfo.getDepositFee());
-        } else {
-            barCodeInfoDao.insertOrReplace(barCodeInfo);
-//            Logger.i("[系统]条形码 增加：" + barCodeInfo.getBarcode() +" 价格" + barCodeInfo.getDepositFee());
-        }
-    }
-
-    public BarCodeInfo queryBarCodeInfo(String barcode) {
-        BarCodeInfo barCodeInfo = getBarCodeDao().queryBuilder()
-                .where(BarCodeInfoDao.Properties.Barcode.eq(barcode)).unique();
-        if (barCodeInfo == null) {
-            Logger.i("[系统]条形码 查询不存在：" + barcode);
-        }
-        return barCodeInfo;
-    }
-    public void deleteBarcode() {
-        getBarCodeDao().deleteAll();
-
-    }
 
     /***********************************************************************************
-     *  2025年5月8日16:59:12  防止断电操作
+     *  2025年9月22日16:59:12  添加二维码绑定表数据操作
      *  ********************************************************************************
      */
 
-    public ContainersDao getContainersDao() {
-        if (containersDao == null) {
-            containersDao = DatabaseUtil.getInstance().getDaoSession().getContainersDao();
+
+    public QrCodeBindingDao getQrCodeBindingDao() {
+        if (qrCodeBindingDao == null) {
+            qrCodeBindingDao = DatabaseUtil.getInstance().getDaoSession().getQrCodeBindingDao();
         }
-        return containersDao;
+        return qrCodeBindingDao;
     }
 
-    public void deleteContainersDao() {
-        getContainersDao().deleteAll();
+    public void deleteQrCodeBindingDao() {
+        getQrCodeBindingDao().deleteAll();
     }
 
-    public List<Containers> getContainersDaoList() {
-        return getContainersDao().queryBuilder().list();
+    public List<QrCodeBinding> getQrCodeBindingDaoList() {
+        return getQrCodeBindingDao().queryBuilder().list();
 //        return DatabaseUtil.getInstance().getDaoSession().getBarCodeInfoDao().queryBuilder().list();
     }
 
-    public long insertContainersToDb(Containers containers) {
-        return  getContainersDao().insertOrReplace(containers);
+
+    public long insertQrCodeBindingToDb(QrCodeBinding containers) {
+
+        return  getQrCodeBindingDao().insertOrReplace(containers);
+
     }
-
-
-
-
-    public RubbishPostEntityDao getRubbishPostEntityDao() {
-        if (rubbishPostEntityDao == null) {
-            rubbishPostEntityDao = DatabaseUtil.getInstance().getDaoSession().getRubbishPostEntityDao();
+    public void updateQrCodeBindingToDb(QrCodeBinding containers) {
+        getQrCodeBindingDao().update(containers);
+    }
+    public void updateBagIdByItemQr(String itemQr, String BagId) {
+        QrCodeBinding qrCodeBinding = findByItemQrCode(itemQr);
+        if (qrCodeBinding != null) {
+            qrCodeBinding.setBagId(BagId);
+            getQrCodeBindingDao().update(qrCodeBinding);
+        }else{
+            Logger.e("【QrCodeBinding】itemQr not exist: " + itemQr);
         }
-        return rubbishPostEntityDao;
     }
 
-    public void deleteRubbishPostEntityDao() {
-        getRubbishPostEntityDao().deleteAll();
+    public QrCodeBinding findByGridQr(String gridQr) {
+        return getQrCodeBindingDao().queryBuilder()
+                .where(QrCodeBindingDao.Properties.GridQrCode.eq(gridQr)).limit(1).unique();
     }
 
-    public List<RubbishPostEntity> getRubbishPostEntityDaoList() {
-        return getRubbishPostEntityDao().queryBuilder().list();
-//        return DatabaseUtil.getInstance().getDaoSession().getBarCodeInfoDao().queryBuilder().list();
+    public QrCodeBinding findByItemQrCode(String itemQr) {
+        return getQrCodeBindingDao().queryBuilder()
+                .where(QrCodeBindingDao.Properties.ItemQrCode.eq(itemQr)).limit(1).unique();
     }
-
-    public long insertRubbishPostEntityToDb(RubbishPostEntity rubbishPostEntity) {
-
-        RubbishPostEntity rubbishPost = getRubbishPostEntityDao().queryBuilder()
-                .where(RubbishPostEntityDao.Properties.BoxCode.eq(rubbishPostEntity.getBoxCode())).unique();
-        if (rubbishPost != null) {
-//            Logger.i("[系统]条形码 查询不存在：" + barcode);
-            getRubbishPostEntityDao().delete(rubbishPost);
-
-        }
-
-        return  getRubbishPostEntityDao().insertOrReplace(rubbishPostEntity);
+    public QrCodeBinding deleteByItemQrCode(String itemQr) {
+        return getQrCodeBindingDao().queryBuilder()
+                .where(QrCodeBindingDao.Properties.ItemQrCode.eq(itemQr)).limit(1).unique();
     }
-
-
-
-    public CommonUserEntityDao getCommonUserEntityDao() {
-        if (commonUserEntityDao == null) {
-            commonUserEntityDao = DatabaseUtil.getInstance().getDaoSession().getCommonUserEntityDao();
-        }
-        return commonUserEntityDao;
-    }
-
-    public void deleteCommonUserEntityDao() {
-        getCommonUserEntityDao().deleteAll();
-    }
-
-    public List<CommonUserEntity> getCommonUserEntityDaoList() {
-        return getCommonUserEntityDao().queryBuilder().list();
-//        return DatabaseUtil.getInstance().getDaoSession().getBarCodeInfoDao().queryBuilder().list();
-    }
-
-    public long insertCommonUserEntityToDb(CommonUserEntity containers) {
-
-
-
-        return  getCommonUserEntityDao().insertOrReplace(containers);
-
-    }
-
-
-
-    /***********************************************************************************
-     *  2025年6月4日15:58:12  添加上传设备运行状态日志
-     *  ********************************************************************************
-     */
-
-    public UploadRunningLogEntityDao getUploadRunningLogEntityDao() {
-        if (uploadRunningLogEntityDaoDao == null) {
-            uploadRunningLogEntityDaoDao = DatabaseUtil.getInstance().getDaoSession().getUploadRunningLogEntityDao();
-        }
-        return uploadRunningLogEntityDaoDao;
-    }
-
-    public void deleteUploadRunningLogEntityDao() {
-        getUploadRunningLogEntityDao().deleteAll();
-    }
-
-    public List<UploadRunningLogEntity> getUploadRunningLogEntityDaoList() {
-        return getUploadRunningLogEntityDao().queryBuilder().list();
-//        return DatabaseUtil.getInstance().getDaoSession().getBarCodeInfoDao().queryBuilder().list();
-    }
-
-    public UploadRunningLogEntity getUploadRunningLogEntityDaoListUnique() {
-        return getUploadRunningLogEntityDao().queryBuilder().orderDesc(UploadRunningLogEntityDao.Properties.Timestamp).limit(1).unique();
-//        return DatabaseUtil.getInstance().getDaoSession().getBarCodeInfoDao().queryBuilder().list();
-    }
-
-    public long insertUploadRunningLogEntityToDb(UploadRunningLogEntity containers) {
-
-        return  getUploadRunningLogEntityDao().insertOrReplace(containers);
-
-    }
-
-
 }

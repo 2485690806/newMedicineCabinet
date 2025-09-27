@@ -14,7 +14,7 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import com.leesche.logger.Logger;
-import com.ycmachine.smartdevice.activity.YPGActivity;
+import com.ycmachine.smartdevice.activity.medicineCabinet.YPGActivity;
 
 import java.lang.ref.WeakReference;
 import java.util.List;
@@ -210,8 +210,10 @@ public class GuardService extends Service {
                         }
                         android.os.Process.killProcess(mainProcessId);
                     }
+
                     // 重启主Activity
-                    startMainActivityDelay(100, "main thread blocked");
+//                    startMainActivityDelay(100, "main thread blocked");
+
                 } else {
                     // 正常情况处理离线数据
 //                    mMainHandler.postDelayed(() ->  BackendRequestHandler.getInstance().handlerOfflineDataToUpload(), 500);
