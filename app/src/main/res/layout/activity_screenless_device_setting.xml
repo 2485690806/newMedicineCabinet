@@ -11,6 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:onClick="reStartTime"
+        android:visibility="gone"
         android:orientation="vertical">
 
         <LinearLayout
@@ -104,6 +105,14 @@
                 android:layout_marginRight="20dp"
                 android:onClick="youGuangMu"
                 android:text="有光幕模式" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:onClick="checkStatus"
+                android:text="查询执行状态" />
 
             <TextView
                 android:id="@+id/text_status"
@@ -329,103 +338,183 @@
 
     </LinearLayout>
 
-    <com.bigkoo.convenientbanner.ConvenientBanner
-        android:id="@+id/cIdleBanner"
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:autoTurningTime="5000"
-        app:canLoop="true"
-        android:visibility="gone"
-
-        app:layout_constraintBottom_toTopOf="@id/bottomContainer"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingBottom="160dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_weight="4" />
+        app:layout_constraintVertical_weight="2">
 
-    <!-- 底部固定内容容器 -->
+        <com.bigkoo.convenientbanner.ConvenientBanner
+            android:id="@+id/cIdleBanner"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:autoTurningTime="5000"
+            app:canLoop="true"
+            app:elevation="1dp" />
+
+    </LinearLayout>
+
     <LinearLayout
         android:id="@+id/bottomContainer"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:background="@android:color/white"
-        android:orientation="horizontal"
+        android:layout_height="380dp"
+        android:background="@drawable/water_dispenser_idle"
         android:gravity="center"
-        android:visibility="gone"
-
+        android:orientation="vertical"
+        android:weightSum="100"
+        app:elevation="2dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/cIdleBanner"
         app:layout_constraintVertical_weight="1">
 
-        <!-- 提示文字 -->
-        <TextView
-            android:id="@+id/lqTextView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:padding="8dp"
-            android:text="扫码领取你的免费瓶装水"
-            android:textColor="#2196F3"
-            android:textStyle="bold"
-            android:textSize="66dp" />
-
-        <!-- 二维码区域（水平排列两个二维码） -->
+        <!-- 底部容器内部内容（ImageView、TextView、二维码等）完全保留，无需修改 -->
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="2"
+            android:layout_height="0dp"
+            android:layout_weight="57"
             android:gravity="center"
-            android:orientation="horizontal">
+            android:orientation="horizontal" />
 
-            <!-- 第一个二维码：小程序领水 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="43"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingBottom="22dp">
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="100dp"
+                android:layout_weight="1"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
             <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.6"
                 android:gravity="center"
-                android:layout_marginRight="36dp"
-                android:orientation="vertical">
+                android:orientation="horizontal">
 
                 <ImageView
-                    android:id="@+id/ivQrApplet"
-                    android:layout_width="120dp"
-                    android:layout_height="120dp"
-                    android:contentDescription="小程序领水二维码"
-                    android:scaleType="centerCrop"
-                    tools:src="@mipmap/ic_launcher" />
+                    android:id="@+id/imageViewWaterStatus"
+                    android:layout_width="240dp"
+                    android:layout_height="wrap_content"
+                    android:adjustViewBounds="true"
+                    android:scaleType="fitCenter"
+                    android:visibility="gone"
+                    android:src="@drawable/water_dispenser_full" />
 
                 <TextView
+                    android:id="@+id/lqTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="14dp"
-                    android:text="小程序立即领水"
-                    android:textColor="@android:color/black"
-                    android:textSize="22dp" />
+                    android:layout_marginLeft="50dp"
+                    android:gravity="center"
+                    android:text="扫描二维码，享受免费领水优惠"
+                    android:textColor="@color/white"
+                    android:textSize="50dp"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:id="@+id/ll_doing_undo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="50dp"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/doingTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="3号制水中"
+                        android:textColor="@color/white"
+                        android:textSize="25dp"
+                        android:visibility="gone"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/undoTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:layout_marginTop="5dp"
+                        android:visibility="gone"
+                        android:text="02 03请等待"
+                        android:textColor="@color/white"
+                        android:textSize="25dp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
             </LinearLayout>
 
-            <!-- 第二个二维码：APP领水 -->
             <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:orientation="vertical">
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.8"
+                android:gravity="center | end"
+                android:orientation="horizontal"
+                android:paddingRight="150dp">
 
-                <ImageView
-                    android:id="@+id/ivQrApp"
-                    android:layout_width="120dp"
-                    android:layout_height="120dp"
-                    android:contentDescription="APP领水二维码"
-                    android:scaleType="centerCrop"
-                    tools:src="@mipmap/ic_launcher" />
-
-                <TextView
+                <LinearLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="14dp"
-                    android:text="下载APP每日领水"
-                    android:textColor="@android:color/black"
-                    android:textSize="22dp" />
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="46dp"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/ivQrApplet"
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:contentDescription="小程序领水二维码"
+                        android:scaleType="centerCrop"
+                        tools:src="@mipmap/ic_launcher" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:text="小程序立即领水"
+                        android:textColor="@color/white"
+                        android:textSize="16dp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/ivQrApp"
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:contentDescription="APP领水二维码"
+                        android:scaleType="centerCrop"
+                        tools:src="@mipmap/ic_launcher" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:text="下载APP每日领水"
+                        android:textColor="@color/white"
+                        android:textSize="16dp"
+                        android:textStyle="bold" />
+                </LinearLayout>
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
+
 
     <View
         android:id="@+id/viewStart"

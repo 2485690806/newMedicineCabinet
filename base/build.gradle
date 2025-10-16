@@ -49,6 +49,20 @@ android {
 dependencies {
 //    implementation fileTree(dir: 'libs', include: ['*.jar', '*.aar']) // 导入本地jar和aar
 
+// OpenCV基础库（*必须）微信二维码识别
+    implementation 'com.github.jenly1314.WeChatQRCode:opencv:2.3.0'
+
+// OpenCV的ABI（可选），根据你的需要选择想要支持的SO库架构（至少选一个）
+    implementation 'com.github.jenly1314.WeChatQRCode:opencv-armv7a:2.3.0'
+    implementation 'com.github.jenly1314.WeChatQRCode:opencv-armv64:2.3.0'
+
+    implementation 'com.github.jenly1314.WeChatQRCode:opencv-x86:2.3.0'
+// 微信二维码识别功能（可选）
+    implementation 'com.github.jenly1314.WeChatQRCode:wechat-qrcode:2.3.0'
+// OpenCV二维码识别功能（可选）
+//    implementation 'com.github.jenly1314.WeChatQRCode:opencv-qrcode:2.3.0'
+
+
     //    串口依赖
     implementation 'io.github.xmaihh:serialport:2.1.1'
 //    api fileTree(include: ['*.jar'], dir: 'libs')
@@ -123,7 +137,7 @@ dependencies {
 
 /// pag的依赖库 必须添加
     api "androidx.exifinterface:exifinterface:1.3.3"
-    api 'com.arthenica:ffmpeg-kit-video:6.0-2'
+//    api 'com.arthenica:ffmpeg-kit-video:6.0-2'
 
     implementation 'org.apache.commons:commons-lang3:3.14.0' // 添加这行
 

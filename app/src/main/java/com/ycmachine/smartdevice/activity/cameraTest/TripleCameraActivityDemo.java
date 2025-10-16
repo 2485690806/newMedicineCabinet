@@ -50,7 +50,7 @@ import java.util.List;
 import java.util.concurrent.Semaphore;
 import java.util.concurrent.TimeUnit;
 
-public class TripleCameraActivity extends AppCompatActivity {
+public class TripleCameraActivityDemo extends AppCompatActivity {
     private static final int REQUEST_CAMERA_PERMISSION = 1;
     private static final int REQUEST_RECORD_AUDIO_PERMISSION = 2;
     private static final SparseIntArray ORIENTATIONS = new SparseIntArray();
@@ -118,7 +118,7 @@ public class TripleCameraActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_triple_camera);
+        setContentView(R.layout.activity_triple_camera_demo);
 
         // 初始化UI组件
         textureView1 = findViewById(R.id.texture_view1);
@@ -281,10 +281,10 @@ public class TripleCameraActivity extends AppCompatActivity {
 
         try {
             String[] cameraIdList = cameraManager.getCameraIdList();
-//            if (cameraIdList.length < 3) {
-//                Toast.makeText(this, "未检测到足够的USB摄像头(需要3个)", Toast.LENGTH_SHORT).show();
-//                return;
-//            }
+            if (cameraIdList.length < 3) {
+                Toast.makeText(this, "未检测到足够的USB摄像头(需要3个)", Toast.LENGTH_SHORT).show();
+                return;
+            }
 
             if (cameraNum == 1) {
                 cameraId1 = cameraIdList[0];
@@ -538,7 +538,7 @@ public class TripleCameraActivity extends AppCompatActivity {
                         toggleButton1.setText("开启摄像头1");
                         captureButton1.setEnabled(false);
                         mirrorButton1.setEnabled(false);
-                        Toast.makeText(TripleCameraActivity.this, "摄像头1错误: " + error, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(TripleCameraActivityDemo.this, "摄像头1错误: " + error, Toast.LENGTH_SHORT).show();
                     });
                 } else if (cameraNum == 2) {
                     cameraDevice2 = null;
@@ -547,7 +547,7 @@ public class TripleCameraActivity extends AppCompatActivity {
                         toggleButton2.setText("开启摄像头2");
                         captureButton2.setEnabled(false);
                         mirrorButton2.setEnabled(false);
-                        Toast.makeText(TripleCameraActivity.this, "摄像头2错误: " + error, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(TripleCameraActivityDemo.this, "摄像头2错误: " + error, Toast.LENGTH_SHORT).show();
                     });
                 } else {
                     cameraDevice3 = null;
@@ -557,7 +557,7 @@ public class TripleCameraActivity extends AppCompatActivity {
                         recordButton.setEnabled(false);
                         stopButton.setEnabled(false);
                         mirrorButton3.setEnabled(false);
-                        Toast.makeText(TripleCameraActivity.this, "摄像头3错误: " + error, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(TripleCameraActivityDemo.this, "摄像头3错误: " + error, Toast.LENGTH_SHORT).show();
                     });
                 }
             }
@@ -633,7 +633,7 @@ public class TripleCameraActivity extends AppCompatActivity {
 
                         @Override
                         public void onConfigureFailed(@NonNull CameraCaptureSession session) {
-                            Toast.makeText(TripleCameraActivity.this, "摄像头" + cameraNum + "配置失败", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(TripleCameraActivityDemo.this, "摄像头" + cameraNum + "配置失败", Toast.LENGTH_SHORT).show();
                         }
                     }, null);
         } catch (CameraAccessException e) {
@@ -840,7 +840,7 @@ public class TripleCameraActivity extends AppCompatActivity {
 
                 @Override
                 public void onConfigureFailed(@NonNull CameraCaptureSession session) {
-                    Toast.makeText(TripleCameraActivity.this, "配置录制会话失败", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(TripleCameraActivityDemo.this, "配置录制会话失败", Toast.LENGTH_SHORT).show();
                 }
             }, backgroundHandler);
 
@@ -898,7 +898,7 @@ public class TripleCameraActivity extends AppCompatActivity {
 
                     @Override
                     public void onConfigureFailed(@NonNull CameraCaptureSession session) {
-                        Toast.makeText(TripleCameraActivity.this, "恢复预览失败", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(TripleCameraActivityDemo.this, "恢复预览失败", Toast.LENGTH_SHORT).show();
                     }
                 }, backgroundHandler);
             }

@@ -6,7 +6,7 @@
     android:gravity="left"
     android:id="@+id/radio_group_layers"
     android:orientation="vertical"
-    android:paddingTop="20dp"
+    android:paddingTop="5dp"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
 </RadioGroup>

@@ -41,6 +41,7 @@
             android:gravity="center"
             android:paddingStart="28dp"
             android:paddingBottom="6dp"
+            android:elevation="2dp"
             android:text="@string/component_testing"
             android:textColor="@drawable/control_componen_text_color_selector"
             android:textSize="@dimen/item_main_control_conponent" />

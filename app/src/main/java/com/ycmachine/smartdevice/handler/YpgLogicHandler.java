@@ -18,7 +18,6 @@ import com.ycmachine.smartdevice.constent.ClientConstant;
 import com.ycmachine.smartdevice.entity.ypg.LayerNumber;
 import com.ycmachine.smartdevice.entity.ypg.LayerParam;
 
-import org.apache.commons.lang3.StringUtils;
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
@@ -30,7 +29,6 @@ import java.util.List;
 import leesche.smartrecycling.base.common.EventType;
 import leesche.smartrecycling.base.eventbus.BasicMessageEvent;
 import leesche.smartrecycling.base.serial.SerialHelper;
-import leesche.smartrecycling.base.utils.DataSourceOperator;
 import leesche.smartrecycling.base.utils.HexUtil;
 import leesche.smartrecycling.base.utils.StringUtil;
 import leesche.smartrecycling.base.utils.TTSUtils;
@@ -40,7 +38,8 @@ import tp.xmaihh.serialport.bean.ComBean;
 @Getter
 public class YpgLogicHandler implements SerialHelper.OnSerialListener {
 
-    String path = "/dev/ttyZC2";
+    String path = "/dev/ttyZC0";
+//    String path = "/dev/ttyZC2";
     int baudrate = 115200;
 
     SharedPreferences sp;
@@ -52,7 +51,7 @@ public class YpgLogicHandler implements SerialHelper.OnSerialListener {
 
     private List<OnStatusListener> statusListeners = new ArrayList<>(); // 状态监听器列表
 
-    private static final long TIMEOUT = 100000; // 超时时间：10秒
+    private static final long TIMEOUT = 30000; // 超时时间：10秒
     private Handler mainHandler = new Handler(Looper.getMainLooper()); // 主线程Handler，处理延迟和超时
     private Runnable timeoutRunnable = () -> {
     };
@@ -559,67 +558,72 @@ public class YpgLogicHandler implements SerialHelper.OnSerialListener {
     }
 
 
+    // 新增：清除所有状态监听（强制中断旧任务的关键）
+    private void clearAllStatusListeners() {
+        statusListeners.clear(); // 清空监听列表，避免旧监听干扰新任务
+    }
     private boolean isSnapDevice = false;
     public int nowLevel = 0;
     public List<Integer> selectedLayerValues = new ArrayList<>();
 
     public void snapDevice(List<Integer> layerValues) {
-        if (isSnapDevice) {
-            Logger.d("任务已在执行中，忽略重复调用");
-            Toast.makeText(
-                    context,  // 获取按钮所在的上下文
-                    "任务已在执行中，忽略重复调用",  // 提示消息（替换为你的message）
-                    Toast.LENGTH_SHORT
-            ).show();  // 显示弹窗
-            return;
-        }
-        Toast.makeText(
-                context,  // 获取按钮所在的上下文
-                "正在一键拍照",  // 提示消息（替换为你的message）
-                Toast.LENGTH_SHORT
-        ).show();  // 显示弹窗
-        isSnapDevice = true;
+        // 1. 清除所有旧的状态监听（避免旧任务的状态回调影响新任务）
+        clearAllStatusListeners();
 
-        nowLevel = 0;
-        this.selectedLayerValues = layerValues;
-        removeDuplicates();
-        // 使用自定义比较器，实现从大到小排序
-        Collections.sort(selectedLayerValues, new Comparator<Integer>() {
-            @Override
-            public int compare(Integer o1, Integer o2) {
-                // 1. 避免索引越界：直接使用o1、o2作为索引（假设索引从0开始）
-                // 2. 获取对应Layer的bushu值（假设为int类型）
-                int bushu1 = medicineCabinetLayer[o1].getBushu();
-                int bushu2 = medicineCabinetLayer[o2].getBushu();
+        // 2. 移除所有未执行的超时任务（避免旧任务超时逻辑触发）
+        mainHandler.removeCallbacksAndMessages(null); // 清除handler所有回调和消息
 
-                // 升序排序（bushu1 - bushu2）
-                return bushu1 - bushu2;
-            }
-        });
-        Logger.i(selectedLayerValues.toString());
+        // 3. 立即复位设备（无论旧任务执行到哪一步，强制回到初始状态）
         ComponenTestHandler.getInstance().YaxisReset();
 
-        // 注册状态监听
+        // 4. 重置任务相关变量（清空旧任务状态）
+        isSnapDevice = false; // 强制标记任务未执行
+        nowLevel = 0; // 重置当前层级进度
+        if (selectedLayerValues != null) {
+            selectedLayerValues.clear(); // 清空旧的层级列表
+        }
+        // ---------------------------------------------------
+
+        // 显示“正在一键拍照”提示（替换原有的重复检查提示）
+        Toast.makeText(
+                context,
+                "正在一键拍照",
+                Toast.LENGTH_SHORT
+        ).show();
+        isSnapDevice = true; // 标记新任务开始
+
+        // 处理新的层级列表（原逻辑保留）
+        this.selectedLayerValues = layerValues;
+        removeDuplicates(); // 去重
+        // 按bushu升序排序（原逻辑保留）
+        Collections.sort(selectedLayerValues, (o1, o2) -> {
+            int bushu1 = medicineCabinetLayer[o1].getBushu();
+            int bushu2 = medicineCabinetLayer[o2].getBushu();
+            return bushu1 - bushu2;
+        });
+        Logger.i("新任务层级列表：" + selectedLayerValues.toString());
+
+        // 启动新任务的第一步：Y轴复位（原逻辑保留，但此时已在开头强制复位过，可省略或保留）
+        ComponenTestHandler.getInstance().YaxisReset();
+
+        // 注册新的状态监听（原逻辑保留，但监听已被清空，重新注册新监听）
         OnStatusListener statusHandler1 = new OnStatusListener() {
             @Override
             public void onStatusReceived(String str) {
-                Logger.d("收到状态：" + str);
-                // 检测目标状态（忽略大小写，原js用indexOf）
+                Logger.d("新任务收到状态：" + str);
                 if (str.toLowerCase().contains("aa030c0303")) {
-                    // 收到目标状态，移除监听并进入下一步
-                    mainHandler.removeCallbacks(timeoutRunnable); // 取消超时
-                    removeStatusListener(this);
-                    // 进入步骤2：移动Y轴到指定层数
-                    snapAllLayer();
+                    mainHandler.removeCallbacks(timeoutRunnable);
+                    removeStatusListener(this); // 移除当前监听
+                    snapAllLayer(); // 进入下一步
                 }
             }
         };
-        // 注册监听
-        addStatusListener(statusHandler1);
-        // 设置超时任务
+        addStatusListener(statusHandler1); // 添加到新的监听列表
+
+        // 设置新任务的超时逻辑（原逻辑保留）
         timeoutRunnable = () -> {
-            Logger.d("步骤1超时（10秒）");
-            removeStatusListener(statusHandler1); // 移除监听
+            Logger.d("新任务步骤1超时（10秒）");
+            removeStatusListener(statusHandler1);
             snapAllLayer();
         };
         mainHandler.postDelayed(timeoutRunnable, TIMEOUT);
@@ -725,6 +729,7 @@ public class YpgLogicHandler implements SerialHelper.OnSerialListener {
             add(new LayerParam(6, "T6", 76, 87));  // 层数6（T6）对应货道76-87
             add(new LayerParam(7, "T7", 91, 102)); // 层数7（T7）对应货道91-102
             add(new LayerParam(8, "T8", 106, 117));// 层数8（T8）对应货道106-117
+            add(new LayerParam(9,"T9", 121, 132));
         }};
 
         // 2. 遍历所有层，存储「层数-货道编号」关联数据
@@ -733,6 +738,38 @@ public class YpgLogicHandler implements SerialHelper.OnSerialListener {
             // 遍历当前层的所有货道编号，关联层数并存储
             for (int num = param.getStartNum(); num <= param.getEndNum(); num++) {
                 allLayerNumbers.add(new LayerNumber(layerId, num));
+            }
+        }
+
+        // 3. 开始定时操作货道（每隔500ms）
+        printNextNumber();
+    }
+    public void handleCurrentLayerTest(int currentLayer){
+        isOpenAllGoodsChannel = true;
+        allLayerNumbers.clear(); // 清空历史数据
+        currentIndex = 0; // 重置索引
+
+        // 定义各层货道范围
+        List<LayerParam> layerParams = new ArrayList<LayerParam>() {{
+            add(new LayerParam(1, "T1", 1, 8));    // 层数1（T1）对应货道1-8
+            add(new LayerParam(2, "T2", 16, 23));  // 层数2（T2）对应货道16-23
+            add(new LayerParam(3, "T3", 31, 40));  // 层数3（T3）对应货道31-40
+            add(new LayerParam(4, "T4", 46, 55));  // 层数4（T4）对应货道46-55
+            add(new LayerParam(5, "T5", 61, 72));  // 层数5（T5）对应货道61-72
+            add(new LayerParam(6, "T6", 76, 87));  // 层数6（T6）对应货道76-87
+            add(new LayerParam(7, "T7", 91, 102)); // 层数7（T7）对应货道91-102
+            add(new LayerParam(8, "T8", 106, 117));// 层数8（T8）对应货道106-117
+            add(new LayerParam(9,"T9", 121, 132));
+        }};
+
+        // 2. 遍历所有层，存储「层数-货道编号」关联数据
+        for (LayerParam param : layerParams) {
+            int layerId = param.getLayerNumber(); // 获取当前层数（1-8）
+            if(currentLayer == layerId){
+                // 遍历当前层的所有货道编号，关联层数并存储
+                for (int num = param.getStartNum(); num <= param.getEndNum(); num++) {
+                    allLayerNumbers.add(new LayerNumber(layerId, num));
+                }
             }
         }
 
@@ -771,7 +808,7 @@ public class YpgLogicHandler implements SerialHelper.OnSerialListener {
             // 准备下一个
             currentIndex++;
             // 500ms后执行下一个
-            mHandler.postDelayed(this::printNextNumber, 500);
+            mHandler.postDelayed(this::printNextNumber, 1000);
         } else {
             // 所有货道操作完成
             Log.d("OpenChannel", "所有货道操作完成");

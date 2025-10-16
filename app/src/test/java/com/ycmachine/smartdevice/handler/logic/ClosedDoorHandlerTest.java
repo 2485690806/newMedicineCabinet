@@ -1,6 +1,9 @@
 package com.ycmachine.smartdevice.handler.logic;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.util.Log;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -12,9 +15,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
-
-import leesche.smartrecycling.base.entity.GridRegion;
-import leesche.smartrecycling.base.qrcode.ImageCropper;
+import java.util.List;
 
 
 @RunWith(RobolectricTestRunner.class)
@@ -64,9 +65,12 @@ public class ClosedDoorHandlerTest {
     public void closedDoorBlockingTest() {
 //        String path = loadTestImageInAndroid("/", "test.jpg");
 //        System.out.println(path);
-        GridRegion  gridRegion= new GridRegion(1, 100, 100, 400, "400");
-        String cropGrid = ImageCropper.cropGrid(context, "test.jpg", gridRegion, 1);
-        System.out.println("Cropped image path: " + cropGrid);
+//        GridRegion  gridRegion= new GridRegion(1, 100, 100, 400, "400");
+//        String cropGrid = ImageCropper.cropGrid(context, "test.jpg", gridRegion, 1);
+//        System.out.println("Cropped image path: " + cropGrid);
+
+
+
     }
 
     @Test

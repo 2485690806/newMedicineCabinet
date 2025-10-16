@@ -22,6 +22,7 @@ import leesche.smartrecycling.base.R;
 import leesche.smartrecycling.base.common.Constants;
 import leesche.smartrecycling.base.entity.AdEntity;
 import leesche.smartrecycling.base.handler.LocalConfigManager;
+import leesche.smartrecycling.base.handler.SystemFuncHandler;
 import leesche.smartrecycling.base.http.glide.GlideApp;
 import leesche.smartrecycling.base.strategy.DevContext;
 import leesche.smartrecycling.base.utils.NetSpeed;
@@ -30,12 +31,9 @@ public class LocalVImageHolderView extends Holder<AdEntity> {
 
     private ImageView iv_ad_img;
     private PLVideoView pl_ad_video;
-
     private FrameLayout fl_video;
     private ImageView coverView;
-
     //        private LinearLayout loadingView;
-
     private Callback callback;
     private int curId;
     String imageHref;
@@ -67,8 +65,6 @@ public class LocalVImageHolderView extends Holder<AdEntity> {
         fl_video = itemView.findViewById(R.id.fl_video);
         coverView = itemView.findViewById(R.id.coverView);
     }
-
-    private Integer changeTime = 8000;
 
     @Override
     public void updateUI(AdEntity data) {
@@ -102,7 +98,7 @@ public class LocalVImageHolderView extends Holder<AdEntity> {
                         .asGif()
                         .load(localPath)
                         .into(iv_ad_img);
-                if (callback != null) callback.onCanTurn(curId, changeTime);
+                if (callback != null) callback.onCanTurn(curId, 8000);
                 return;
             }
             if (imageHref.endsWith("mp4")) {
@@ -119,29 +115,29 @@ public class LocalVImageHolderView extends Holder<AdEntity> {
                     .load(localPath)
                     .apply(RequestOptions.bitmapTransform(new RoundedCorners(10)))
                     .into(iv_ad_img);
-            if (callback != null) callback.onCanTurn(curId, changeTime);
+            if (callback != null) callback.onCanTurn(curId, 8000);
         }
     }
 
-//    private void preVideo() {
-//
-//        if (curId < bannerList.size() - 1) {
-//            AdEntity data = bannerList.get(curId + 1);
-//            String imageHref = data.getImgHref();
-//            String localPath = SystemFuncHandler.getInstance().getLocalFilePath(imageHref);
-//            if (imageHref.endsWith("mp4")) {
-//                pl_ad_video.setVideoPath(localPath);
-//            }
-//
-//        } else {
-//            AdEntity data = bannerList.get(0);
-//            String imageHref = data.getImgHref();
-//            String localPath = SystemFuncHandler.getInstance().getLocalFilePath(imageHref);
-//            if (imageHref.endsWith("mp4")) {
-//                pl_ad_video.setVideoPath(localPath);
-//            }
-//        }
-//    }
+    private void preVideo() {
+
+        if (curId < bannerList.size() - 1) {
+            AdEntity data =bannerList.get(curId+1);
+            String imageHref = data.getImgHref();
+            String localPath = SystemFuncHandler.getInstance().getLocalFilePath(imageHref);
+            if (imageHref.endsWith("mp4")) {
+                pl_ad_video.setVideoPath(localPath);
+            }
+
+        } else {
+            AdEntity data = bannerList.get(0);
+            String imageHref = data.getImgHref();
+            String localPath = SystemFuncHandler.getInstance().getLocalFilePath(imageHref);
+            if (imageHref.endsWith("mp4")) {
+                pl_ad_video.setVideoPath(localPath);
+            }
+        }
+    }
 
     /**
      * 初始化播放配置
@@ -239,7 +235,7 @@ public class LocalVImageHolderView extends Holder<AdEntity> {
 
         // 对于非mp4内容（gif和其他图片），8秒后重新执行
         if (!imageHref.endsWith("mp4")) {
-            new Handler(Looper.getMainLooper()).postDelayed(this::xunHuanBoFang, changeTime); // 8秒延迟
+            new Handler(Looper.getMainLooper()).postDelayed(this::xunHuanBoFang, 8000); // 8秒延迟
         }
     }
 
@@ -256,16 +252,17 @@ public class LocalVImageHolderView extends Holder<AdEntity> {
     }
 
     private PLOnErrorListener mOnErrorListener = new PLOnErrorListener() {
+
         @Override
         public boolean onError(int errorCode, Object o) {
 //            Logger.i("errorCode：" + errorCode + "Object" + JSON.toJSONString(o));
             switch (errorCode) {
-                case ERROR_CODE_IO_ERROR:
+                case PLOnErrorListener.ERROR_CODE_IO_ERROR:
 //                    Logger.i("player IO Error!");
                     long speed = NetSpeed.newInstance().getNetSpeed(android.os.Process.myPid());
                     if (speed < 15 && callback != null) callback.onCanTurn(curId, 1000);
                     return false;
-                case ERROR_CODE_OPEN_FAILED:
+                case PLOnErrorListener.ERROR_CODE_OPEN_FAILED:
 //                    Logger.i("player failed to open player !");
                     String fileName = imageHref.replace("https://", "")
                             .replace("/", "-");
@@ -276,11 +273,11 @@ public class LocalVImageHolderView extends Holder<AdEntity> {
                     }
                     if (callback != null) callback.onCanTurn(curId, 1000);
                     break;
-                case ERROR_CODE_SEEK_FAILED:
+                case PLOnErrorListener.ERROR_CODE_SEEK_FAILED:
 //                    Logger.i("failed to seek !");
                     if (callback != null) callback.onCanTurn(curId, 1000);
                     return true;
-                case ERROR_CODE_CACHE_FAILED:
+                case PLOnErrorListener.ERROR_CODE_CACHE_FAILED:
 //                    Logger.i("player failed to cache url !");
                     if (callback != null) callback.onCanTurn(curId, 1000);
                     break;
@@ -292,7 +289,6 @@ public class LocalVImageHolderView extends Holder<AdEntity> {
             return true;
         }
     };
-
     // 添加停止视频的方法
     public void stopVideo() {
         if (pl_ad_video != null) {
@@ -300,7 +296,6 @@ public class LocalVImageHolderView extends Holder<AdEntity> {
             pl_ad_video.stopPlayback(); // 停止播放
         }
     }
-
     // 添加停止视频的方法
     public void closeVolume() {
         if (pl_ad_video != null) {

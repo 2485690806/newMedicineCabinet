@@ -6,6 +6,10 @@ import android.graphics.BitmapFactory;
 import android.os.Environment;
 import android.util.Log;
 
+import com.king.wechat.qrcode.WeChatQRCodeDetector;
+
+import org.opencv.OpenCV;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
@@ -20,6 +24,11 @@ public class ImageCropper {
 
     // 单个格子的区域信息（坐标、尺寸、编号）
 
+    public static void init(Context context){
+
+        OpenCV.initOpenCV();
+        WeChatQRCodeDetector.init(context);
+    }
 
     // 裁剪并保存单个格子的图片
     public static String cropGrid(Context context, String originalPath, GridRegion region, int level) {
@@ -29,6 +38,7 @@ public class ImageCropper {
                 Log.e(TAG, "Failed to load original image: " + originalPath);
                 return null;
             }
+            Log.d(TAG, "cropGrid: "+originalPath);
 
             // 裁剪指定区域
             Bitmap cropped = Bitmap.createBitmap(original, region.x, region.y, region.width, region.height);

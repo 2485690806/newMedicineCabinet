@@ -121,8 +121,19 @@
                 android:layout_height="45dp"
                 android:layout_marginStart="15dp"
                 android:gravity="center"
-                android:checked="true"
                 android:text="8"
+                android:textColor="#FFFFFF"
+                android:textSize="23dp"
+                style="@style/MyRadioButton"
+                android:background="@drawable/machine_number_radio_selector_xml"/>
+
+            <RadioButton
+                android:id="@+id/rb_layer_9"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:layout_marginStart="15dp"
+                android:gravity="center"
+                android:text="9"
                 android:textColor="#FFFFFF"
                 android:textSize="23dp"
                 style="@style/MyRadioButton"
@@ -137,6 +148,46 @@
             android:layout_marginTop="10dp"
             android:layout_weight="1"
             android:gravity="top|center">
+
+            <!-- 复位选项 -->
+            <RelativeLayout
+                android:layout_width="110dp"
+                android:layout_height="45dp">
+
+                <!-- 透明的RadioButton（用于单选逻辑） -->
+                <RadioButton
+                    android:id="@+id/rb_reposition"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/radio_btn_selector"
+                    android:button="@null"
+                    android:checked="true"
+                    android:focusable="true" />
+
+                <!-- 实际显示的内容布局 -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:clickable="false"
+                    android:focusable="false"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:background="@drawable/reposition_img" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginLeft="8dp"
+                        android:text="@string/reposition"
+                        android:textColor="#FFFFFF"
+                        android:textSize="20dp" />
+                </LinearLayout>
+            </RelativeLayout>
 
             <RadioButton
                 android:id="@+id/rb_pick_layer"

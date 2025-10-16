@@ -755,8 +755,10 @@ public class DataSourceOperator {
         return getQrCodeBindingDao().queryBuilder()
                 .where(QrCodeBindingDao.Properties.ItemQrCode.eq(itemQr)).limit(1).unique();
     }
-    public QrCodeBinding deleteByItemQrCode(String itemQr) {
-        return getQrCodeBindingDao().queryBuilder()
+    public void deleteByItemQrCode(String itemQr) {
+        QrCodeBinding unique = getQrCodeBindingDao().queryBuilder()
                 .where(QrCodeBindingDao.Properties.ItemQrCode.eq(itemQr)).limit(1).unique();
+
+         getQrCodeBindingDao().delete(unique);
     }
 }

@@ -144,6 +144,8 @@ public class ComponentTestRightFragment extends BaseFragment implements RxTimer.
                         "操作正在执行中，请稍后再试",
                         Toast.LENGTH_SHORT
                 ).show();
+
+                ClientConstant.IS_DOING = false;
                 return;
             }
             for (RadioButton rb : directionRadioButtons) {

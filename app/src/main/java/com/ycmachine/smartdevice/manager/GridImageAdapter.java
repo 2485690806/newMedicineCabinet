@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.ycmachine.smartdevice.R;
 
 import java.io.File;
@@ -39,6 +40,8 @@ public class GridImageAdapter extends RecyclerView.Adapter<GridImageAdapter.View
         // 使用Glide加载本地图片
         Glide.with(mContext)
                 .load(new File(imagePath)) // 从文件路径加载
+                .diskCacheStrategy(DiskCacheStrategy.NONE)  // 禁用磁盘缓存
+                .skipMemoryCache(true)                     // 禁用内存缓存
                 .into(holder.ivGrid);
     }
 

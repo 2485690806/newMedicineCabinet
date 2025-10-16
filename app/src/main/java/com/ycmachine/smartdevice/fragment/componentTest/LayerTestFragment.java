@@ -3,6 +3,7 @@ package com.ycmachine.smartdevice.fragment.componentTest;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.RadioButton;
@@ -14,6 +15,9 @@ import com.ycmachine.smartdevice.R;
 import com.ycmachine.smartdevice.R2;
 import com.ycmachine.smartdevice.constent.ClientConstant;
 import com.ycmachine.smartdevice.entity.ypg.Layer;
+import com.ycmachine.smartdevice.handler.ComponenTestHandler;
+
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,11 +63,15 @@ public class LayerTestFragment extends BaseFragment implements RxTimer.OnTimeCou
     @BindView(R2.id.rb_layer_8)
     RadioButton rbLayer8;
 
+    @BindView(R2.id.rb_layer_9)
+    RadioButton rbLayer9;
+
+    @BindView(R2.id.rb_reposition)
+    RadioButton rbReposition;
+
     @BindView(R2.id.et_step_count)
     EditText etStepCount;
 
-    @BindView(R2.id.et_direction)
-    EditText etDirection;
 
     @BindView(R2.id.rb_recycle_layer)
     RadioButton rbRecycleLayer;
@@ -89,7 +97,9 @@ public class LayerTestFragment extends BaseFragment implements RxTimer.OnTimeCou
         layerRadioButtons.add(rbLayer6);
         layerRadioButtons.add(rbLayer7);
         layerRadioButtons.add(rbLayer8);
+        layerRadioButtons.add(rbLayer9);
         layerRadioButtons.add(rbRecycleLayer);
+        layerRadioButtons.add(rbReposition);
 
         // 设置全局单选监听器
         View.OnClickListener layerListener = v -> {
@@ -103,6 +113,8 @@ public class LayerTestFragment extends BaseFragment implements RxTimer.OnTimeCou
                         "操作正在执行中，请稍后再试",
                         Toast.LENGTH_SHORT
                 ).show();
+
+                ClientConstant.IS_DOING = false;
                 return;
             }
 
@@ -138,6 +150,8 @@ public class LayerTestFragment extends BaseFragment implements RxTimer.OnTimeCou
 
             @Override
             public void afterTextChanged(Editable s) {
+                if(StringUtils.isBlank(s.toString()))
+                    return;
                 // 输入变化后立即保存（适合需要实时保存的场景）
 //                saveStepCountToLocal(s.toString());
                 ClientConstant.medicineCabinetLayer[nowLayerNumber - 1] = new Layer(Integer.parseInt(s.toString()));
@@ -184,9 +198,17 @@ public class LayerTestFragment extends BaseFragment implements RxTimer.OnTimeCou
             handleLayerOperation(8); // 8层逻辑
         } else if (layerId == R.id.rb_recycle_layer) {
             handleLayerOperation(10); // 回收层逻辑
+        }else if (layerId == R.id.rb_layer_9) {
+            handleLayerOperation(11); // 回收层逻辑
+        }else if (layerId == R.id.rb_reposition) {
+            handleReposition(); // 执行复位操作
         }
     }
 
+    void handleReposition() {
+        Log.d("Control", "执行复位操作");
+        ComponenTestHandler.getInstance().YaxisReset();
+    }
     private int nowLayerNumber = 1;
 
     /**
@@ -210,7 +232,10 @@ public class LayerTestFragment extends BaseFragment implements RxTimer.OnTimeCou
     void onSaveSettingClick() {
         if (ClientConstant.IS_DOING) {
             Toast.makeText(getActivity(), "操作正在执行中，无法保存", Toast.LENGTH_SHORT).show();
+
+            ClientConstant.IS_DOING = false;
             return;
+
         }
 
         // 获取当前选中的层级

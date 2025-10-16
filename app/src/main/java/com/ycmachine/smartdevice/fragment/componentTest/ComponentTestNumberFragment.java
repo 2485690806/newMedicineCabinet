@@ -1,6 +1,7 @@
 package com.ycmachine.smartdevice.fragment.componentTest;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.RadioButton;
 import android.widget.Toast;
@@ -9,6 +10,7 @@ import com.leesche.logger.Logger;
 import com.ycmachine.smartdevice.R;
 import com.ycmachine.smartdevice.R2;
 import com.ycmachine.smartdevice.constent.ClientConstant;
+import com.ycmachine.smartdevice.handler.ComponenTestHandler;
 import com.ycmachine.smartdevice.handler.YpgLogicHandler;
 
 import java.util.ArrayList;
@@ -53,6 +55,12 @@ public class ComponentTestNumberFragment  extends BaseFragment implements RxTime
     @BindView(R2.id.rb_layer_8)
     RadioButton rbLayer8;
 
+    @BindView(R2.id.rb_layer_9)
+    RadioButton rbLayer9;
+
+    @BindView(R2.id.rb_reposition)
+    RadioButton rbReposition;
+
     @BindView(R2.id.rb_recycle_layer)
     RadioButton rbRecycleLayer;
 
@@ -72,8 +80,10 @@ public class ComponentTestNumberFragment  extends BaseFragment implements RxTime
         layerRadioButtons.add(rbLayer6);
         layerRadioButtons.add(rbLayer7);
         layerRadioButtons.add(rbLayer8);
+        layerRadioButtons.add(rbLayer9);
         layerRadioButtons.add(rbPickLayer);
         layerRadioButtons.add(rbRecycleLayer);
+        layerRadioButtons.add(rbReposition);
 
         // 设置全局单选监听器
         View.OnClickListener layerListener = v -> {
@@ -87,6 +97,8 @@ public class ComponentTestNumberFragment  extends BaseFragment implements RxTime
                         "操作正在执行中，请稍后再试",
                         Toast.LENGTH_SHORT
                 ).show();
+
+                ClientConstant.IS_DOING = false;
                 return;
             }
 
@@ -135,9 +147,17 @@ public class ComponentTestNumberFragment  extends BaseFragment implements RxTime
             handleNumberLayerOperation(9);
         } else if (layerId == R2.id.rb_recycle_layer) {
             handleNumberLayerOperation(10);
+        } else if (layerId == R2.id.rb_layer_9) {
+            handleNumberLayerOperation(11);
+        } else if (layerId == R2.id.rb_reposition) {
+            handleReposition();
         }
     }
 
+    void handleReposition() {
+        Log.d("Control", "执行复位操作");
+        ComponenTestHandler.getInstance().YaxisReset();
+    }
     /**
      * 处理数字层级(1-8)操作
      */

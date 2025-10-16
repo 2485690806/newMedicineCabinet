@@ -26,10 +26,9 @@ ext {
     // please modify it to 16
     minSdkVersion = 16
 //    versionCode = 101
-    versionNameString = '2.3.6.20211117'
     javaSourceCompatibility = JavaVersion.VERSION_1_8
     javaTargetCompatibility = JavaVersion.VERSION_1_8
     versionCode = 2507
-    versionName = '1.0.1' // 继承原项目版本号
+    versionName = '1.0.1.10161541' // 继承原项目版本号
     aiVersion = '1.0.0' // ai版本号
 }

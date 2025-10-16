@@ -2,15 +2,19 @@ package com.ycmachine.smartdevice.activity.medicineCabinet;
 
 import static leesche.smartrecycling.base.common.Constants.TEST_IMG;
 
+import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 
+import androidx.appcompat.content.res.AppCompatResources;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.alibaba.fastjson.JSON;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.ycmachine.smartdevice.R;
 import com.ycmachine.smartdevice.R2;
 import com.ycmachine.smartdevice.manager.CabinetQrManager;
@@ -25,6 +29,8 @@ import leesche.smartrecycling.base.entity.GridRegion;
 import leesche.smartrecycling.base.entity.QrCodeBinding;
 import leesche.smartrecycling.base.qrcode.GridRegionManager;
 import leesche.smartrecycling.base.qrcode.ImageCropper;
+import leesche.smartrecycling.base.qrcode.QrCodeScanner;
+import leesche.smartrecycling.base.utils.DrawableToBitmapUtil;
 
 public class TestActivity extends BaseActivity {
 
@@ -46,7 +52,20 @@ public class TestActivity extends BaseActivity {
         GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 6);
         mRecyclerView.setLayoutManager(gridLayoutManager);
 
-        // 如果需要网格布局，可以这样设置（例如2列）
+        // 如果需要网格布局，可以这样设置（例如2列）        try {
+        ////            OpenCVQRCodeDetector openCVQRCodeDetector = new OpenCVQRCodeDetector();
+        ////            List<String> results = new ArrayList<>();
+        ////            openCVQRCodeDetector.detectAndDecodeMulti(originalBitmap, results);
+        //// 低版本兼容：加载 VectorDrawable
+        //            Drawable vectorDrawable = AppCompatResources.getDrawable(this, leesche.smartrecycling.base.R.drawable.test  );
+        //            Bitmap vectorBitmap = DrawableToBitmapUtil.drawableToBitmap(vectorDrawable, 200, 200);
+        //
+        //            List<String> strings = QrCodeScanner.decodeImage(vectorBitmap);
+        //            System.out.println("111"+JSON.toJSONString(strings));
+        //
+        //        } finally {
+        //
+        //        }
         // mRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
 
         mAdapter = new GridImageAdapter(this, mCroppedImagePaths);
@@ -88,18 +107,23 @@ public class TestActivity extends BaseActivity {
 //        GridRegion gridRegion= new GridRegion(1, 100, 100, 400, 400);
 //        String cropGrid = ImageCropper.cropGrid(this, TEST_IMG, gridRegion, 1);
 
-        List<GridRegion> gridRegions = GridRegionManager.getInstance().getGridRegions(6, 2);
+        List<GridRegion> gridRegions = GridRegionManager.getInstance().getGridRegions(5, 2);
 
         List<String> strings = ImageCropper.cropAllGrids(this, TEST_IMG, gridRegions, 1);
 //        System.out.println("Cropped image path: " + cropGrid);
         mCroppedImagePaths = strings;
+
+
+//        List<String> qrCodes = QrCodeScanner.scan(TEST_IMG);
+//        Logger.i("qrcode:"+JSON.toJSONString(qrCodes));
+
         initRecyclerView();
 
     }
 
     public void stopPreview(View view) {
 
-        List<GridRegion> gridRegions = GridRegionManager.getInstance().getGridRegions(1, 1);
+        List<GridRegion> gridRegions = GridRegionManager.getInstance().getGridRegions(5, 2);
 
         CabinetQrManager.getInstance().processPhoto("0",1, TEST_IMG, gridRegions,listener);
 //        imageView.setImageResource(R.drawable.ic_launcher_background);
@@ -107,7 +131,7 @@ public class TestActivity extends BaseActivity {
 
     public void showResult(View view) {
 
-        QrCodeBinding abc123 = CabinetQrManager.getInstance().findByItemQr("ABC123");
+        QrCodeBinding abc123 = CabinetQrManager.getInstance().findByItemQr("089");
         System.out.println("Found binding: " + JSON.toJSONString(abc123));
 //        imageView.setImageResource(R.drawable.ic_launcher_background);
     }
@@ -123,9 +147,12 @@ public class TestActivity extends BaseActivity {
 
         Glide.with(this)
                 .load(new File(TEST_IMG)) // 从文件路径加载
+                .diskCacheStrategy(DiskCacheStrategy.NONE)  // 禁用磁盘缓存
+                .skipMemoryCache(true)                     // 禁用内存缓存
                 .into(imageView);
 
         CabinetQrManager.getInstance().init(this);
+
     }
 
     @Override

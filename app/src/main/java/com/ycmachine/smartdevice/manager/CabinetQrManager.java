@@ -18,6 +18,8 @@ import leesche.smartrecycling.base.qrcode.ImageCropper;
 import leesche.smartrecycling.base.qrcode.QrCodeScanner;
 import leesche.smartrecycling.base.utils.DataSourceOperator;
 
+
+
 public class CabinetQrManager {
     private static final String TAG = "CabinetQrManager";
     private Context context;
@@ -26,6 +28,7 @@ public class CabinetQrManager {
 
 
     private static final class YpgLogicHandlerHolder {
+
         static final CabinetQrManager ToDiLogicHandler = new CabinetQrManager();
     }
 
@@ -55,6 +58,7 @@ public class CabinetQrManager {
                     GridRegion region = gridRegions.get(i);
 
                     List<String> qrCodes = QrCodeScanner.scan(croppedPath);
+                    Logger.i("level:"+region.gridNumber+"qrCodes:"+JSON.toJSONString(qrCodes));
                     if (qrCodes != null && qrCodes.size() >= 2) {
                         // 假设第1个是“格子二维码”，第2个是“物品二维码”
                         String gridQr = null;

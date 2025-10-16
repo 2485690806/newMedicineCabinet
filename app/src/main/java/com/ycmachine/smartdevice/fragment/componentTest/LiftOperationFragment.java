@@ -65,6 +65,8 @@ public class LiftOperationFragment extends BaseFragment implements RxTimer.OnTim
                         "操作正在执行中，请稍后再试",
                         Toast.LENGTH_SHORT
                 ).show();
+                ClientConstant.IS_DOING = false;
+
                 return;
             }
 

@@ -63,6 +63,8 @@ public class ControlModeFragment  extends BaseFragment implements RxTimer.OnTime
                         "操作正在执行中，请稍后再试",  // 提示消息（替换为你的message）
                         Toast.LENGTH_SHORT
                 ).show();  // 显示弹窗
+
+                ClientConstant.IS_DOING = false;
                 return;
             }
 

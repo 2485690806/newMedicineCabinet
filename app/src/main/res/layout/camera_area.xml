@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout android:layout_width="0dp"
-    android:layout_height="500dp"
+    android:layout_height="470dp"
     android:layout_marginTop="30dp"
     android:background="@drawable/camera_bac"
     android:layout_weight="1"

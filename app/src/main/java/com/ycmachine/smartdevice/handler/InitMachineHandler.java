@@ -58,6 +58,7 @@ public class InitMachineHandler {
                 new Layer(0),
                 new Layer(450),
                 new Layer(80),
+                new Layer(0),
         };
     }
     private static int[] getDefaultLayersValues() {

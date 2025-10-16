@@ -14,6 +14,7 @@ import com.faceunity.core.faceunity.FURenderManager;
 import com.faceunity.core.utils.FULogger;
 import com.leesche.logger.Logger;
 import com.xiaoyezi.networkdetector.NetworkDetector;
+import com.ycmachine.smartdevice.manager.CabinetQrManager;
 import com.ycmachine.smartdevice.network.api.OkHttpProvider;
 import com.ycmachine.smartdevice.storage.AuthStorage;
 
@@ -23,6 +24,7 @@ import io.reactivex.rxjava3.exceptions.UndeliverableException;
 import io.reactivex.rxjava3.plugins.RxJavaPlugins;
 import leesche.smartrecycling.base.BaseApplication;
 import leesche.smartrecycling.base.common.Constants;
+import leesche.smartrecycling.base.qrcode.ImageCropper;
 import leesche.smartrecycling.base.utils.DatabaseUtil;
 import leesche.smartrecycling.base.utils.FileUtil;
 import leesche.smartrecycling.base.utils.SharedPreferencesUtils;
@@ -46,6 +48,9 @@ public class ClientApplication extends BaseApplication {
         NetworkDetector.getInstance().init(this);
         setTestServer(Constants.IS_TEST);
         initConfig();
+
+        CabinetQrManager.getInstance().init(this);
+        ImageCropper.init(this);
 
         new Thread(new Runnable() {
             @Override

@@ -5,10 +5,13 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.leesche.logger.Logger;
 import com.ycmachine.smartdevice.R;
 import com.ycmachine.smartdevice.R2;
+import com.ycmachine.smartdevice.constent.ClientConstant;
 import com.ycmachine.smartdevice.creator.LayerViewCreator;
 import com.ycmachine.smartdevice.entity.ypg.LayerParam;
 import com.ycmachine.smartdevice.handler.YpgLogicHandler;
@@ -33,6 +36,7 @@ public class PlanImageFragment  extends BaseFragment implements RxTimer.OnTimeCo
         add(new LayerParam(6,"T6", 76, 87));
         add(new LayerParam(7,"T7", 91, 102));
         add(new LayerParam(8,"T8", 106, 117));
+        add(new LayerParam(9,"T9", 121, 132));
     }};
 
 
@@ -64,8 +68,11 @@ public class PlanImageFragment  extends BaseFragment implements RxTimer.OnTimeCo
 
             // 创建层容器
             LinearLayout layerContainer = viewCreator.createLayerContainer();
+            TextView titleView = viewCreator.createTitleView(param.getLayerTitle());
+
+            titleView.setOnClickListener(v -> RadioButtonManager.getInstance().setTextViewClick(currentLayer));
             // 添加层标题
-            layerContainer.addView(viewCreator.createTitleView(param.getLayerTitle()));
+            layerContainer.addView(titleView);
             // 添加数字按钮
             for (int num = param.getStartNum(); num <= param.getEndNum(); num++) {
                 RadioButton radioButton = viewCreator.createNumberRadioButton(num);
@@ -99,6 +106,27 @@ public class PlanImageFragment  extends BaseFragment implements RxTimer.OnTimeCo
                     // 执行业务逻辑（根据层数和数字处理）
                     YpgLogicHandler.getInstance().handleLayerOperation(layerNumber, buttonNumber);
                 }
+            }
+
+            @Override
+            public void onTextViewButtonClicked(int currentLayer) {
+                // 一键层数测试
+                Logger.i("一键层数测试"+currentLayer);
+
+                if(ClientConstant.IS_DOING){
+                    Toast.makeText(
+                            requireContext(),  // 获取按钮所在的上下文
+                            "操作正在执行中，请稍后再试",  // 提示消息（替换为你的message）
+                            Toast.LENGTH_SHORT
+                    ).show();  // 显示弹窗
+
+                    ClientConstant.IS_DOING = false;
+                    return;
+                }
+                ClientConstant.IS_DOING = true;
+
+
+                YpgLogicHandler.getInstance().handleCurrentLayerTest(currentLayer);
             }
         });
 

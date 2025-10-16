@@ -39,6 +39,7 @@ public class RadioButtonManager {
                     "操作正在执行中，请稍后再试",  // 提示消息（替换为你的message）
                     Toast.LENGTH_SHORT
             ).show();  // 显示弹窗
+            ClientConstant.IS_DOING = false;
             return;
         }
         ClientConstant.IS_DOING = true;
@@ -73,10 +74,21 @@ public class RadioButtonManager {
     // 点击事件回调接口
     public interface OnRadioButtonClickListener {
         void onRadioButtonClicked(RadioButton radioButton, int number);
+        void onTextViewButtonClicked( int currentLayer);
     }
 
     // 设置监听器
     public void setOnRadioButtonClickListener(OnRadioButtonClickListener listener) {
         this.listener = listener;
+    }
+
+
+    // 一键层级测试
+    public void setTextViewClick(int currentLayer) {
+
+
+
+        listener.onTextViewButtonClicked(currentLayer);
+
     }
 }

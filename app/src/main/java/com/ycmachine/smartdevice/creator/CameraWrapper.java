@@ -34,7 +34,7 @@ import androidx.core.app.ActivityCompat;
 
 import com.leesche.logger.Logger;
 import com.ycmachine.smartdevice.R;
-import com.ycmachine.smartdevice.handler.YpgLogicHandler;
+import com.ycmachine.smartdevice.constent.ClientConstant;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -225,6 +225,10 @@ public class CameraWrapper {
             } else {
                 callback.onToast("打开摄像头" + cameraNum + "超时");
             }
+            if(cameraNum == 1){
+                configureTransform(textureView.getWidth(), textureView.getHeight());
+            }
+
         } catch (CameraAccessException | InterruptedException e) {
             callback.onToast("打开摄像头" + cameraNum + "失败：" + e.getMessage());
             Log.e(TAG, "openCamera error", e);
@@ -317,8 +321,11 @@ public class CameraWrapper {
             int rotation = callback.getDisplayRotation();
             int orientation = ORIENTATIONS.get(rotation);
 
-            if ((cameraNum == 1) || (cameraNum == 3)) {
-                orientation = (orientation + 180) % 360;
+//            if ((cameraNum == 1) || (cameraNum == 3)) {
+//                orientation = (orientation + 180) % 360;
+//            }
+            if (cameraNum == 3) {
+                orientation = 180;
             }
             previewRequestBuilder.set(CaptureRequest.JPEG_ORIENTATION,
                     ORIENTATIONS.get(orientation));
@@ -370,11 +377,14 @@ public class CameraWrapper {
             int rotation = callback.getDisplayRotation();
             int orientation = ORIENTATIONS.get(rotation);
 
-            if ((cameraNum == 1) || (cameraNum == 3)) {
-                orientation = (orientation + 180) % 360;
+//            if ((cameraNum == 1) || (cameraNum == 3)) {
+//                orientation = (orientation + 180) % 360;
+//            }
+
+
+            if (cameraNum == 3) {
+                orientation = 180;
             }
-
-
             // 照片方向
             captureBuilder.set(CaptureRequest.JPEG_ORIENTATION,
                     ORIENTATIONS.get(orientation));
@@ -427,9 +437,19 @@ public class CameraWrapper {
     private void saveImageToFile(byte[] bytes) {
         Bitmap bitmap = android.graphics.BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
         try {
+            // 如果需要镜像，处理图片
+//            if (cameraNum == 1 ){
+//                Matrix matrix = new Matrix();
+//                matrix.postScale(-1, 1); // 水平镜像
+//                Bitmap mirroredBitmap = Bitmap.createBitmap(bitmap, 0, 0,
+//                        bitmap.getWidth(), bitmap.getHeight(), matrix, true);
+//                bitmap.recycle();
+//                bitmap = mirroredBitmap;
+//            }
+
 
             File file = new File(callback.getExternalFilesDir(),
-                    "photo_cam" + cameraNum + "_level_" + YpgLogicHandler.getInstance().getNowLevel() + "_" + System.currentTimeMillis() + ".jpg");
+                    "photo_cam" + cameraNum + "_level_" + ClientConstant.nowFloor + "_" + System.currentTimeMillis() + ".jpg");
             if (!file.getParentFile().exists()) {
                 file.getParentFile().mkdirs();
             }
@@ -561,6 +581,13 @@ public class CameraWrapper {
             matrix.postScale(scale, scale, centerX, centerY);
             matrix.postRotate(90 * (rotation - 2), centerX, centerY);
         }
+        Logger.i("cameraNum"+cameraNum);
+        // ---------------------- 新增：摄像头1水平镜像 ----------------------
+        if (cameraNum == 1) { // 仅对摄像头1生效
+            // postScale(-1, 1, centerX, centerY)：水平镜像（x轴翻转），以中心点为原点
+            matrix.postScale(-1, 1, centerX, centerY);
+        }
+        // ------------------------------------------------------------------
         textureView.setTransform(matrix);
     }
 

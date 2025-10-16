@@ -15,6 +15,7 @@ import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.Looper;
 import android.os.SystemClock;
+import android.text.InputFilter;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.TextureView;
@@ -39,6 +40,7 @@ import com.ycmachine.smartdevice.creator.UnVisityCameraWrapper;
 import com.ycmachine.smartdevice.handler.InitMachineHandler;
 import com.ycmachine.smartdevice.handler.MedHttpHandler;
 import com.ycmachine.smartdevice.handler.YpgLogicHandler;
+import com.ycmachine.smartdevice.manager.CabinetQrManager;
 
 import org.apache.commons.lang3.StringUtils;
 import org.greenrobot.eventbus.EventBus;
@@ -58,7 +60,6 @@ import leesche.smartrecycling.base.entity.GridRegion;
 import leesche.smartrecycling.base.entity.QrCodeBinding;
 import leesche.smartrecycling.base.eventbus.BasicMessageEvent;
 import leesche.smartrecycling.base.handler.LocalConfigManager;
-import com.ycmachine.smartdevice.manager.CabinetQrManager;
 import leesche.smartrecycling.base.qrcode.GridRegionManager;
 import leesche.smartrecycling.base.utils.DataSourceOperator;
 import leesche.smartrecycling.base.utils.RxTimer;
@@ -274,7 +275,7 @@ public class UserMedPointActivity extends BaseActivity implements RxTimer.OnTime
     public void initData() {
 
 //        handoffCamera(3,true);
-        findViewById(R.id.dummy_focus_view).requestFocus();
+//        findViewById(R.id.dummy_focus_view).requestFocus();
         MedHttpHandler.getInstance().initialize(this);
     }
 
@@ -407,6 +408,8 @@ public class UserMedPointActivity extends BaseActivity implements RxTimer.OnTime
 
         if(ClientConstant.IS_DOING){
             onToast("操作正在执行中");
+
+            ClientConstant.IS_DOING = false;
             return;
         }
 
@@ -454,7 +457,7 @@ public class UserMedPointActivity extends BaseActivity implements RxTimer.OnTime
     public void onImageSaved(int cameraNum, String filePath) {
         Logger.d("摄像头" + cameraNum + "保存图片：" + filePath);
         // 可在这里处理图片保存后的逻辑（如上传）
-        int nowLevel = YpgLogicHandler.getInstance().getNowLevel();
+        int nowLevel = ClientConstant.nowFloor;
         List<GridRegion> gridRegions = GridRegionManager.getInstance().getGridRegions(nowLevel, cameraNum);
         if(gridRegions==null || gridRegions.size()==0){
             Logger.e("没有配置层级"+nowLevel+"摄像头"+cameraNum+"的识别区域");
@@ -495,28 +498,28 @@ public class UserMedPointActivity extends BaseActivity implements RxTimer.OnTime
         }
     };
 
-    private String mScanData = "";  // 条码
+//    private String mScanData = "";  // 条码
 
-    @Override
-    public boolean dispatchKeyEvent(KeyEvent event) {  // 扫条形码
-
-
-        if (event.getAction() == KeyEvent.ACTION_DOWN && event.getKeyCode() != KeyEvent.KEYCODE_ENTER) {
-
-
-            char pressedKey = (char) event.getUnicodeChar();
-            mScanData += pressedKey;
-            return true;
-
-        } else if (event.getAction() == KeyEvent.ACTION_DOWN && event.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
-
-
-            inputToFind(mScanData.trim());
-            mScanData = "";
-
-            return true;
-        }
-        return super.dispatchKeyEvent(event);
-    }
+//    @Override
+//    public boolean dispatchKeyEvent(KeyEvent event) {  // 扫条形码
+//
+//
+//        if (event.getAction() == KeyEvent.ACTION_DOWN && event.getKeyCode() != KeyEvent.KEYCODE_ENTER) {
+//
+//
+//            char pressedKey = (char) event.getUnicodeChar();
+//            mScanData += pressedKey;
+//            return true;
+//
+//        } else if (event.getAction() == KeyEvent.ACTION_DOWN && event.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
+//
+//
+//            inputToFind(mScanData.trim());
+//            mScanData = "";
+//
+//            return true;
+//        }
+//        return super.dispatchKeyEvent(event);
+//    }
 
 }

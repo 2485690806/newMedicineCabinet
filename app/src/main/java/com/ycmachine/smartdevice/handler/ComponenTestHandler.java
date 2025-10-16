@@ -1,5 +1,6 @@
 package com.ycmachine.smartdevice.handler;
 
+import static com.ycmachine.smartdevice.constent.ClientConstant.ResetFloor;
 import static com.ycmachine.smartdevice.constent.ClientConstant.medicineCabinetLayer;
 import static com.ycmachine.smartdevice.constent.ClientConstant.nowFloor;
 import static leesche.smartrecycling.base.utils.HexDump.convertToHexString;
@@ -87,7 +88,7 @@ public class ComponenTestHandler {
      * Y轴复位
      */
     public void YaxisReset() {
-        nowFloor = 7; // 重置当前楼层为7（第8层）
+        nowFloor = ResetFloor; // 重置当前楼层为7（第8层）
         String str = "AA000B0101BB";
 
         sendSerialPort(hexStringToByteArray(str));

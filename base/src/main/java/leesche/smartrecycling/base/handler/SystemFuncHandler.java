@@ -1,6 +1,7 @@
 package leesche.smartrecycling.base.handler;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.google.gson.JsonParser;
 import com.leesche.logger.Logger;
@@ -197,6 +198,10 @@ public class SystemFuncHandler {
     }
 
     public String getLocalFilePath(String imageHref) {
+        if (imageHref == null || imageHref.isEmpty()) {
+            Log.e("SystemFuncHandler", "getLocalFilePath: originalPath 为 null 或空字符串");
+            return ""; // 或返回默认路径，如 "/default/path"
+        }
         String fileName = imageHref.substring(imageHref.lastIndexOf("/"));
         if (imageHref.endsWith("q_70")) {
             String _fileName = imageHref.split("\\?")[0];

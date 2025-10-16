@@ -32,9 +32,11 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 
+import com.alibaba.fastjson.JSON;
 import com.leesche.logger.Logger;
 import com.ycmachine.smartdevice.R;
-import com.ycmachine.smartdevice.handler.YpgLogicHandler;
+import com.ycmachine.smartdevice.constent.ClientConstant;
+import com.ycmachine.smartdevice.manager.CabinetQrManager;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -232,6 +234,9 @@ public class UnVisityCameraWrapper {
                 cameraManager.openCamera(cameraId, stateCallback, backgroundHandler);
             } else {
                 callback.onToast("打开摄像头" + cameraNum + "超时");
+            }
+            if(cameraNum == 1){
+                configureTransform(textureView.getWidth(), textureView.getHeight());
             }
         } catch (CameraAccessException | InterruptedException e) {
             callback.onToast("打开摄像头" + cameraNum + "失败：" + e.getMessage());
@@ -435,9 +440,17 @@ public class UnVisityCameraWrapper {
     private void saveImageToFile(byte[] bytes) {
         Bitmap bitmap = android.graphics.BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
         try {
+            if (cameraNum == 1 ){
+                Matrix matrix = new Matrix();
+                matrix.postScale(-1, 1); // 水平镜像
+                Bitmap mirroredBitmap = Bitmap.createBitmap(bitmap, 0, 0,
+                        bitmap.getWidth(), bitmap.getHeight(), matrix, true);
+                bitmap.recycle();
+                bitmap = mirroredBitmap;
+            }
 
             File file = new File(callback.getExternalFilesDir(),
-                    "photo_cam" + cameraNum + "_level_" + YpgLogicHandler.getInstance().getNowLevel() + "_" + System.currentTimeMillis() + ".jpg");
+                    "photo_cam" + cameraNum + "_level_" + ClientConstant.nowFloor + "_" + System.currentTimeMillis() + ".jpg");
             if (!file.getParentFile().exists()) {
                 file.getParentFile().mkdirs();
             }
@@ -446,13 +459,33 @@ public class UnVisityCameraWrapper {
             bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos);
             fos.flush();
             fos.close();
-            callback.onImageSaved(cameraNum, file.getAbsolutePath());
-            callback.onToast("摄像头" + cameraNum + "照片已保存");
+
+            try {
+                callback.onImageSaved(cameraNum, file.getAbsolutePath());
+                callback.onToast("摄像头" + cameraNum + "照片已保存");
+            }catch (Exception e){
+                Logger.e(JSON.toJSONString(e));
+            }
+
+
         } catch (IOException e) {
             callback.onToast("摄像头" + cameraNum + "保存失败");
             Log.e(TAG, "saveImage error", e);
         }
     }
+    CabinetQrManager.OnProcessListener listener = new CabinetQrManager.OnProcessListener() {
+        @Override
+        public void onSuccess() {
+            // 处理成功的回调
+            System.out.println("Binding success: ");
+        }
+
+        @Override
+        public void onError(Exception e) {
+            // 处理失败的回调
+            System.out.println("Binding failed: " + e);
+        }
+    };
 
     // 开始录像
     public void startRecording() {
@@ -569,6 +602,13 @@ public class UnVisityCameraWrapper {
             matrix.postScale(scale, scale, centerX, centerY);
             matrix.postRotate(90 * (rotation - 2), centerX, centerY);
         }
+
+        // ---------------------- 新增：摄像头1水平镜像 ----------------------
+        if (cameraNum == 1) { // 仅对摄像头1生效
+            // postScale(-1, 1, centerX, centerY)：水平镜像（x轴翻转），以中心点为原点
+            matrix.postScale(-1, 1, centerX, centerY);
+        }
+        // ------------------------------------------------------------------
         textureView.setTransform(matrix);
     }
 

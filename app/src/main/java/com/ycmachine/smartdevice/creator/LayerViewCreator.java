@@ -40,7 +40,7 @@ public class LayerViewCreator {
         TextView titleView = new TextView(mContext);
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                 DpUtils.dpToPx(mContext, 40), // 宽度40dp
-                DpUtils.dpToPx(mContext, 35)  // 高度35dp
+                DpUtils.dpToPx(mContext, 34)  // 高度35dp
         );
         params.setMargins(0, 0, DpUtils.dpToPx(mContext, 3), 0); // 与数字按钮间距3dp
         titleView.setLayoutParams(params);
@@ -57,7 +57,7 @@ public class LayerViewCreator {
         RadioButton radioButton = new RadioButton(mContext);
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                 DpUtils.dpToPx(mContext, 33), // 宽度30dp
-                DpUtils.dpToPx(mContext, 35)  // 高度35dp
+                DpUtils.dpToPx(mContext, 34)  // 高度35dp
         );
         radioButton.setLayoutParams(params);
         radioButton.setBackgroundResource(R.drawable.number_layers_bg_selector); // 背景选择器
