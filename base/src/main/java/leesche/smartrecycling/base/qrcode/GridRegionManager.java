@@ -53,7 +53,7 @@ public class GridRegionManager {
                 new GridRegion(2043, 658, 498, 685, "0125"),
                 new GridRegion(2499, 658, 471, 685, "0126")
         );
-        addGridRegions(9, 1, level9Cam1Grids); // 添加8层右摄像头数据
+        addGridRegions(7, 1, level9Cam1Grids); // 添加8层右摄像头数据
 
 
         List<GridRegion> level8Cam1Grids = List.of(
@@ -71,7 +71,7 @@ public class GridRegionManager {
                 new GridRegion(2031, 682, 487, 646, "0110"),
                 new GridRegion(2481, 682, 498, 646, "0111")
         );
-        addGridRegions(8, 1, level8Cam1Grids); // 添加8层右摄像头数据
+        addGridRegions(6, 1, level8Cam1Grids); // 添加8层右摄像头数据
 
 
         List<GridRegion> level7Cam1Grids = List.of(
@@ -89,7 +89,7 @@ public class GridRegionManager {
                 new GridRegion(2025, 679, 483, 685, "095"),
                 new GridRegion(2478, 679, 486, 685, "096")
         );
-        addGridRegions(7, 1, level7Cam1Grids); // 添加8层右摄像头数据
+        addGridRegions(5, 1, level7Cam1Grids); // 添加8层右摄像头数据
 
 
         List<GridRegion> level6Cam1Grids = List.of(
@@ -107,7 +107,7 @@ public class GridRegionManager {
                 new GridRegion(2025, 679, 495, 664, "080"),
                 new GridRegion(2478, 679, 501, 664, "081")
         );
-        addGridRegions(6, 1, level6Cam1Grids); // 添加8层
+        addGridRegions(4, 1, level6Cam1Grids); // 添加8层
 
 
         List<GridRegion> level5Cam1Grids = List.of(
@@ -125,7 +125,7 @@ public class GridRegionManager {
                 new GridRegion(2028, 145, 483, 574, "065"),
                 new GridRegion(2472, 145, 495, 574, "066")
         );
-        addGridRegions(5, 1, level5Cam1Grids); // 添加8层右摄像头数据
+        addGridRegions(3, 1, level5Cam1Grids); // 添加8层右摄像头数据
 
 
         List<GridRegion> level4Cam1Grids = List.of(
@@ -135,7 +135,7 @@ public class GridRegionManager {
                 new GridRegion(1833, 535, 577, 769, "049"),
                 new GridRegion(2376, 535, 582, 769, "050")
         );
-        addGridRegions(4, 1, level4Cam1Grids); // 添加8层
+        addGridRegions(2, 1, level4Cam1Grids); // 添加8层
 
 
         List<GridRegion> level3Cam1Grids = List.of(
@@ -145,7 +145,7 @@ public class GridRegionManager {
                 new GridRegion(1833, 535, 577, 769, "034"),
                 new GridRegion(2376, 535, 582, 769, "035")
         );
-        addGridRegions(3, 1, level3Cam1Grids); // 添加8层
+        addGridRegions(1, 1, level3Cam1Grids); // 添加8层
 
 
         List<GridRegion> level2Cam1Grids = List.of(
@@ -154,7 +154,7 @@ public class GridRegionManager {
                 new GridRegion(1572, 445, 726, 865, "018"),
                 new GridRegion(2271, 445, 714, 865, "019")
         );
-        addGridRegions(2, 1, level2Cam1Grids); // 添加8层右摄像头数据
+        addGridRegions(0, 1, level2Cam1Grids); // 添加8层右摄像头数据
 
 
         List<GridRegion> level1Cam1Grids = List.of(
@@ -163,7 +163,7 @@ public class GridRegionManager {
                 new GridRegion(1566, 409, 720, 901, "003"),
                 new GridRegion(2247, 409, 720, 901, "004")
         );
-        addGridRegions(1, 1, level1Cam1Grids); // 添加8层右摄像头数据
+        addGridRegions(10, 1, level1Cam1Grids); // 添加8层右摄像头数据
 
 
         List<GridRegion> level9Cam2Grids = List.of(
@@ -181,7 +181,7 @@ public class GridRegionManager {
                 new GridRegion(2460, 734, 477, 630, "0131"),
                 new GridRegion(2907, 734, 435, 630, "0132")
         );
-        addGridRegions(9, 2, level9Cam2Grids); // 添加8层左摄像头数据
+        addGridRegions(7, 2, level9Cam2Grids); // 添加8层左摄像头数据
 
 
         List<GridRegion> level8Cam2Grids = List.of(
@@ -199,7 +199,7 @@ public class GridRegionManager {
                 new GridRegion(2430, 733, 468, 634, "0116"),
                 new GridRegion(2847, 733, 459, 634, "0117")
         );
-        addGridRegions(8, 2, level8Cam2Grids); // 添加8层右摄像头数据
+        addGridRegions(6, 2, level8Cam2Grids); // 添加8层右摄像头数据
 
 
         List<GridRegion> level7Cam2Grids = List.of(
@@ -218,7 +218,7 @@ public class GridRegionManager {
                 new GridRegion(2832, 721, 438, 541, "0102")
 
         );
-        addGridRegions(7, 2, level7Cam2Grids); // 添加8层右摄像头数据
+        addGridRegions(5, 2, level7Cam2Grids); // 添加8层右摄像头数据
 
 
         List<GridRegion> level6Cam2Grids = List.of(
@@ -238,7 +238,7 @@ public class GridRegionManager {
                 new GridRegion(2847, 706, 459, 670, "087")
 
                 );
-        addGridRegions(6, 2, level6Cam2Grids); // 添加8层右摄像头数据
+        addGridRegions(4, 2, level6Cam2Grids); // 添加8层右摄像头数据
 
 
         List<GridRegion> level5Cam2Grids = List.of(
@@ -258,7 +258,7 @@ public class GridRegionManager {
 
 
                 );
-        addGridRegions(5, 2, level5Cam2Grids); // 添加8层右摄像头数据
+        addGridRegions(3, 2, level5Cam2Grids); // 添加8层右摄像头数据
 
 
         List<GridRegion> level4Cam2Grids = List.of(
@@ -270,7 +270,7 @@ public class GridRegionManager {
                 new GridRegion(2739, 529, 558, 877, "055")
 
                 );
-        addGridRegions(4, 2, level4Cam2Grids); // 添加8层右摄像头数据
+        addGridRegions(2, 2, level4Cam2Grids); // 添加8层右摄像头数据
 
 
         List<GridRegion> level3Cam2Grids = List.of(
@@ -282,7 +282,7 @@ public class GridRegionManager {
                 new GridRegion(2739, 514, 558, 877, "040")
 
                 );
-        addGridRegions(3, 2, level3Cam2Grids); // 添加8层右摄像头数据
+        addGridRegions(1, 2, level3Cam2Grids); // 添加8层右摄像头数据
 
 
         List<GridRegion> level2Cam2Grids = List.of(
@@ -293,7 +293,7 @@ public class GridRegionManager {
                 new GridRegion(2637, 451, 696, 877, "023")
 
                 );
-        addGridRegions(2, 2, level2Cam2Grids); // 添加8层右摄像头数据
+        addGridRegions(0, 2, level2Cam2Grids); // 添加8层右摄像头数据
 
 
         List<GridRegion> level1Cam2Grids = List.of(
@@ -304,7 +304,7 @@ public class GridRegionManager {
                 new GridRegion(2619, 484, 681, 910, "008")
 
                 );
-        addGridRegions(1, 2, level1Cam2Grids); // 添加8层右摄像头数据
+        addGridRegions(10, 2, level1Cam2Grids); // 添加8层右摄像头数据
 
 
 //        // 第8层右摄像头（cameraNum=2）的格子区域（示例，需替换为实际数据）
