@@ -200,7 +200,7 @@ public class MedHttpHandler {
     /**
      * 2.1 注册机器（请求配对码，调用AuthRequestManager）
      */
-    private void registerMachine() {
+    public void registerMachine() {
         executor.submit(() -> {
             appendLog("\n=== 开始执行【2.1 注册机器 / Register machine】===\n");
             try {

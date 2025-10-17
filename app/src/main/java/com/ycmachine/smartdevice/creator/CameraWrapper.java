@@ -2,6 +2,7 @@ package com.ycmachine.smartdevice.creator;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.ImageFormat;
@@ -23,9 +24,12 @@ import android.os.Handler;
 import android.util.Log;
 import android.util.Size;
 import android.util.SparseIntArray;
+import android.view.Gravity;
 import android.view.Surface;
 import android.view.TextureView;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
@@ -49,7 +53,7 @@ import java.util.concurrent.Semaphore;
 import java.util.concurrent.TimeUnit;
 
 /**
- * 单个摄像头的封装类，管理单个摄像头的所有操作
+ * 单个摄像头的封装类，管理单个摄像头的所有操作（新增点击全屏功能）
  */
 public class CameraWrapper {
     private static final String TAG = "CameraWrapper";
@@ -62,23 +66,17 @@ public class CameraWrapper {
         ORIENTATIONS.append(Surface.ROTATION_270, 180);
     }
 
-    // 摄像头唯一标识（1/2/3）
+    // 原有成员变量...
     private final int cameraNum;
-    // 上下文与外部回调
     private final Context context;
     private final CameraCallback callback;
-    // 后台线程（从Activity共享）
     private final Handler backgroundHandler;
     private final Semaphore cameraOpenCloseLock;
-
-    // 摄像头组件
     private TextureView textureView;
     private RadioButton toggleButton;
     private TextView captureButton;
     private TextView recordButton;
     private TextView stopButton;
-
-    // 摄像头状态
     private String cameraId;
     private CameraDevice cameraDevice;
     private CameraCaptureSession captureSession;
@@ -91,17 +89,23 @@ public class CameraWrapper {
     private boolean isRecording = false;
     private Surface recorderSurface;
     private String fileUrl;
+    private volatile boolean isCameraClosed = false;
+    private final Object cameraStateLock = new Object();
 
-    // 回调接口：通知Activity状态变化
+    // ---------------------- 新增：全屏相关变量 ----------------------
+    private TextView cameraNumTextView; // 摄像头编号文本（点击触发全屏）
+    private boolean isFullScreen = false; // 是否处于全屏状态
+    private ViewGroup.LayoutParams originalTextureParams; // 原有TextureView布局参数（用于恢复）
+    private AlertDialog fullScreenDialog; // 全屏预览弹窗
+    private TextureView fullScreenTextureView; // 弹窗中的全屏TextureView
+    // --------------------------------------------------------------
+
+    // 回调接口
     public interface CameraCallback {
         void onToast(String message);
-
         void onImageSaved(int cameraNum, String filePath);
-
         void onVideoSaved(int cameraNum, String filePath);
-
         int getDisplayRotation();
-
         File getExternalFilesDir();
     }
 
@@ -114,7 +118,7 @@ public class CameraWrapper {
         this.callback = callback;
     }
 
-    // 初始化UI组件
+    // 初始化UI组件（新增：获取cameraNumTextView并保存原布局参数）
     @SuppressLint("SetTextI18n")
     public void initComponents(View cameraArea) {
         textureView = cameraArea.findViewById(R.id.texture_view);
@@ -122,22 +126,33 @@ public class CameraWrapper {
         captureButton = cameraArea.findViewById(R.id.capture_btn);
         recordButton = cameraArea.findViewById(R.id.record_btn);
         stopButton = cameraArea.findViewById(R.id.stop_btn);
+        // ---------------------- 新增：初始化摄像头编号文本 ----------------------
+        cameraNumTextView = cameraArea.findViewById(R.id.camera_num);
+        cameraNumTextView.setText(String.valueOf(cameraNum));
+        // 保存原有TextureView布局参数（宽高、margin等）
+        originalTextureParams = textureView.getLayoutParams();
+        // ----------------------------------------------------------------------
         toggleButton.setText(context.getString(R.string.close_camera) + cameraNum);
-        ((TextView) cameraArea.findViewById(R.id.camera_num)).setText(String.valueOf(cameraNum));
         setupListeners();
     }
 
-    // 设置组件监听器
+    // 设置组件监听器（新增：cameraNumTextView点击事件）
     private void setupListeners() {
-        // 切换摄像头开关
+        // 原有监听器：切换摄像头、拍照、录像...
         toggleButton.setOnClickListener(v -> toggleCamera());
-        // 拍照
         captureButton.setOnClickListener(v -> takePicture());
-        // 开始录像
         recordButton.setOnClickListener(v -> startRecording());
-        // 停止录像
         stopButton.setOnClickListener(v -> stopRecording());
-        // 预览纹理监听
+        // ---------------------- 新增：摄像头编号点击触发全屏切换 ----------------------
+        textureView.setOnClickListener(v -> {
+            if (!isActive) {
+                callback.onToast("请先打开摄像头");
+                return;
+            }
+            toggleFullScreen(); // 切换全屏/正常状态
+        });
+        // --------------------------------------------------------------------------
+
         textureView.setSurfaceTextureListener(new TextureView.SurfaceTextureListener() {
             @Override
             public void onSurfaceTextureAvailable(SurfaceTexture surface, int width, int height) {
@@ -159,12 +174,442 @@ public class CameraWrapper {
             }
 
             @Override
-            public void onSurfaceTextureUpdated(SurfaceTexture surface) {
-            }
+            public void onSurfaceTextureUpdated(SurfaceTexture surface) {}
         });
+
+
     }
 
-    // 切换摄像头状态（打开/关闭）
+    // ---------------------- 新增：全屏切换核心方法 ----------------------
+    /**
+     * 切换全屏/正常状态
+     */
+    private void toggleFullScreen() {
+        if (!isFullScreen) {
+            enterFullScreen(); // 进入全屏
+        } else {
+            exitFullScreen(); // 退出全屏
+        }
+    }
+
+
+    /**
+     * 退出全屏：恢复原布局+原预览会话
+     */
+    private void exitFullScreen() {
+        isFullScreen = false;
+        // 1. 关闭弹窗
+        if (fullScreenDialog != null && fullScreenDialog.isShowing()) {
+            fullScreenDialog.dismiss();
+            fullScreenDialog = null;
+        }
+
+        // 2. 恢复原有TextureView布局和UI显示
+        if (textureView != null && originalTextureParams != null) {
+            textureView.setLayoutParams(originalTextureParams);
+        }
+        toggleButton.setVisibility(View.VISIBLE);
+        captureButton.setVisibility(View.VISIBLE);
+        recordButton.setVisibility(View.VISIBLE);
+        stopButton.setVisibility(View.VISIBLE);
+
+        // 3. 重建原预览会话
+        if (isActive) {
+            configureTransform(textureView.getWidth(), textureView.getHeight());
+            recreatePreviewSession(false); // 重建预览（false=正常模式）
+        }
+
+        // 4. 释放全屏TextureView资源
+        fullScreenTextureView = null;
+    }
+    // ---------------------- 新增：Surface 可用状态标记 ----------------------
+    private boolean isFullScreenSurfaceReady = false; // 全屏TextureView的Surface是否可用
+// ----------------------------------------------------------------------
+
+
+    @SuppressLint("RtlHardcoded")
+    /**
+     * 创建全屏弹窗的内容视图（修复按钮遮挡问题）
+     */
+    private View createFullScreenView() {
+        FrameLayout fullScreenContainer = new FrameLayout(context);
+        FrameLayout.LayoutParams containerParams = new FrameLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.MATCH_PARENT
+        );
+        fullScreenContainer.setLayoutParams(containerParams);
+        fullScreenContainer.setBackgroundColor(context.getResources().getColor(android.R.color.black));
+
+        // 1. 先添加全屏TextureView（作为底层）
+        fullScreenTextureView = new TextureView(context);
+        FrameLayout.LayoutParams textureParams = new FrameLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.MATCH_PARENT
+        );
+        fullScreenTextureView.setLayoutParams(textureParams);
+
+        // SurfaceTexture监听（原有逻辑保留）
+        fullScreenTextureView.setSurfaceTextureListener(new TextureView.SurfaceTextureListener() {
+            @Override
+            public void onSurfaceTextureAvailable(SurfaceTexture surface, int width, int height) {
+                if (previewSize != null) {
+                    surface.setDefaultBufferSize(previewSize.getWidth(), previewSize.getHeight());
+                    isFullScreenSurfaceReady = true;
+                    if (isRecording) {
+                        recreateRecordingSession();
+                    } else {
+                        recreatePreviewSession(true);
+                    }
+                }
+                configureFullScreenTransform();
+            }
+
+            @Override
+            public void onSurfaceTextureSizeChanged(SurfaceTexture surface, int width, int height) {
+                isFullScreenSurfaceReady = true;
+//                configureFullScreenTransform();
+            }
+
+            @Override
+            public boolean onSurfaceTextureDestroyed(SurfaceTexture surface) {
+                isFullScreenSurfaceReady = false;
+                return true;
+            }
+
+            @Override
+            public void onSurfaceTextureUpdated(SurfaceTexture surface) {}
+        });
+        // 先添加TextureView到容器（底层）
+        fullScreenContainer.addView(fullScreenTextureView);
+
+        // 2. 再添加关闭按钮（作为上层，覆盖在TextureView之上）
+        TextView closeBtn = new TextView(context);
+        FrameLayout.LayoutParams closeBtnParams = new FrameLayout.LayoutParams(
+                ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT
+        );
+        closeBtnParams.gravity = Gravity.TOP | Gravity.RIGHT;
+        closeBtnParams.setMargins(0, 30, 30, 0); // 上右间距
+        closeBtn.setText("×");
+        closeBtn.setTextSize(24);
+        closeBtn.setTextColor(context.getResources().getColor(android.R.color.white));
+        closeBtn.setPadding(20, 10, 20, 10);
+        closeBtn.setOnClickListener(v -> exitFullScreenWithVideo());
+
+        // 后添加按钮到容器（上层）
+        fullScreenContainer.addView(closeBtn);
+
+        return fullScreenContainer;
+    }
+
+
+    /**
+     * 重建全屏视频录制会话（专门用于视频播放场景）
+     */
+    private void recreateRecordingSession() {
+        synchronized (cameraStateLock) {
+            if (isCameraClosed || cameraDevice == null || !isRecording || fullScreenTextureView == null) {
+                Log.w(TAG, "视频会话重建：状态异常（isRecording=" + isRecording + "）");
+                return;
+            }
+
+            // 1. 停止原有录像会话
+            if (captureSession != null) {
+                try {
+                    captureSession.stopRepeating();
+                    captureSession.close();
+                } catch (CameraAccessException e) {
+                    Log.e(TAG, "停止原有录像会话失败", e);
+                }
+                captureSession = null;
+            }
+
+            try {
+                // 2. 绑定全屏TextureView的Surface（视频输出目标）
+                SurfaceTexture texture = fullScreenTextureView.getSurfaceTexture();
+                if (texture == null) return;
+                texture.setDefaultBufferSize(previewSize.getWidth(), previewSize.getHeight());
+                Surface previewSurface = new Surface(texture);
+
+                // 3. 重建MediaRecorder的Surface（视频录制输出）
+                if (mediaRecorder == null) {
+                    mediaRecorder = new MediaRecorder();
+                    mediaRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
+                    mediaRecorder.setVideoSource(MediaRecorder.VideoSource.SURFACE);
+                    mediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4);
+                    mediaRecorder.setOutputFile(fileUrl); // 复用原有录制文件路径
+                    mediaRecorder.setVideoEncodingBitRate(10000000);
+                    mediaRecorder.setVideoFrameRate(30);
+                    mediaRecorder.setVideoSize(previewSize.getWidth(), previewSize.getHeight());
+                    mediaRecorder.setVideoEncoder(MediaRecorder.VideoEncoder.H264);
+                    mediaRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AAC);
+                    mediaRecorder.setOrientationHint(ORIENTATIONS.get(callback.getDisplayRotation()));
+                    mediaRecorder.prepare();
+                    recorderSurface = mediaRecorder.getSurface();
+                }
+
+                // 4. 配置录像会话的目标Surface（预览+录制）
+                CaptureRequest.Builder recorderBuilder = cameraDevice.createCaptureRequest(CameraDevice.TEMPLATE_RECORD);
+                recorderBuilder.addTarget(previewSurface); // 全屏预览Surface
+                recorderBuilder.addTarget(recorderSurface); // 视频录制Surface
+
+                List<Surface> surfaces = Arrays.asList(previewSurface, recorderSurface);
+                cameraDevice.createCaptureSession(surfaces, new CameraCaptureSession.StateCallback() {
+                    @Override
+                    public void onConfigured(@NonNull CameraCaptureSession session) {
+                        captureSession = session;
+                        try {
+                            // 启动视频录制（继续之前的录制，避免中断）
+                            session.setRepeatingRequest(recorderBuilder.build(), null, backgroundHandler);
+                        } catch (CameraAccessException e) {
+                            Log.e(TAG, "启动全屏视频录制失败", e);
+                            releaseMediaRecorder();
+                        }
+                    }
+
+                    @Override
+                    public void onConfigureFailed(@NonNull CameraCaptureSession session) {
+                        callback.onToast("全屏视频配置失败");
+                        releaseMediaRecorder();
+                    }
+                }, backgroundHandler);
+            } catch (Exception e) {
+                Log.e(TAG, "重建视频会话异常", e);
+                releaseMediaRecorder();
+            }
+        }
+    }
+    /**
+     * 带视频处理的退出全屏（点击关闭按钮触发）
+     */
+    private void exitFullScreenWithVideo() {
+        synchronized (cameraStateLock) {
+            // 1. 优先取消所有相机回调和请求（关键：防止释放后仍有回调）
+            cancelAllCameraCallbacks();
+
+            // 2. 停止录制（若正在录制）
+            if (isRecording && mediaRecorder != null) {
+                try {
+                    mediaRecorder.stop();
+                    callback.onVideoSaved(cameraNum, fileUrl);
+                    callback.onToast("视频已保存");
+                } catch (RuntimeException e) {
+                    Log.e(TAG, "停止录制异常", e);
+                    callback.onToast("视频保存失败");
+                } finally {
+                    releaseMediaRecorder();
+                    isRecording = false;
+                }
+            }
+
+            // 3. 关闭并置空相机会话（确保不再处理新请求）
+            if (captureSession != null) {
+                try {
+                    // 先停止重复请求，再关闭会话
+                    captureSession.stopRepeating();
+                    captureSession.abortCaptures(); // 终止所有未完成的捕获请求
+                    captureSession.close();
+                } catch (CameraAccessException e) {
+                    Log.e(TAG, "关闭相机会话异常", e);
+                } finally {
+                    captureSession = null; // 必须置空，避免后续访问
+                }
+            }
+
+            // 4. 关闭弹窗
+            if (fullScreenDialog != null && fullScreenDialog.isShowing()) {
+                fullScreenDialog.dismiss();
+                fullScreenDialog = null;
+            }
+
+            // 5. 恢复原布局和预览
+            if (textureView != null && originalTextureParams != null) {
+                textureView.setLayoutParams(originalTextureParams);
+            }
+            toggleButton.setVisibility(View.VISIBLE);
+            captureButton.setVisibility(View.VISIBLE);
+            recordButton.setVisibility(View.VISIBLE);
+            stopButton.setVisibility(View.VISIBLE);
+
+            // 6. 重建原预览会话（仅在相机仍激活时）
+            if (isActive && !isCameraClosed && cameraDevice != null) {
+                configureTransform(textureView.getWidth(), textureView.getHeight());
+                recreatePreviewSession(false);
+            }
+
+            // 7. 重置全屏状态
+            isFullScreen = false;
+            isFullScreenSurfaceReady = false;
+            fullScreenTextureView = null;
+            recorderSurface = null;
+            updateUIState();
+        }
+    }
+
+    /**
+     * 新增：取消所有相机相关回调，避免释放后仍有事件处理
+     */
+
+    private void cancelAllCameraCallbacks() {
+        // 1. 移除ImageReader的回调（防止拍照回调在资源释放后执行）
+        if (imageReader != null) {
+            imageReader.setOnImageAvailableListener(null, null);
+        }
+
+        // 2. 停止相机会话的重复请求（使用正确的stopRepeating()）
+        if (captureSession != null) {
+            try {
+                // 正确方式：停止重复请求（替代setRepeatingRequest(null, ...)）
+                captureSession.stopRepeating();
+                // 额外：终止所有未完成的捕获请求（避免残留回调）
+                captureSession.abortCaptures();
+            } catch (CameraAccessException e) {
+                Log.e(TAG, "取消相机请求异常", e);
+            }
+        }
+    }
+
+
+    // 进入全屏时，弹窗销毁监听修改
+    private void enterFullScreen() {
+        isFullScreen = true;
+        // 隐藏原UI
+        toggleButton.setVisibility(View.GONE);
+        captureButton.setVisibility(View.GONE);
+        recordButton.setVisibility(View.GONE);
+        stopButton.setVisibility(View.GONE);
+
+        // 创建弹窗（关键：禁用默认关闭方式）
+        fullScreenDialog = new AlertDialog.Builder(context, android.R.style.Theme_Black_NoTitleBar_Fullscreen)
+                .setCancelable(false) // 禁用：点击外部/返回键关闭弹窗
+                .setView(createFullScreenView())
+                .create();
+
+        // 仅允许通过关闭按钮触发退出（移除原有dismiss监听，避免意外调用）
+        fullScreenDialog.setOnDismissListener(null);
+
+        // 显示弹窗
+        fullScreenDialog.show();
+    }
+    private void recreatePreviewSession(boolean isFullScreenMode) {
+        synchronized (cameraStateLock) {
+            if (isCameraClosed || cameraDevice == null) return;
+
+            // 1. 停止原有会话（原有逻辑保留）
+            if (captureSession != null) {
+                try {
+                    captureSession.stopRepeating();
+                    captureSession.close();
+                } catch (CameraAccessException e) {
+                    Log.e(TAG, "停止预览会话失败", e);
+                }
+                captureSession = null;
+            }
+
+            try {
+                // ---------------------- 关键验证：获取当前模式的 TextureView ----------------------
+                TextureView currentTextureView = isFullScreenMode ? fullScreenTextureView : textureView;
+                if (currentTextureView == null) {
+                    Log.e(TAG, "recreateSession：当前TextureView为空（isFullScreenMode=" + isFullScreenMode + "）");
+                    return;
+                }
+
+                SurfaceTexture texture = currentTextureView.getSurfaceTexture();
+                if (texture == null) {
+                    Log.e(TAG, "recreateSession：SurfaceTexture未初始化");
+                    return;
+                }
+
+                // 2. 再次确认缓冲大小（双重保障）
+                if (previewSize != null) {
+                    texture.setDefaultBufferSize(previewSize.getWidth(), previewSize.getHeight());
+                } else {
+                    Log.e(TAG, "recreateSession：previewSize为空，无法设置缓冲大小");
+                    return;
+                }
+
+                // 3. 创建当前TextureView对应的Surface（必须是这个Surface！）
+                Surface previewSurface = new Surface(texture);
+                Log.d(TAG, "recreateSession：绑定Surface（宽度=" + previewSize.getWidth() + "，高度=" + previewSize.getHeight() + "）");
+
+                // 4. 构建预览请求（确保目标是当前Surface）
+                previewRequestBuilder = cameraDevice.createCaptureRequest(CameraDevice.TEMPLATE_PREVIEW);
+                previewRequestBuilder.addTarget(previewSurface); // 关键：添加当前Surface
+
+                // 5. 设置预览方向（原有逻辑保留）
+                int rotation = callback.getDisplayRotation();
+                int orientation = ORIENTATIONS.get(rotation);
+                if (cameraNum == 3) {
+                    orientation = 180;
+                }
+                previewRequestBuilder.set(CaptureRequest.JPEG_ORIENTATION, orientation);
+
+                // 6. 准备Surface列表（预览+拍照）
+                List<Surface> surfaces = new ArrayList<>();
+                surfaces.add(previewSurface); // 优先添加当前预览Surface
+                if (imageReader != null) {
+                    surfaces.add(imageReader.getSurface()); // 拍照Surface
+                }
+
+                // 7. 创建新会话（添加日志，排查创建失败原因）
+                cameraDevice.createCaptureSession(surfaces, new CameraCaptureSession.StateCallback() {
+                    @Override
+                    public void onConfigured(@NonNull CameraCaptureSession session) {
+                        captureSession = session;
+                        Log.d(TAG, "recreateSession：会话创建成功（isFullScreenMode=" + isFullScreenMode + "）");
+                        try {
+                            // 启动预览（原有逻辑保留）
+                            previewRequestBuilder.set(CaptureRequest.CONTROL_AF_MODE,
+                                    CaptureRequest.CONTROL_AF_MODE_CONTINUOUS_PICTURE);
+                            previewRequestBuilder.set(CaptureRequest.CONTROL_AE_MODE,
+                                    CaptureRequest.CONTROL_AE_MODE_ON_AUTO_FLASH);
+                            session.setRepeatingRequest(previewRequestBuilder.build(), null, backgroundHandler);
+                        } catch (CameraAccessException e) {
+                            Log.e(TAG, "recreateSession：启动预览失败", e);
+                        }
+                    }
+
+                    @Override
+                    public void onConfigureFailed(@NonNull CameraCaptureSession session) {
+                        // 新增日志：排查会话创建失败原因（如Surface尺寸不支持）
+                        Log.e(TAG, "recreateSession：会话配置失败（isFullScreenMode=" + isFullScreenMode + "），可能Surface尺寸不支持");
+                        callback.onToast("摄像头" + cameraNum + "全屏预览配置失败");
+                    }
+                }, backgroundHandler);
+            } catch (CameraAccessException e) {
+                Log.e(TAG, "recreateSession：创建会话异常", e);
+            }
+        }
+    }
+    private void configureFullScreenTransform() {
+        if (fullScreenTextureView == null || previewSize == null) return;
+
+
+        Matrix matrix = new Matrix();
+        RectF viewRect = new RectF(0, 0, fullScreenTextureView.getWidth(), fullScreenTextureView.getHeight());
+        RectF bufferRect = new RectF(0, 0, previewSize.getHeight(), previewSize.getWidth());
+        float centerX = viewRect.centerX();
+        float centerY = viewRect.centerY();
+
+        int rotation = callback.getDisplayRotation();
+        if (rotation == Surface.ROTATION_90 || rotation == Surface.ROTATION_270) {
+            bufferRect.offset(centerX - bufferRect.centerX(), centerY - bufferRect.centerY());
+            matrix.setRectToRect(viewRect, bufferRect, Matrix.ScaleToFit.FILL);
+            float scale = Math.max(
+                    (float) fullScreenTextureView.getHeight() / previewSize.getHeight(),
+                    (float) fullScreenTextureView.getWidth() / previewSize.getWidth());
+            matrix.postScale(scale, scale, centerX, centerY);
+            matrix.postRotate(90 * (rotation - 2), centerX, centerY);
+        }
+        Logger.i("cameraNum" + cameraNum);
+        if (cameraNum == 1) {
+            matrix.postScale(-1, 1, centerX, centerY);
+        }
+
+        fullScreenTextureView.setTransform(matrix);
+        Log.d(TAG, "configureFullScreen：预览尺寸（" + previewSize.getWidth() + "x" + previewSize.getHeight() + "），屏幕尺寸（" + viewRect.width() + "x" + viewRect.height() + "）");
+    }
+    // 原有方法：toggleCamera、openCamera、closeCamera等（仅修改closeCamera关闭弹窗）
     public void toggleCamera() {
         if (isActive) {
             closeCamera();
@@ -173,21 +618,21 @@ public class CameraWrapper {
         }
     }
 
-    /**
-     * 暴露给外部的拍照方法
-     */
     public void takePictureFromExternal() {
-        // 确保摄像头处于激活状态
-        if (!isActive) {
-            Log.w(TAG, "摄像头" + cameraNum + "未激活，无法拍照");
-            return;
+        synchronized (cameraStateLock) {
+            if (!isActive || isCameraClosed) {
+                Log.w(TAG, "摄像头" + cameraNum + "未激活或已关闭，无法拍照");
+                return;
+            }
         }
-        // 调用内部拍照逻辑
         takePicture();
     }
 
-    // 打开摄像头
     private void openCamera() {
+        synchronized (cameraStateLock) {
+            isCameraClosed = false;
+        }
+
         try {
             CameraManager cameraManager = (CameraManager) context.getSystemService(Context.CAMERA_SERVICE);
             String[] cameraIds = cameraManager.getCameraIdList();
@@ -195,10 +640,8 @@ public class CameraWrapper {
                 callback.onToast("未检测到摄像头" + cameraNum);
                 return;
             }
-            // 分配摄像头ID（第1个摄像头用0，第2个用1，以此类推）
             cameraId = cameraIds[Math.min(cameraNum - 1, cameraIds.length - 1)];
 
-            // 获取摄像头参数
             CameraCharacteristics characteristics = cameraManager.getCameraCharacteristics(cameraId);
             StreamConfigurationMap map = characteristics.get(CameraCharacteristics.SCALER_STREAM_CONFIGURATION_MAP);
             if (map == null) {
@@ -206,15 +649,12 @@ public class CameraWrapper {
                 return;
             }
 
-
-            // 配置预览和拍照尺寸
             previewSize = chooseOptimalSize(map.getOutputSizes(SurfaceTexture.class), 1920, 1080);
             captureSize = chooseOptimalSize(map.getOutputSizes(ImageFormat.JPEG), 3840, 2160);
             imageReader = ImageReader.newInstance(captureSize.getWidth(), captureSize.getHeight(),
                     ImageFormat.JPEG, 2);
             imageReader.setOnImageAvailableListener(this::onImageAvailable, backgroundHandler);
 
-            // 尝试获取锁，打开摄像头
             if (cameraOpenCloseLock.tryAcquire(2500, TimeUnit.MILLISECONDS)) {
                 if (ActivityCompat.checkSelfPermission(context, android.Manifest.permission.CAMERA)
                         != android.content.pm.PackageManager.PERMISSION_GRANTED) {
@@ -225,7 +665,7 @@ public class CameraWrapper {
             } else {
                 callback.onToast("打开摄像头" + cameraNum + "超时");
             }
-            if(cameraNum == 1){
+            if (cameraNum == 1) {
                 configureTransform(textureView.getWidth(), textureView.getHeight());
             }
 
@@ -235,48 +675,75 @@ public class CameraWrapper {
         }
     }
 
-    // 关闭摄像头
+    // 关闭摄像头（新增：关闭全屏弹窗）
     public void closeCamera() {
+        boolean lockAcquired = false;
         try {
-            cameraOpenCloseLock.acquire();
-            // 停止录像（如果正在录制）
-            if (isRecording) {
-                stopRecording();
+            if (cameraOpenCloseLock.tryAcquire(2500, TimeUnit.MILLISECONDS)) {
+                lockAcquired = true;
+                synchronized (cameraStateLock) {
+                    if (isCameraClosed) {
+                        return;
+                    }
+
+                    // ---------------------- 新增：关闭全屏弹窗 ----------------------
+                    if (fullScreenDialog != null && fullScreenDialog.isShowing()) {
+                        fullScreenDialog.dismiss();
+                    }
+                    // ----------------------------------------------------------------
+
+                    if (isRecording) {
+                        stopRecording();
+                    }
+
+                    if (captureSession != null) {
+                        try {
+                            captureSession.stopRepeating();
+                            captureSession.abortCaptures();
+                        } catch (CameraAccessException e) {
+                            Log.e(TAG, "关闭时停止请求失败", e);
+                        }
+                    }
+
+                    if (captureSession != null) {
+                        captureSession.close();
+                        captureSession = null;
+                    }
+                    if (cameraDevice != null) {
+                        cameraDevice.close();
+                        cameraDevice = null;
+                    }
+                    if (imageReader != null) {
+                        imageReader.close();
+                        imageReader = null;
+                    }
+                    releaseMediaRecorder();
+
+                    isCameraClosed = true;
+                    isActive = false;
+                    toggleButton.setChecked(false);
+                    updateUIState();
+                }
+            } else {
+                Log.w(TAG, "获取相机锁超时，无法安全关闭摄像头" + cameraNum);
             }
-            // 释放资源
-            if (captureSession != null) {
-                captureSession.close();
-                captureSession = null;
-            }
-            if (cameraDevice != null) {
-                cameraDevice.close();
-                cameraDevice = null;
-            }
-            if (imageReader != null) {
-                imageReader.close();
-                imageReader = null;
-            }
-            isActive = false;
-            toggleButton.setChecked(false);
-            updateUIState();
         } catch (InterruptedException e) {
             Log.e(TAG, "closeCamera interrupted", e);
         } finally {
-            cameraOpenCloseLock.release();
+            if (lockAcquired) {
+                cameraOpenCloseLock.release();
+            }
         }
     }
 
-    // 摄像头状态回调
+    // 以下为原有方法：stateCallback、createPreviewSession、takePicture等（无修改）
     private final CameraDevice.StateCallback stateCallback = new CameraDevice.StateCallback() {
         @Override
         public void onOpened(@NonNull CameraDevice camera) {
             cameraOpenCloseLock.release();
             cameraDevice = camera;
             isActive = true;
-            ((Activity) context).runOnUiThread(() -> {
-
-                toggleButton.setChecked(true);
-            });
+            ((Activity) context).runOnUiThread(() -> toggleButton.setChecked(true));
             createPreviewSession();
             updateUIState();
         }
@@ -284,12 +751,13 @@ public class CameraWrapper {
         @Override
         public void onDisconnected(@NonNull CameraDevice camera) {
             cameraOpenCloseLock.release();
-            camera.close();
-            cameraDevice = null;
-            isActive = false;
-            ((Activity) context).runOnUiThread(() -> {
-                toggleButton.setChecked(false);
-            });
+            synchronized (cameraStateLock) {
+                camera.close();
+                cameraDevice = null;
+                isCameraClosed = true;
+                isActive = false;
+            }
+            ((Activity) context).runOnUiThread(() -> toggleButton.setChecked(false));
             updateUIState();
         }
 
@@ -297,8 +765,11 @@ public class CameraWrapper {
         public void onError(@NonNull CameraDevice camera, int error) {
             cameraDevice = null;
             cameraOpenCloseLock.release();
-            camera.close();
-            isActive = false;
+            synchronized (cameraStateLock) {
+                camera.close();
+                isCameraClosed = true;
+                isActive = false;
+            }
             toggleButton.setChecked(false);
             callback.onToast("摄像头" + cameraNum + "错误：" + error);
             Logger.e(TAG, "CameraDevice error: " + error);
@@ -306,8 +777,14 @@ public class CameraWrapper {
         }
     };
 
-    // 创建预览会话
     private void createPreviewSession() {
+        synchronized (cameraStateLock) {
+            if (isCameraClosed || cameraDevice == null) {
+                Log.w(TAG, "相机已关闭，跳过预览会话创建");
+                return;
+            }
+        }
+
         try {
             SurfaceTexture texture = textureView.getSurfaceTexture();
             if (texture == null) return;
@@ -320,15 +797,10 @@ public class CameraWrapper {
 
             int rotation = callback.getDisplayRotation();
             int orientation = ORIENTATIONS.get(rotation);
-
-//            if ((cameraNum == 1) || (cameraNum == 3)) {
-//                orientation = (orientation + 180) % 360;
-//            }
             if (cameraNum == 3) {
                 orientation = 180;
             }
-            previewRequestBuilder.set(CaptureRequest.JPEG_ORIENTATION,
-                    ORIENTATIONS.get(orientation));
+            previewRequestBuilder.set(CaptureRequest.JPEG_ORIENTATION, orientation);
 
             List<Surface> surfaces = new ArrayList<>();
             surfaces.add(surface);
@@ -337,14 +809,19 @@ public class CameraWrapper {
             cameraDevice.createCaptureSession(surfaces, new CameraCaptureSession.StateCallback() {
                 @Override
                 public void onConfigured(@NonNull CameraCaptureSession session) {
-                    captureSession = session;
+                    synchronized (cameraStateLock) {
+                        if (isCameraClosed || cameraDevice == null) {
+                            session.close();
+                            return;
+                        }
+                        captureSession = session;
+                    }
+
                     try {
-                        // 自动对焦和曝光
                         previewRequestBuilder.set(CaptureRequest.CONTROL_AF_MODE,
                                 CaptureRequest.CONTROL_AF_MODE_CONTINUOUS_PICTURE);
                         previewRequestBuilder.set(CaptureRequest.CONTROL_AE_MODE,
                                 CaptureRequest.CONTROL_AE_MODE_ON_AUTO_FLASH);
-                        // 开始预览
                         session.setRepeatingRequest(previewRequestBuilder.build(), null, backgroundHandler);
                     } catch (CameraAccessException e) {
                         Log.e(TAG, "createPreviewSession error", e);
@@ -361,35 +838,28 @@ public class CameraWrapper {
         }
     }
 
-    // 拍照
     public void takePicture() {
-        Logger.i("isActive=" + isActive + ", cameraDevice=" + cameraDevice + ", captureSession=" + captureSession);
-        if (!isActive || cameraDevice == null || captureSession == null) return;
+        synchronized (cameraStateLock) {
+            if (!isActive || isCameraClosed || cameraDevice == null || captureSession == null) {
+                Log.w(TAG, "摄像头" + cameraNum + "状态异常，无法拍照");
+                return;
+            }
+        }
 
         try {
             CaptureRequest.Builder captureBuilder = cameraDevice.createCaptureRequest(CameraDevice.TEMPLATE_STILL_CAPTURE);
             captureBuilder.addTarget(imageReader.getSurface());
 
-            // 自动对焦和曝光
             captureBuilder.set(CaptureRequest.CONTROL_AF_MODE, CaptureRequest.CONTROL_AF_MODE_CONTINUOUS_PICTURE);
             captureBuilder.set(CaptureRequest.CONTROL_AE_MODE, CaptureRequest.CONTROL_AE_MODE_ON_AUTO_FLASH);
 
             int rotation = callback.getDisplayRotation();
             int orientation = ORIENTATIONS.get(rotation);
-
-//            if ((cameraNum == 1) || (cameraNum == 3)) {
-//                orientation = (orientation + 180) % 360;
-//            }
-
-
             if (cameraNum == 3) {
                 orientation = 180;
             }
-            // 照片方向
-            captureBuilder.set(CaptureRequest.JPEG_ORIENTATION,
-                    ORIENTATIONS.get(orientation));
+            captureBuilder.set(CaptureRequest.JPEG_ORIENTATION, orientation);
 
-            // 停止预览并拍照
             captureSession.stopRepeating();
             captureSession.capture(captureBuilder.build(), captureCallback, backgroundHandler);
         } catch (CameraAccessException e) {
@@ -398,14 +868,23 @@ public class CameraWrapper {
         }
     }
 
-    // 拍照回调（恢复预览）
     private final CameraCaptureSession.CaptureCallback captureCallback = new CameraCaptureSession.CaptureCallback() {
         @Override
         public void onCaptureCompleted(@NonNull CameraCaptureSession session,
                                        @NonNull CaptureRequest request,
                                        @NonNull TotalCaptureResult result) {
+            synchronized (cameraStateLock) {
+                if (isCameraClosed || cameraDevice == null) {
+                    Log.w(TAG, "相机已关闭，跳过预览恢复");
+                    return;
+                }
+                if (captureSession != session) {
+                    Log.w(TAG, "预览会话已变更，跳过预览恢复");
+                    return;
+                }
+            }
+
             try {
-                // 恢复预览
                 previewRequestBuilder.set(CaptureRequest.CONTROL_AF_MODE,
                         CaptureRequest.CONTROL_AF_MODE_CONTINUOUS_PICTURE);
                 previewRequestBuilder.set(CaptureRequest.CONTROL_AE_MODE,
@@ -417,7 +896,6 @@ public class CameraWrapper {
         }
     };
 
-    // 处理拍照图像
     private void onImageAvailable(ImageReader reader) {
         Image image = null;
         try {
@@ -433,21 +911,9 @@ public class CameraWrapper {
         }
     }
 
-    // 保存照片
     private void saveImageToFile(byte[] bytes) {
         Bitmap bitmap = android.graphics.BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
         try {
-            // 如果需要镜像，处理图片
-//            if (cameraNum == 1 ){
-//                Matrix matrix = new Matrix();
-//                matrix.postScale(-1, 1); // 水平镜像
-//                Bitmap mirroredBitmap = Bitmap.createBitmap(bitmap, 0, 0,
-//                        bitmap.getWidth(), bitmap.getHeight(), matrix, true);
-//                bitmap.recycle();
-//                bitmap = mirroredBitmap;
-//            }
-
-
             File file = new File(callback.getExternalFilesDir(),
                     "photo_cam" + cameraNum + "_level_" + ClientConstant.nowFloor + "_" + System.currentTimeMillis() + ".jpg");
             if (!file.getParentFile().exists()) {
@@ -466,9 +932,13 @@ public class CameraWrapper {
         }
     }
 
-    // 开始录像
     public void startRecording() {
-        if (!isActive || isRecording || cameraDevice == null) return;
+        synchronized (cameraStateLock) {
+            if (!isActive || isRecording || isCameraClosed || cameraDevice == null) {
+                Log.w(TAG, "摄像头" + cameraNum + "状态异常，无法录像");
+                return;
+            }
+        }
 
         try {
             mediaRecorder = new MediaRecorder();
@@ -476,24 +946,20 @@ public class CameraWrapper {
             mediaRecorder.setVideoSource(MediaRecorder.VideoSource.SURFACE);
             mediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4);
 
-            // 输出文件
             File videoFile = new File(callback.getExternalFilesDir(),
                     "video" + cameraNum + "_" + System.currentTimeMillis() + ".mp4");
             fileUrl = videoFile.getAbsolutePath();
             mediaRecorder.setOutputFile(fileUrl);
 
-            // 视频参数
             mediaRecorder.setVideoEncodingBitRate(10000000);
             mediaRecorder.setVideoFrameRate(30);
             mediaRecorder.setVideoSize(previewSize.getWidth(), previewSize.getHeight());
             mediaRecorder.setVideoEncoder(MediaRecorder.VideoEncoder.H264);
             mediaRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AAC);
 
-            // 视频方向
             mediaRecorder.setOrientationHint(ORIENTATIONS.get(callback.getDisplayRotation()));
             mediaRecorder.prepare();
 
-            // 配置录制会话
             recorderSurface = mediaRecorder.getSurface();
             SurfaceTexture texture = textureView.getSurfaceTexture();
             texture.setDefaultBufferSize(previewSize.getWidth(), previewSize.getHeight());
@@ -507,7 +973,15 @@ public class CameraWrapper {
             cameraDevice.createCaptureSession(surfaces, new CameraCaptureSession.StateCallback() {
                 @Override
                 public void onConfigured(@NonNull CameraCaptureSession session) {
-                    captureSession = session;
+                    synchronized (cameraStateLock) {
+                        if (isCameraClosed || cameraDevice == null || !isRecording) {
+                            session.close();
+                            releaseMediaRecorder();
+                            return;
+                        }
+                        captureSession = session;
+                    }
+
                     try {
                         mediaRecorder.start();
                         isRecording = true;
@@ -532,7 +1006,6 @@ public class CameraWrapper {
         }
     }
 
-    // 停止录像
     public void stopRecording() {
         if (!isRecording || mediaRecorder == null) return;
 
@@ -545,13 +1018,15 @@ public class CameraWrapper {
             isRecording = false;
             callback.onVideoSaved(cameraNum, fileUrl);
             callback.onToast("摄像头" + cameraNum + "录像已保存");
-            // 恢复预览
-            createPreviewSession();
+            synchronized (cameraStateLock) {
+                if (!isCameraClosed && isActive) {
+                    createPreviewSession();
+                }
+            }
             updateUIState();
         }
     }
 
-    // 释放MediaRecorder
     private void releaseMediaRecorder() {
         if (mediaRecorder != null) {
             mediaRecorder.reset();
@@ -561,9 +1036,12 @@ public class CameraWrapper {
         recorderSurface = null;
     }
 
-    // 配置预览旋转和缩放
     public void configureTransform(int viewWidth, int viewHeight) {
-        if (textureView == null || previewSize == null) return;
+        synchronized (cameraStateLock) {
+            if (isCameraClosed || textureView == null || previewSize == null) {
+                return;
+            }
+        }
 
         Matrix matrix = new Matrix();
         RectF viewRect = new RectF(0, 0, viewWidth, viewHeight);
@@ -581,28 +1059,23 @@ public class CameraWrapper {
             matrix.postScale(scale, scale, centerX, centerY);
             matrix.postRotate(90 * (rotation - 2), centerX, centerY);
         }
-        Logger.i("cameraNum"+cameraNum);
-        // ---------------------- 新增：摄像头1水平镜像 ----------------------
-        if (cameraNum == 1) { // 仅对摄像头1生效
-            // postScale(-1, 1, centerX, centerY)：水平镜像（x轴翻转），以中心点为原点
+        Logger.i("cameraNum" + cameraNum);
+        if (cameraNum == 1) {
             matrix.postScale(-1, 1, centerX, centerY);
         }
-        // ------------------------------------------------------------------
         textureView.setTransform(matrix);
     }
 
-    // 更新UI状态（按钮可用状态等）
     private void updateUIState() {
         ((Activity) context).runOnUiThread(() -> {
             toggleButton.setText(isActive ? context.getString(R.string.close_camera) + cameraNum : context.getString(R.string.open_camera) + cameraNum);
             toggleButton.setChecked(isActive);
-            captureButton.setEnabled(isActive && !isRecording);
-            recordButton.setEnabled(isActive && !isRecording);
-            stopButton.setEnabled(isActive && isRecording);
+            captureButton.setEnabled(isActive && !isRecording && !isCameraClosed);
+            recordButton.setEnabled(isActive && !isRecording && !isCameraClosed);
+            stopButton.setEnabled(isActive && isRecording && !isCameraClosed);
         });
     }
 
-    // 选择合适的预览/拍照尺寸
     private Size chooseOptimalSize(Size[] choices, int width, int height) {
         List<Size> bigEnough = new ArrayList<>();
         for (Size option : choices) {
@@ -621,7 +1094,6 @@ public class CameraWrapper {
         }
     }
 
-    // 尺寸比较器
     static class CompareSizesByArea implements Comparator<Size> {
         @Override
         public int compare(Size lhs, Size rhs) {
@@ -630,7 +1102,6 @@ public class CameraWrapper {
         }
     }
 
-    // Getter
     public boolean isActive() {
         return isActive;
     }

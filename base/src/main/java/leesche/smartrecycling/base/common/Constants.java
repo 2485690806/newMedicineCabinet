@@ -43,7 +43,7 @@ public class Constants {
     public static final String FACE_FEATURES = Constants.ACFACE_DIR + File.separator + "register" + File.separator + "features";
     public static final String FACE_IMGS = Constants.ACFACE_DIR + File.separator + "register" + File.separator + "imgs";
     public static final String FACE_SYNC = FACE_FEATURES + File.separator + "/sync_record.txt";
-    public static String TEST_IMG = BASE_CACHE_DIR + "/test.jpg";
+    public static String TEST_IMG = BASE_CACHE_DIR + "/photo_cam2_level_1_1760618153806.jpg";
 
     /**
      * http协议头

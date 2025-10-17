@@ -98,6 +98,12 @@ public class UserMedPointActivity extends BaseActivity implements RxTimer.OnTime
     @BindView(R2.id.recCmd)
     TextView recCmd;
 
+    @BindView(R2.id.tv_error)
+    TextView tvError;
+
+    @BindView(R2.id.tv_dispensing)
+    TextView tvDispensing;
+
     @BindView(R2.id.et_code)
     EditText etCode;
 

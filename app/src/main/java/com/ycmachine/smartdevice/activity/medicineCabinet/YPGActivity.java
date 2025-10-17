@@ -37,6 +37,7 @@ import com.ycmachine.smartdevice.fragment.RealImageFragment;
 import com.ycmachine.smartdevice.handler.ComponenTestHandler;
 import com.ycmachine.smartdevice.handler.HeatParser;
 import com.ycmachine.smartdevice.handler.InitMachineHandler;
+import com.ycmachine.smartdevice.handler.MedHttpHandler;
 import com.ycmachine.smartdevice.handler.YpgLogicHandler;
 
 import java.util.ArrayList;
@@ -558,5 +559,15 @@ public class YPGActivity extends BaseActivity implements HomeFragmentListener {
         // 一键自检
         ComponenTestHandler.getInstance().selfCheck();
 
+    }
+
+    public void MedPoint(View view){
+
+        Toast.makeText(
+                this,  // 获取按钮所在的上下文
+                "Successfully sent the request to register the machine",  // 提示消息（替换为你的message）
+                Toast.LENGTH_SHORT
+        ).show();  // 显示弹窗
+        MedHttpHandler.getInstance().registerMachine();
     }
 }

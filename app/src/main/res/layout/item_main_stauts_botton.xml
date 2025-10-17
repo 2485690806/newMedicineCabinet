@@ -17,7 +17,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/item_main_stauts_botton_left_padding"
             android:layout_marginBottom="4dp"
-            android:text="@string/status_check"
+            android:onClick="MedPoint"
+            android:text="MedPoint"
             android:textColor="#FFFFFF"
             android:textSize="@dimen/item_main_control_conponent" />
     </LinearLayout>
@@ -34,11 +35,12 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="30dp"
+            android:layout_marginStart="40dp"
             android:layout_marginBottom="4dp"
             android:text="@string/selectAD"
             android:onClick="selectAD"
             android:textColor="#FFFFFF"
+            android:gravity="center"
             android:textSize="@dimen/item_main_control_conponent" />
     </LinearLayout>
 

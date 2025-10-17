@@ -6,7 +6,6 @@ import android.graphics.BitmapFactory;
 import android.os.Environment;
 import android.util.Log;
 
-import com.king.wechat.qrcode.WeChatQRCodeDetector;
 
 import org.opencv.OpenCV;
 
@@ -27,7 +26,7 @@ public class ImageCropper {
     public static void init(Context context){
 
         OpenCV.initOpenCV();
-        WeChatQRCodeDetector.init(context);
+//        WeChatQRCodeDetector.init(context);
     }
 
     // 裁剪并保存单个格子的图片

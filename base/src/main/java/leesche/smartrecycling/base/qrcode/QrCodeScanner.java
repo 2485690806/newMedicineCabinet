@@ -8,6 +8,7 @@ import android.graphics.ColorMatrixColorFilter;
 import android.graphics.Paint;
 import android.util.Log;
 
+import com.alibaba.fastjson.JSON;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.Binarizer;
 import com.google.zxing.BinaryBitmap;
@@ -20,13 +21,15 @@ import com.google.zxing.common.HybridBinarizer;
 import com.google.zxing.multi.GenericMultipleBarcodeReader;
 import com.google.zxing.multi.MultipleBarcodeReader;
 import com.google.zxing.qrcode.QRCodeReader;
-import com.king.wechat.qrcode.WeChatQRCodeDetector;
+import com.leesche.logger.Logger;
 
 import java.util.ArrayList;
 import java.util.EnumMap;
 import java.util.EnumSet;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class QrCodeScanner {
     private static final String TAG = "QrCodeScanner";
@@ -34,6 +37,11 @@ public class QrCodeScanner {
     private static final int MAX_PROCESS_SIZE = 1280;
     // 支持的旋转角度（处理倾斜二维码）
     private static final int[] ROTATION_ANGLES = {0, 15, 30, -15};
+    private ExecutorService executor = Executors.newSingleThreadExecutor();
+
+    private void asyncThread(Runnable runnable) {
+        executor.execute(runnable);
+    }
 
     /**
      * 从图片路径识别所有二维码（增强版，支持多场景抗干扰）
@@ -47,27 +55,101 @@ public class QrCodeScanner {
         }
 
         try {
-//            OpenCVQRCodeDetector openCVQRCodeDetector = new OpenCVQRCodeDetector();
+//            DecodeConfig decodeConfig = new DecodeConfig();
+//            decodeConfig.setHints(DecodeFormatManager.QR_CODE_HINTS)//如果只有识别二维码的需求，这样设置效率会更高，不设置默认为DecodeFormatManager.DEFAULT_HINTS
+//                    .setFullAreaScan(false)//设置是否全区域识别，默认false
+//                    .setAreaRectRatio(0.8f)//设置识别区域比例，默认0.8，设置的比例最终会在预览区域裁剪基于此比例的一个矩形进行扫码识别
+//                    .setAreaRectVerticalOffset(0)//设置识别区域垂直方向偏移量，默认为0，为0表示居中，可以为负数
+//                    .setAreaRectHorizontalOffset(0);//设置识别区域水平方向偏移量，默认为0，为0表示居中，可以为负数
+//            // BarcodeCameraScanActivity默认使用的MultiFormatAnalyzer，这里也可以改为使用QRCodeAnalyzer
+//            MultiFormatAnalyzer multiFormatAnalyzer = new MultiFormatAnalyzer(decodeConfig);
+//
+//            multiFormatAnalyzer.analyze()
+
+//
+//            // 步骤1：创建LuminanceSource
+//            LuminanceSource source = new BufferedImageLuminanceSource(image);
+//            // 步骤2：生成BinaryBitmap
+//            BinaryBitmap bitmap = new BinaryBitmap(new HybridBinarizer(source));
+
+//            BinaryBitmap binaryBitmap = createBinaryBitmapFromBitmap(originalBitmap, true);
+//
+//            // 步骤3：配置解码器参数
+//            Map<DecodeHintType, Object> hints = new HashMap<>();
+//            hints.put(DecodeHintType.TRY_HARDER, Boolean.TRUE);
+//            hints.put(DecodeHintType.POSSIBLE_FORMATS,
+//                    java.util.EnumSet.of(BarcodeFormat.QR_CODE));
+//
+//            // 步骤4：执行解码
+//            MultiFormatReader reader = new MultiFormatReader();
+//
 //            List<String> results = new ArrayList<>();
-//            openCVQRCodeDetector.detectAndDecodeMulti(originalBitmap, results);
+//
+//            for(int i =0; i<3;i++){
+//                Result result = reader.decode(binaryBitmap, hints);
+////                 String result = CodeUtils.parseQRCode(originalBitmap);
+//                Log.d(TAG, "scan: "+result);
+//                 if(!results.contains(result.getText()))
+//                     results.add(result.getText());
+//            }
 
-            List<String> results = WeChatQRCodeDetector.detectAndDecode(originalBitmap);
-
+//            List<String> results = WeChatQRCodeDetector.detectAndDecode(originalBitmap);
+            List<String> results = QRcodeDecode.decode(imagePath);
 //            List<String> results = multiStrategyScan(originalBitmap);
             Log.d(TAG, "最终识别结果数量: " + (results != null ? results.size() : 0));
             return results;
+        } catch (Exception e) {
+            Logger.i(JSON.toJSONString(e));
+
         } finally {
             // 强制回收原图，避免内存泄漏
             if (originalBitmap != null && !originalBitmap.isRecycled()) {
                 originalBitmap.recycle();
             }
         }
-    }
-    public static List<String>  decodeImage(Bitmap originalBitmap){
-        List<String> results = WeChatQRCodeDetector.detectAndDecode(originalBitmap);
-        return results;
+        return null;
     }
 
+
+
+    /**
+     * 从 Bitmap 生成 BinaryBitmap
+     * @param bitmap 待处理的 Bitmap（建议格式：ARGB_8888，避免色彩偏差）
+     * @param useHybrid 是否使用 HybridBinarizer（推荐 true，精度更高）
+     * @return 生成的 BinaryBitmap，失败返回 null
+     */
+    public static BinaryBitmap createBinaryBitmapFromBitmap(Bitmap bitmap, boolean useHybrid) {
+        if (bitmap == null) {
+            return null;
+        }
+
+        try {
+            // 1. 获取 Bitmap 像素数据（ARGB_8888 格式，每个像素占 4 字节）
+            int width = bitmap.getWidth();
+            int height = bitmap.getHeight();
+            int[] pixels = new int[width * height];
+            bitmap.getPixels(pixels, 0, width, 0, 0, width, height);
+
+            // 2. 构建 RGBLuminanceSource（ZXing 亮度源：提取亮度信息）
+            // 参数说明：宽、高、像素数组、起始X、起始Y、截取宽、截取高（这里取全图）
+//            RGBLuminanceSource luminanceSource = new RGBLuminanceSource(
+//                    width, height, pixels, 0, 0, width, height
+//            );
+            RGBLuminanceSource luminanceSource = new RGBLuminanceSource(width, height, pixels);
+
+            // 3. 选择二值化器（两种常用实现）
+            if (useHybrid) {
+                // HybridBinarizer：适合大多数场景，结合局部和全局阈值，精度高
+                return new BinaryBitmap(new HybridBinarizer(luminanceSource));
+            } else {
+                // GlobalHistogramBinarizer：基于全局直方图，速度快，适合低分辨率/高对比度图像
+                return new BinaryBitmap(new GlobalHistogramBinarizer(luminanceSource));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
     /**
      * 加载图片并按最大尺寸缩放（避免超大图片占用过多资源）
      */
@@ -108,11 +190,11 @@ public class QrCodeScanner {
             // 3. 对每个角度的图像，尝试两种二值化方法（Hybrid和GlobalHistogram）
 //            List<String> hybridResults = scanWithBinarizer(rotatedBitmap, new HybridBinarizer(null));
 //            List<String> globalResults = scanWithBinarizer(rotatedBitmap, new GlobalHistogramBinarizer(null));
-            List<String> strings = WeChatQRCodeDetector.detectAndDecode(rotatedBitmap);
-
-            Log.d(TAG, "最终识别结果数量: " + (strings != null ? strings.size() : 0));
-            // 合并结果（去重）
-            addUniqueResults(allResults, strings);
+//            List<String> strings = WeChatQRCodeDetector.detectAndDecode(rotatedBitmap);
+//
+//            Log.d(TAG, "最终识别结果数量: " + (strings != null ? strings.size() : 0));
+//            // 合并结果（去重）
+//            addUniqueResults(allResults, strings);
 //            addUniqueResults(allResults, globalResults);
 
             // 回收旋转后的临时Bitmap

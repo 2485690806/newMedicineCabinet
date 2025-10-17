@@ -59,7 +59,7 @@ public class CabinetQrManager {
 
                     List<String> qrCodes = QrCodeScanner.scan(croppedPath);
                     Logger.i("level:"+region.gridNumber+"qrCodes:"+JSON.toJSONString(qrCodes));
-                    if (qrCodes != null && qrCodes.size() >= 2) {
+                    if (qrCodes != null && !qrCodes.isEmpty()) {
                         // 假设第1个是“格子二维码”，第2个是“物品二维码”
                         String gridQr = null;
                         String itemQr = null;
@@ -71,6 +71,10 @@ public class CabinetQrManager {
                                 itemQr = qr; // 药袋的二维码
                             }
                         }
+                        if(itemQr == null){
+                            continue;
+                        }
+
                         if (gridQr == null) { // 如果没有识别出格子二维码，就用默认的
                             gridQr = region.gridNumber;
                         }

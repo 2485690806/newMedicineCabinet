@@ -49,6 +49,11 @@ android {
 dependencies {
 //    implementation fileTree(dir: 'libs', include: ['*.jar', '*.aar']) // 导入本地jar和aar
 
+    implementation 'com.github.jenly1314:zxing-lite:3.3.0'
+//    implementation 'com.google.zxing:core:3.5.1'
+    // 可选：javase库（用于生成条码）
+    implementation 'com.google.zxing:javase:3.5.1'
+
 // OpenCV基础库（*必须）微信二维码识别
     implementation 'com.github.jenly1314.WeChatQRCode:opencv:2.3.0'
 

@@ -3,6 +3,7 @@ package com.ycmachine.smartdevice.activity.medicineCabinet;
 import static leesche.smartrecycling.base.common.Constants.TEST_IMG;
 
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
@@ -15,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.alibaba.fastjson.JSON;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.leesche.logger.Logger;
 import com.ycmachine.smartdevice.R;
 import com.ycmachine.smartdevice.R2;
 import com.ycmachine.smartdevice.manager.CabinetQrManager;
@@ -29,6 +31,7 @@ import leesche.smartrecycling.base.entity.GridRegion;
 import leesche.smartrecycling.base.entity.QrCodeBinding;
 import leesche.smartrecycling.base.qrcode.GridRegionManager;
 import leesche.smartrecycling.base.qrcode.ImageCropper;
+import leesche.smartrecycling.base.qrcode.QRcodeDecode;
 import leesche.smartrecycling.base.qrcode.QrCodeScanner;
 import leesche.smartrecycling.base.utils.DrawableToBitmapUtil;
 
@@ -107,7 +110,7 @@ public class TestActivity extends BaseActivity {
 //        GridRegion gridRegion= new GridRegion(1, 100, 100, 400, 400);
 //        String cropGrid = ImageCropper.cropGrid(this, TEST_IMG, gridRegion, 1);
 
-        List<GridRegion> gridRegions = GridRegionManager.getInstance().getGridRegions(5, 2);
+        List<GridRegion> gridRegions = GridRegionManager.getInstance().getGridRegions(1, 2);
 
         List<String> strings = ImageCropper.cropAllGrids(this, TEST_IMG, gridRegions, 1);
 //        System.out.println("Cropped image path: " + cropGrid);
@@ -123,7 +126,7 @@ public class TestActivity extends BaseActivity {
 
     public void stopPreview(View view) {
 
-        List<GridRegion> gridRegions = GridRegionManager.getInstance().getGridRegions(5, 2);
+        List<GridRegion> gridRegions = GridRegionManager.getInstance().getGridRegions(1, 2);
 
         CabinetQrManager.getInstance().processPhoto("0",1, TEST_IMG, gridRegions,listener);
 //        imageView.setImageResource(R.drawable.ic_launcher_background);
@@ -131,7 +134,7 @@ public class TestActivity extends BaseActivity {
 
     public void showResult(View view) {
 
-        QrCodeBinding abc123 = CabinetQrManager.getInstance().findByItemQr("089");
+        QrCodeBinding abc123 = CabinetQrManager.getInstance().findByItemQr("054");
         System.out.println("Found binding: " + JSON.toJSONString(abc123));
 //        imageView.setImageResource(R.drawable.ic_launcher_background);
     }
@@ -152,6 +155,8 @@ public class TestActivity extends BaseActivity {
                 .into(imageView);
 
         CabinetQrManager.getInstance().init(this);
+//            QRcodeDecode.decode(TEST_IMG);
+
 
     }
 
