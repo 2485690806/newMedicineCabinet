@@ -569,19 +569,9 @@ public class YpgLogicHandler implements SerialHelper.OnSerialListener {
     public List<Integer> selectedLayerValues = new ArrayList<>();
 
     public void snapDevice(List<Integer> layerValues) {
-
-        DataSourceOperator.getInstance().deleteQrCodeBindingDao(); // 清空数据库
-
         Logger.i("layerValues"+ JSON.toJSONString(layerValues));
 
-        // 1. 清除所有旧的状态监听（避免旧任务的状态回调影响新任务）
-        clearAllStatusListeners();
-
-        // 2. 移除所有未执行的超时任务（避免旧任务超时逻辑触发）
-        mainHandler.removeCallbacksAndMessages(null); // 清除handler所有回调和消息
-
-        // 3. 立即复位设备（无论旧任务执行到哪一步，强制回到初始状态）
-        ComponenTestHandler.getInstance().YaxisReset();
+        stopSnapDevice();
 
         // 4. 重置任务相关变量（清空旧任务状态）
         isSnapDevice = false; // 强制标记任务未执行
@@ -635,6 +625,20 @@ public class YpgLogicHandler implements SerialHelper.OnSerialListener {
             snapAllLayer();
         };
         mainHandler.postDelayed(timeoutRunnable, TIMEOUT);
+    }
+
+    public void stopSnapDevice() {
+        DataSourceOperator.getInstance().deleteQrCodeBindingDao(); // 清空数据库
+
+
+        // 1. 清除所有旧的状态监听（避免旧任务的状态回调影响新任务）
+        clearAllStatusListeners();
+
+        // 2. 移除所有未执行的超时任务（避免旧任务超时逻辑触发）
+        mainHandler.removeCallbacksAndMessages(null); // 清除handler所有回调和消息
+
+        // 3. 立即复位设备（无论旧任务执行到哪一步，强制回到初始状态）
+        ComponenTestHandler.getInstance().YaxisReset();
     }
 
     public void removeDuplicates() {

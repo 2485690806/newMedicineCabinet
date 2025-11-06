@@ -62,6 +62,8 @@ public class HeatParser {
             // 保存当前dmzt状态用于判断状态变化
             if (qhmxxw && !(bytes[14] == 0x01)) {
                 snapDevice();
+            } else if (!qhmxxw && (bytes[14] == 0x01)) {
+                stopSnapDevice();
             }
 
             // 按固定位置提取子串并设置相应的布尔变量
@@ -110,13 +112,16 @@ public class HeatParser {
     }
 
 
+    public void stopSnapDevice() {
+        YpgLogicHandler.getInstance().stopSnapDevice();
+    }
 
     // 一键拍柜机照片的指令方法
     public void snapDevice() {
         // 实现拍照逻辑
         // 这里只是示例，具体实现需要根据实际需求编写
 
-        if (YpgLogicHandler.getInstance().isSnapDevice())  return;
+        if (YpgLogicHandler.getInstance().isSnapDevice()) return;
         Log.d(TAG, "snapDevice: 拍照指令发送");
 
         List<Integer> list = new ArrayList<>();
