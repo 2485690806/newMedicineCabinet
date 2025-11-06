@@ -1,8 +1,6 @@
 package com.ycmachine.smartdevice.activity.cameraTest;
 
 
-import static com.ycmachine.smartdevice.manager.GridRegionManager.imageLevelMapLayer;
-import static com.ycmachine.smartdevice.manager.GridRegionManager.imageNameLevelMapLayer;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -33,10 +31,14 @@ import com.ycmachine.smartdevice.constent.ClientConstant;
 import com.ycmachine.smartdevice.creator.LayerViewCreator;
 import com.ycmachine.smartdevice.entity.ypg.LayerParam;
 import com.ycmachine.smartdevice.handler.GridConfigHandler;
+import com.ycmachine.smartdevice.handler.MedHttpHandler;
 import com.ycmachine.smartdevice.manager.CabinetQrManager;
 import com.ycmachine.smartdevice.manager.GridImageBoxView;
 import com.ycmachine.smartdevice.manager.GridRegionManager;
-import com.ycmachine.smartdevice.manager.RadioButtonManager;
+import com.ycmachine.smartdevice.manager.LinearLayoutManager;
+import com.ycmachine.smartdevice.utils.DpUtils;
+
+import org.apache.commons.lang3.StringUtils;
 
 import java.io.File;
 import java.util.List;
@@ -47,12 +49,14 @@ import leesche.smartrecycling.base.BaseActivity;
 import leesche.smartrecycling.base.HomeFragmentListener;
 import leesche.smartrecycling.base.common.Constants;
 import leesche.smartrecycling.base.entity.GridRegion;
+import leesche.smartrecycling.base.entity.QrCodeBinding;
 import leesche.smartrecycling.base.qrcode.QrCodeScanner;
+import leesche.smartrecycling.base.utils.DataSourceOperator;
 import leesche.smartrecycling.base.utils.FileUtil;
 import leesche.smartrecycling.base.utils.RxTimer;
 
-public class   ImageRecognitionActivity extends BaseActivity implements RxTimer.OnTimeCounterListener,
-        HomeFragmentListener{
+public class ImageRecognitionActivity extends BaseActivity implements RxTimer.OnTimeCounterListener,
+        HomeFragmentListener {
 
     @BindView(R2.id.radio_group_layers)
     RadioGroup radioGroupLayers;
@@ -87,11 +91,6 @@ public class   ImageRecognitionActivity extends BaseActivity implements RxTimer.
     TextView goodsNum;
 
 
-
-
-
-
-
     public void backToActivity(View view) {
         finish();
     }
@@ -106,14 +105,25 @@ public class   ImageRecognitionActivity extends BaseActivity implements RxTimer.
 
     }
 
+    LayerViewCreator viewCreator = new LayerViewCreator(this); // 视图创建器
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        // 清空管理器中的容器列表和监听器，避免内存泄漏和旧数据干扰
+        LinearLayoutManager.getInstance().clear();
+    }
 
     @Override
     protected void onResume() {
         super.onResume();
+        // 关键：清空父容器，避免重复添加视图
+        radioGroupLayers.removeAllViews();
+        // 清空管理器，确保只管理当前页面的新视图
+        LinearLayoutManager.getInstance().clear();
 
 // 1. 初始化组件
-        LayerViewCreator viewCreator = new LayerViewCreator(this); // 视图创建器
-
+        viewCreator = new LayerViewCreator(this); // 视图创建器
 
         // 2. 循环生成每层布局
         for (LayerParam param : ClientConstant.layerParams) {
@@ -124,19 +134,41 @@ public class   ImageRecognitionActivity extends BaseActivity implements RxTimer.
             LinearLayout layerContainer = viewCreator.createLayerContainer();
             TextView titleView = viewCreator.createTitleView(param.getLayerTitle());
 
-            titleView.setOnClickListener(v -> RadioButtonManager.getInstance().setTextViewClick(currentLayer));
+
+            titleView.setOnClickListener(v -> LinearLayoutManager.getInstance().setTextViewClick(currentLayer));
             // 添加层标题
             layerContainer.addView(titleView);
             // 添加数字按钮
             for (int num = param.getStartNum(); num <= param.getEndNum(); num++) {
-                RadioButton radioButton = viewCreator.createNumberRadioButton(num);
+//                RadioButton radioButton = viewCreator.createNumberRadioButton(num);
+
+                String itemQrCode = null;
+                QrCodeBinding byGridQr = DataSourceOperator.getInstance().findByGridQr("0"+String.valueOf(num));
+                if(byGridQr !=null){
+                    itemQrCode = byGridQr.getItemQrCode();
+                }
+                LinearLayout layout = viewCreator.createNumberRadioButton(num, itemQrCode);
+
 
                 // 绑定层数信息到按钮（使用Tag存储，可存对象或基本类型）
                 // 这里用数组存储 [层数, 数字]，也可自定义一个简单类
-                radioButton.setTag(new int[]{currentLayer, num});
+                layout.setTag(new int[]{currentLayer, num});
+                // 关键：为当前layout设置布局参数，添加右侧边距（间隔）
+                LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
+                        LinearLayout.LayoutParams.WRAP_CONTENT,  // 宽度包裹内容
+                        LinearLayout.LayoutParams.WRAP_CONTENT   // 高度包裹内容
+                );
+                // 设置右侧边距（例如：3dp，可根据需求调整）
+                layoutParams.rightMargin = DpUtils.dpToPx(this, 2);
+                // 应用布局参数
+                layout.setLayoutParams(layoutParams);
 
-                layerContainer.addView(radioButton);
-                RadioButtonManager.getInstance().addRadioButton(radioButton); // 交给管理器管理
+                // 添加到层容器
+                layerContainer.addView(layout);
+                // 交给管理器管理
+                LinearLayoutManager.getInstance().addContainer(layout);
+
+
             }
             // 添加到父容器
             radioGroupLayers.addView(layerContainer);
@@ -145,109 +177,110 @@ public class   ImageRecognitionActivity extends BaseActivity implements RxTimer.
         // 3. 设置默认选中
 //        radioManager.setDefaultChecked();
 
-        RadioButtonManager.getInstance().setOnRadioButtonClickListener(new RadioButtonManager.OnRadioButtonClickListener() {
+        LinearLayoutManager.getInstance().setOnContainerClickListener(new LinearLayoutManager.OnContainerClickListener() {
             @Override
-            public void onRadioButtonClicked(RadioButton radioButton, int number) {
-                // 从Tag中获取层数信息（与setTag时的类型对应）
-                int[] layerInfo = (int[]) radioButton.getTag();
-                if (layerInfo != null && layerInfo.length >= 1) {
-                    int layerNumber = layerInfo[0]; // 层数
-                    int buttonNumber = layerInfo[1]; // 按钮数字（与参数number一致，可验证）
+            public void onContainerClicked(LinearLayout container, RadioButton radioButton, int layerNumber, int buttonNumber) {
+                Object tag = container.getTag();
 
+                if (tag instanceof int[]) {
+                    int[] layerNum = (int[]) tag;
+                    int currentLayer = layerNum[0];
+                    int currentNum = layerNum[1];
 
-
-                    GridRegion leftRegions = GridRegionManager.getInstance().getGridRegionByCode(layerNumber, 1, buttonNumber);
-                    GridRegion rightRegions = GridRegionManager.getInstance().getGridRegionByCode(layerNumber, 2, buttonNumber);
-
-                    Logger.d("选中的层数: " + layerNumber + ", 数字: " + buttonNumber +"regions" +leftRegions.gridNumber);
-                    layerNum.setText(buttonNumber +getString(R.string.number));
-
-                    // 3. 加载左右摄像头的图片（根据层号和摄像头编号获取图片路径）
-                    loadImageForView(mGridLeft, layerNumber, 1);
-                    loadImageForView(mGridRight, layerNumber, 2);
-                    mGridLeft.clearAllGridRegions();
-                    mGridRight.clearAllGridRegions();
-
-                    if(leftRegions.getCameraNum()== 1){
-                        mGridLeft.setSelectedGridRegion(leftRegions);
-                        mGridLeft.bindEditTexts(xEt, yEt, wEt, hEt);
-                        mGridLeft.bindButtons(llConfirmRecognition, llSaveSetting);
-                        mGridLeft.setOnButtonClickListener(new GridImageBoxView.OnButtonClickListener() {
-                            @Override
-                            public void onConfirmRecognitionClick(GridRegion selectedRegion) {
-                                // 你的识别逻辑（传入当前选中的货道框）
-                                Logger.i("mGridLeft" + JSON.toJSONString(selectedRegion));
-
-                                Bitmap croppedBitmap = mGridLeft.getCroppedBitmapInRegion(selectedRegion);
-
-                                snapSelectGridRegion(croppedBitmap);
-
-                            }
-
-                            @Override
-                            public void onSaveSettingClick(int x, int y, int width, int height,GridRegion region) {
-                                // 你的保存逻辑（传入原始坐标的x/y/w/h）
-                                Logger.i("mGridLeft"+x +"-" +y+"-" + width +"-" +height);
-                                List<GridRegion> gridRegionsByLevel = GridRegionManager.getInstance().getGridRegionsByLevel(layerNumber, region.getCameraNum());
-                                for (GridRegion gridRegion : gridRegionsByLevel){
-                                    if(Objects.equals(gridRegion.getGridNumber(), region.getGridNumber())){
-
-                                        gridRegion.setX(x);
-                                        gridRegion.setY(y);
-                                        gridRegion.setWidth(width);
-                                        gridRegion.setHeight(height);
-                                    }
-                                }
-                                GridConfigHandler.saveGridConfig(imageLevelMapLayer.get(layerNumber), region.getCameraNum(), gridRegionsByLevel);
-                                Toast.makeText(ImageRecognitionActivity.this, "货道配置保存成功", Toast.LENGTH_SHORT).show();
-                            }
-                        });
-                    }else{
-                        mGridRight.setSelectedGridRegion(rightRegions);
-                        mGridRight.bindEditTexts(xEt, yEt, wEt, hEt);
-                        mGridRight.bindButtons(llConfirmRecognition, llSaveSetting);
-                        mGridRight.setOnButtonClickListener(new GridImageBoxView.OnButtonClickListener() {
-                            @Override
-                            public void onConfirmRecognitionClick(GridRegion selectedRegion) {
-                                // 你的识别逻辑（传入当前选中的货道框）
-                                Logger.i("mGridRight" + JSON.toJSONString(selectedRegion));
-
-                                Bitmap croppedBitmap = mGridRight.getCroppedBitmapInRegion(selectedRegion);
-
-                                snapSelectGridRegion(croppedBitmap);
-                            }
-
-                            @Override
-                            public void onSaveSettingClick(int x, int y, int width, int height,GridRegion region) {
-                                Logger.i("mGridRight"+x +"-" +y+"-" + width +"-" +height + "region" + JSON.toJSONString(region));
-                                List<GridRegion> gridRegionsByLevel = GridRegionManager.getInstance().getGridRegionsByLevel(layerNumber, region.getCameraNum());
-                                for (GridRegion gridRegion : gridRegionsByLevel){
-                                    if(Objects.equals(gridRegion.getGridNumber(), region.getGridNumber())){
-
-                                        gridRegion.setX(x);
-                                        gridRegion.setY(y);
-                                        gridRegion.setWidth(width);
-                                        gridRegion.setHeight(height);
-                                    }
-                                }
-                                GridConfigHandler.saveGridConfig(imageLevelMapLayer.get(layerNumber), region.getCameraNum(), gridRegionsByLevel);
-                                Toast.makeText(ImageRecognitionActivity.this, "货道配置保存成功", Toast.LENGTH_SHORT).show();
-                            }
-                        });
-                    }
-                    ClientConstant.IS_DOING = false;
+                    Logger.i("currentLayer" + currentLayer + "currentNum" + currentNum);
 
                 }
+                GridRegion leftRegions = GridRegionManager.getInstance().getGridRegionByCode(layerNumber, 1, buttonNumber);
+                GridRegion rightRegions = GridRegionManager.getInstance().getGridRegionByCode(layerNumber, 2, buttonNumber);
+
+                Logger.d("选中的层数: " + layerNumber + ", 数字: " + buttonNumber + "regions" + leftRegions.gridNumber);
+                layerNum.setText(buttonNumber + getString(R.string.number));
+
+                // 3. 加载左右摄像头的图片（根据层号和摄像头编号获取图片路径）
+                loadImageForView(mGridLeft, layerNumber, 1);
+                loadImageForView(mGridRight, layerNumber, 2);
+                mGridLeft.clearAllGridRegions();
+                mGridRight.clearAllGridRegions();
+
+                if (leftRegions.getCameraNum() == 1) {
+                    mGridLeft.setSelectedGridRegion(leftRegions);
+                    mGridLeft.bindEditTexts(xEt, yEt, wEt, hEt);
+                    mGridLeft.bindButtons(llConfirmRecognition, llSaveSetting);
+                    mGridLeft.setOnButtonClickListener(new GridImageBoxView.OnButtonClickListener() {
+                        @Override
+                        public void onConfirmRecognitionClick(GridRegion selectedRegion) {
+                            // 你的识别逻辑（传入当前选中的货道框）
+                            Logger.i("mGridLeft" + JSON.toJSONString(selectedRegion));
+
+                            Bitmap croppedBitmap = mGridLeft.getCroppedBitmapInRegion(selectedRegion);
+
+                            snapSelectGridRegion(croppedBitmap, selectedRegion, layerNumber, buttonNumber);
+
+                        }
+
+                        @Override
+                        public void onSaveSettingClick(int x, int y, int width, int height, GridRegion region) {
+                            // 你的保存逻辑（传入原始坐标的x/y/w/h）
+                            Logger.i("mGridLeft" + x + "-" + y + "-" + width + "-" + height);
+                            List<GridRegion> gridRegionsByLevel = GridRegionManager.getInstance().getGridRegions(layerNumber, region.getCameraNum());
+                            for (GridRegion gridRegion : gridRegionsByLevel) {
+                                if (Objects.equals(gridRegion.getGridNumber(), region.getGridNumber())) {
+
+                                    gridRegion.setX(x);
+                                    gridRegion.setY(y);
+                                    gridRegion.setWidth(width);
+                                    gridRegion.setHeight(height);
+                                }
+                            }
+                            GridConfigHandler.saveGridConfig(layerNumber, region.getCameraNum(), gridRegionsByLevel);
+                            Toast.makeText(ImageRecognitionActivity.this, "货道配置保存成功", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                } else {
+                    mGridRight.setSelectedGridRegion(rightRegions);
+                    mGridRight.bindEditTexts(xEt, yEt, wEt, hEt);
+                    mGridRight.bindButtons(llConfirmRecognition, llSaveSetting);
+                    mGridRight.setOnButtonClickListener(new GridImageBoxView.OnButtonClickListener() {
+                        @Override
+                        public void onConfirmRecognitionClick(GridRegion selectedRegion) {
+                            // 你的识别逻辑（传入当前选中的货道框）
+                            Logger.i("mGridRight" + JSON.toJSONString(selectedRegion));
+
+                            Bitmap croppedBitmap = mGridRight.getCroppedBitmapInRegion(selectedRegion);
+
+                            snapSelectGridRegion(croppedBitmap, selectedRegion, layerNumber, buttonNumber);
+                        }
+
+                        @Override
+                        public void onSaveSettingClick(int x, int y, int width, int height, GridRegion region) {
+                            Logger.i("mGridRight" + x + "-" + y + "-" + width + "-" + height + "region" + JSON.toJSONString(region));
+                            List<GridRegion> gridRegionsByLevel = GridRegionManager.getInstance().getGridRegions(layerNumber, region.getCameraNum());
+                            for (GridRegion gridRegion : gridRegionsByLevel) {
+                                if (Objects.equals(gridRegion.getGridNumber(), region.getGridNumber())) {
+
+                                    gridRegion.setX(x);
+                                    gridRegion.setY(y);
+                                    gridRegion.setWidth(width);
+                                    gridRegion.setHeight(height);
+                                }
+                            }
+                            GridConfigHandler.saveGridConfig(layerNumber, region.getCameraNum(), gridRegionsByLevel);
+                            Toast.makeText(ImageRecognitionActivity.this, "货道配置保存成功", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
+                ClientConstant.IS_DOING = false;
             }
 
             @Override
-            public void onTextViewButtonClicked(int currentLayer) {
+            public void onTextViewClicked(int currentLayer) {
+                Logger.i("currentLayer" + currentLayer);
                 // 点击 文字
                 // 2. 获取该层左右摄像头的货道数据
                 List<GridRegion> leftRegions = GridRegionManager.getInstance()
-                        .getGridRegionsByLevel(currentLayer, 1); // 左摄像头（1）
+                        .getGridRegions(currentLayer, 1); // 左摄像头（1）
                 List<GridRegion> rightRegions = GridRegionManager.getInstance()
-                        .getGridRegionsByLevel(currentLayer, 2); // 右摄像头（2）
+                        .getGridRegions(currentLayer, 2); // 右摄像头（2）
 
                 mGridLeft.clearAllGridRegions();
                 mGridRight.clearAllGridRegions();
@@ -267,7 +300,7 @@ public class   ImageRecognitionActivity extends BaseActivity implements RxTimer.
 
     }
 
-    private void snapSelectGridRegion(Bitmap croppedBitmap) {
+    private void snapSelectGridRegion(Bitmap croppedBitmap, GridRegion selectedRegion, int layerNumber, int buttonNumber) {
         if (croppedBitmap == null) {
             Toast.makeText(ImageRecognitionActivity.this, "无法获取货道内图片，请重试", Toast.LENGTH_SHORT).show();
             return;
@@ -275,7 +308,7 @@ public class   ImageRecognitionActivity extends BaseActivity implements RxTimer.
         // （如果识别方法需要文件路径，可先将croppedBitmap保存为临时文件）
         new Thread(() -> {
             // 示例：如果识别方法需要路径，先保存裁剪后的Bitmap到本地
-            String tempImagePath = FileUtil.saveBitmapToTempFile(croppedBitmap,"crop_temp_");
+            String tempImagePath = FileUtil.saveBitmapToTempFile(croppedBitmap, "crop_temp_");
             if (tempImagePath == null) {
                 runOnUiThread(() -> Toast.makeText(ImageRecognitionActivity.this, "保存裁剪图片失败", Toast.LENGTH_SHORT).show());
                 return;
@@ -288,20 +321,40 @@ public class   ImageRecognitionActivity extends BaseActivity implements RxTimer.
             runOnUiThread(() -> {
                 if (results != null && !results.isEmpty()) {
                     Toast.makeText(ImageRecognitionActivity.this, "识别成功：" + results.toString(), Toast.LENGTH_SHORT).show();
-                    StringBuilder sb = new StringBuilder();
-                    if (results != null && !results.isEmpty()) {
-                        for (String s : results) {
-                            sb.append(s).append(","); // 每个元素后加逗号
+                    // 假设第1个是“格子二维码”，第2个是“物品二维码”
+                    String itemQr = null;
+                    for (String qr : results) {
+                        Logger.d("Detected QR: " + qr);
+                        if (!qr.equals(selectedRegion.gridNumber)) {
+                            itemQr = qr;
                         }
-                        // 删除最后一个多余的逗号
-                        sb.deleteCharAt(sb.length() - 1);
                     }
+                    if(itemQr == null) return;
 
-                    String joined = sb.toString();
+                    String gridQr = String.valueOf(buttonNumber);
+                    Integer level = layerNumber;
+                    LinearLayoutManager.getInstance().updateBottomText(layerNumber, buttonNumber, itemQr, viewCreator);
 
-                    goodsNum.setText(joined +getString(R.string.number));
+                    goodsNum.setText(itemQr + getString(R.string.number));
+
+                    QrCodeBinding binding = new QrCodeBinding(
+                            "0"+gridQr, itemQr, level, gridQr,
+                            originalPath, tempImagePath
+                    );
+                    Logger.i("binding"+JSON.toJSONString(binding));
+
+
+                        // 已绑定但不同，删除旧的，继续绑定新的，再发更新给后台
+                        DataSourceOperator.getInstance().deleteByItemQrCode(itemQr);
+
+                        DataSourceOperator.getInstance().insertQrCodeBindingToDb(binding);
+
+
 
                 } else {
+                    LinearLayoutManager.getInstance().updateBottomText(layerNumber, buttonNumber, null, viewCreator);
+
+                    goodsNum.setText("");
                     Toast.makeText(ImageRecognitionActivity.this, "货道内未识别到内容", Toast.LENGTH_SHORT).show();
                 }
 
@@ -342,8 +395,7 @@ public class   ImageRecognitionActivity extends BaseActivity implements RxTimer.
 
     }
 
-
-
+    String originalPath = "";
 
     // 工具方法：根据层号和摄像头编号加载图片
     private void loadImageForView(GridImageBoxView view, int currentFloor, int currentCameraNum) {
@@ -352,10 +404,11 @@ public class   ImageRecognitionActivity extends BaseActivity implements RxTimer.
         File baseDir = new File(Constants.IMAGE_FILE);
 
 
-        File latestImageFile = FileUtil.getLatestImageFile(baseDir, currentCameraNum, imageNameLevelMapLayer.get(currentFloor) );
+        File latestImageFile = FileUtil.getLatestImageFile(baseDir, currentCameraNum, currentFloor);
 
 // 加载图片到自定义View（GridImageBoxView）
         if (latestImageFile != null && latestImageFile.exists()) {
+            originalPath = latestImageFile.getAbsolutePath();
             // 使用Glide加载本地文件
 //                    .override(1080, 1920) // 限制最大尺寸（根据UI需求调整，如1080×1920）
 
@@ -379,6 +432,7 @@ public class   ImageRecognitionActivity extends BaseActivity implements RxTimer.
                         }
                     });
         } else {
+            originalPath = "";
             // 无图片时，可设置默认图
             if (currentCameraNum == 1) {
                 int imageResId = R.drawable.default_test; // 你的图片资源

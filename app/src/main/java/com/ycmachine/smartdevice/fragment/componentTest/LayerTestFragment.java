@@ -186,9 +186,7 @@ public class LayerTestFragment extends BaseFragment implements RxTimer.OnTimeCou
             handleLayerOperation(3); // 3层逻辑
         } else if (layerId == R.id.rb_layer_4) {
             handleLayerOperation(4); // 4层逻辑
-        } else if (layerId == R.id.rb_pick_layer) {
-            handleLayerOperation(9); // 取货层逻辑
-        } else if (layerId == R.id.rb_layer_5) {
+        }else if (layerId == R.id.rb_layer_5) {
             handleLayerOperation(5); // 5层逻辑
         } else if (layerId == R.id.rb_layer_6) {
             handleLayerOperation(6); // 6层逻辑
@@ -196,11 +194,13 @@ public class LayerTestFragment extends BaseFragment implements RxTimer.OnTimeCou
             handleLayerOperation(7); // 7层逻辑
         } else if (layerId == R.id.rb_layer_8) {
             handleLayerOperation(8); // 8层逻辑
-        } else if (layerId == R.id.rb_recycle_layer) {
-            handleLayerOperation(10); // 回收层逻辑
         }else if (layerId == R.id.rb_layer_9) {
+            handleLayerOperation(9); // 9层逻辑
+        } else if (layerId == R.id.rb_pick_layer) {
+            handleLayerOperation(10); // 取货层逻辑
+        } else if (layerId == R.id.rb_recycle_layer) {
             handleLayerOperation(11); // 回收层逻辑
-        }else if (layerId == R.id.rb_reposition) {
+        } else if (layerId == R.id.rb_reposition) {
             handleReposition(); // 执行复位操作
         }
     }

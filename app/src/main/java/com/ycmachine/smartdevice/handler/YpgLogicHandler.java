@@ -186,6 +186,7 @@ public class YpgLogicHandler implements SerialHelper.OnSerialListener {
      * @param buttonNumber: 第几个货道
      */
     public void handleLayerOperation(int layerNumber, int buttonNumber) {
+        Logger.i(ClientConstant.currentWorkFlow+"layerNumber "+layerNumber+" buttonNumber"+buttonNumber);
         switch (ClientConstant.currentWorkFlow) {
             case Forward:
                 ComponenTestHandler.getInstance().turnGoodsChannel(buttonNumber);
@@ -388,9 +389,9 @@ public class YpgLogicHandler implements SerialHelper.OnSerialListener {
         Logger.d("步骤4：Y轴移动到取货口");
         // 移动Y轴到取货口（原js的Yto91）
         if (!isBackward)
-            ComponenTestHandler.getInstance().YaxisGotoLevel(9);
-        else
             ComponenTestHandler.getInstance().YaxisGotoLevel(10);
+        else
+            ComponenTestHandler.getInstance().YaxisGotoLevel(11);
 
 
         // 等待Y轴到达取货口的状态（"aa030c0301"）
@@ -695,11 +696,11 @@ public class YpgLogicHandler implements SerialHelper.OnSerialListener {
     public void snapTwoCamera() {
         // 第一个任务：发送第一个EventBus事件（立即执行，之后延迟500ms执行第二个任务）
         mainHandler.post(() -> {
-            EventBus.getDefault().post(new BasicMessageEvent(EventType.BasicEvent.SNAP_CAMERA_NUM, 0,ClientConstant.nowFloor));
+            EventBus.getDefault().post(new BasicMessageEvent(EventType.BasicEvent.SNAP_CAMERA_NUM, 0,(ClientConstant.nowFloor +1)));
 
             // 第二个任务：延迟500ms发送第二个EventBus事件
             mainHandler.postDelayed(() -> {
-                EventBus.getDefault().post(new BasicMessageEvent(EventType.BasicEvent.SNAP_CAMERA_NUM, 1,ClientConstant.nowFloor));
+                EventBus.getDefault().post(new BasicMessageEvent(EventType.BasicEvent.SNAP_CAMERA_NUM, 1,(ClientConstant.nowFloor +1)));
 
                 // 第三个任务：再延迟500ms执行snapAllLayer()
                 mainHandler.postDelayed(this::snapAllLayer, 500); // 第二个到第三个间隔500ms

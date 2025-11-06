@@ -51,7 +51,7 @@ public class GridRegionManager {
         // ------------------------------
         // 第7层 摄像头1（cameraNum=1）
         // ------------------------------
-        List<GridRegion> level7Cam1Grids = GridConfigHandler.getLocalGridRegions(7, 1);
+        List<GridRegion> level7Cam1Grids = GridConfigHandler.getLocalGridRegions(9, 1);
         if (level7Cam1Grids == null) { // 本地无配置，使用默认值
             level7Cam1Grids = List.of(
                     new GridRegion(297, 682, 408, 646, "0121"),
@@ -62,13 +62,13 @@ public class GridRegionManager {
                     new GridRegion(2481, 682, 498, 646, "0126")
             );
         }
-        addGridRegions(7, 1, level7Cam1Grids);
+        addGridRegions(9, 1, level7Cam1Grids);
 
 
         // ------------------------------
         // 第6层 摄像头1（cameraNum=1）
         // ------------------------------
-        List<GridRegion> level6Cam1Grids = GridConfigHandler.getLocalGridRegions(6, 1);
+        List<GridRegion> level6Cam1Grids = GridConfigHandler.getLocalGridRegions(8, 1);
         if (level6Cam1Grids == null) {
             level6Cam1Grids = List.of(
                     new GridRegion(297, 682, 408, 646, "0106"),
@@ -79,13 +79,13 @@ public class GridRegionManager {
                     new GridRegion(2481, 682, 498, 646, "0111")
             );
         }
-        addGridRegions(6, 1, level6Cam1Grids);
+        addGridRegions(8, 1, level6Cam1Grids);
 
 
         // ------------------------------
         // 第5层 摄像头1（cameraNum=1）
         // ------------------------------
-        List<GridRegion> level5Cam1Grids = GridConfigHandler.getLocalGridRegions(5, 1);
+        List<GridRegion> level5Cam1Grids = GridConfigHandler.getLocalGridRegions(7, 1);
         if (level5Cam1Grids == null) {
             level5Cam1Grids = List.of(
                     new GridRegion(297, 682, 408, 646, "091"),
@@ -96,13 +96,13 @@ public class GridRegionManager {
                     new GridRegion(2481, 682, 498, 646, "096")
             );
         }
-        addGridRegions(5, 1, level5Cam1Grids);
+        addGridRegions(7, 1, level5Cam1Grids);
 
 
         // ------------------------------
         // 第4层 摄像头1（cameraNum=1）
         // ------------------------------
-        List<GridRegion> level4Cam1Grids = GridConfigHandler.getLocalGridRegions(4, 1);
+        List<GridRegion> level4Cam1Grids = GridConfigHandler.getLocalGridRegions(6, 1);
         if (level4Cam1Grids == null) {
             level4Cam1Grids = List.of(
                     new GridRegion(297, 682, 408, 646, "076"),
@@ -113,13 +113,13 @@ public class GridRegionManager {
                     new GridRegion(2481, 682, 498, 646, "081")
             );
         }
-        addGridRegions(4, 1, level4Cam1Grids);
+        addGridRegions(6, 1, level4Cam1Grids);
 
 
         // ------------------------------
         // 第3层 摄像头1（cameraNum=1）
         // ------------------------------
-        List<GridRegion> level3Cam1Grids = GridConfigHandler.getLocalGridRegions(3, 1);
+        List<GridRegion> level3Cam1Grids = GridConfigHandler.getLocalGridRegions(5, 1);
         if (level3Cam1Grids == null) {
             level3Cam1Grids = List.of(
                     new GridRegion(297, 682, 408, 646, "061"),
@@ -130,13 +130,13 @@ public class GridRegionManager {
                     new GridRegion(2481, 682, 498, 646, "066")
             );
         }
-        addGridRegions(3, 1, level3Cam1Grids);
+        addGridRegions(5, 1, level3Cam1Grids);
 
 
         // ------------------------------
         // 第2层 摄像头1（cameraNum=1）
         // ------------------------------
-        List<GridRegion> level2Cam1Grids = GridConfigHandler.getLocalGridRegions(2, 1);
+        List<GridRegion> level2Cam1Grids = GridConfigHandler.getLocalGridRegions(4, 1);
         if (level2Cam1Grids == null) {
             level2Cam1Grids = List.of(
                     new GridRegion(234, 535, 573, 769, "046"),
@@ -146,13 +146,13 @@ public class GridRegionManager {
                     new GridRegion(2376, 535, 582, 769, "050")
             );
         }
-        addGridRegions(2, 1, level2Cam1Grids);
+        addGridRegions(4, 1, level2Cam1Grids);
 
 
         // ------------------------------
         // 第1层 摄像头1（cameraNum=1）
         // ------------------------------
-        List<GridRegion> level1Cam1Grids = GridConfigHandler.getLocalGridRegions(1, 1);
+        List<GridRegion> level1Cam1Grids = GridConfigHandler.getLocalGridRegions(3, 1);
         if (level1Cam1Grids == null) {
             level1Cam1Grids = List.of(
                     new GridRegion(234, 535, 573, 769, "031"),
@@ -162,13 +162,13 @@ public class GridRegionManager {
                     new GridRegion(2376, 535, 582, 769, "035")
             );
         }
-        addGridRegions(1, 1, level1Cam1Grids);
+        addGridRegions(3, 1, level1Cam1Grids);
 
 
         // ------------------------------
         // 第0层 摄像头1（cameraNum=1）
         // ------------------------------
-        List<GridRegion> level0Cam1Grids = GridConfigHandler.getLocalGridRegions(0, 1);
+        List<GridRegion> level0Cam1Grids = GridConfigHandler.getLocalGridRegions(2, 1);
         if (level0Cam1Grids == null) {
             level0Cam1Grids = List.of(
                     new GridRegion(288, 445, 624, 865, "016"),
@@ -177,13 +177,13 @@ public class GridRegionManager {
                     new GridRegion(2271, 445, 714, 865, "019")
             );
         }
-        addGridRegions(0, 1, level0Cam1Grids);
+        addGridRegions(2, 1, level0Cam1Grids);
 
 
         // ------------------------------
         // 第10层 摄像头1（cameraNum=1）
         // ------------------------------
-        List<GridRegion> level10Cam1Grids = GridConfigHandler.getLocalGridRegions(10, 1);
+        List<GridRegion> level10Cam1Grids = GridConfigHandler.getLocalGridRegions(1, 1);
         if (level10Cam1Grids == null) {
             level10Cam1Grids = List.of(
                     new GridRegion(288, 445, 624, 865, "001"),
@@ -192,13 +192,13 @@ public class GridRegionManager {
                     new GridRegion(2271, 445, 714, 865, "004")
             );
         }
-        addGridRegions(10, 1, level10Cam1Grids);
+        addGridRegions(1, 1, level10Cam1Grids);
 
 
         // ------------------------------
         // 第7层 摄像头2（cameraNum=2）
         // ------------------------------
-        List<GridRegion> level7Cam2Grids = GridConfigHandler.getLocalGridRegions(7, 2);
+        List<GridRegion> level7Cam2Grids = GridConfigHandler.getLocalGridRegions(9, 2);
         if (level7Cam2Grids == null) {
             level7Cam2Grids = List.of(
                     new GridRegion(732, 691, 492, 685, "0127"),
@@ -209,13 +209,13 @@ public class GridRegionManager {
                     new GridRegion(2997, 691, 456, 685, "0132")
             );
         }
-        addGridRegions(7, 2, level7Cam2Grids);
+        addGridRegions(9, 2, level7Cam2Grids);
 
 
         // ------------------------------
         // 第6层 摄像头2（cameraNum=2）
         // ------------------------------
-        List<GridRegion> level6Cam2Grids = GridConfigHandler.getLocalGridRegions(6, 2);
+        List<GridRegion> level6Cam2Grids = GridConfigHandler.getLocalGridRegions(8, 2);
         if (level6Cam2Grids == null) {
             level6Cam2Grids = List.of(
                     new GridRegion(732, 691, 492, 685, "0112"),
@@ -226,13 +226,13 @@ public class GridRegionManager {
                     new GridRegion(2997, 691, 456, 685, "0117")
             );
         }
-        addGridRegions(6, 2, level6Cam2Grids);
+        addGridRegions(8, 2, level6Cam2Grids);
 
 
         // ------------------------------
         // 第5层 摄像头2（cameraNum=2）
         // ------------------------------
-        List<GridRegion> level5Cam2Grids = GridConfigHandler.getLocalGridRegions(5, 2);
+        List<GridRegion> level5Cam2Grids = GridConfigHandler.getLocalGridRegions(7, 2);
         if (level5Cam2Grids == null) {
             level5Cam2Grids = List.of(
                     new GridRegion(732, 691, 492, 685, "097"),
@@ -243,13 +243,13 @@ public class GridRegionManager {
                     new GridRegion(2997, 691, 456, 685, "0102")
             );
         }
-        addGridRegions(5, 2, level5Cam2Grids);
+        addGridRegions(7, 2, level5Cam2Grids);
 
 
         // ------------------------------
         // 第4层 摄像头2（cameraNum=2）
         // ------------------------------
-        List<GridRegion> level4Cam2Grids = GridConfigHandler.getLocalGridRegions(4, 2);
+        List<GridRegion> level4Cam2Grids = GridConfigHandler.getLocalGridRegions(6, 2);
         if (level4Cam2Grids == null) {
             level4Cam2Grids = List.of(
                     new GridRegion(732, 691, 492, 685, "082"),
@@ -260,13 +260,13 @@ public class GridRegionManager {
                     new GridRegion(2997, 691, 456, 685, "087")
             );
         }
-        addGridRegions(4, 2, level4Cam2Grids);
+        addGridRegions(6, 2, level4Cam2Grids);
 
 
         // ------------------------------
         // 第3层 摄像头2（cameraNum=2）
         // ------------------------------
-        List<GridRegion> level3Cam2Grids = GridConfigHandler.getLocalGridRegions(3, 2);
+        List<GridRegion> level3Cam2Grids = GridConfigHandler.getLocalGridRegions(5, 2);
         if (level3Cam2Grids == null) {
             level3Cam2Grids = List.of(
                     new GridRegion(732, 691, 492, 685, "067"),
@@ -277,13 +277,13 @@ public class GridRegionManager {
                     new GridRegion(2997, 691, 456, 685, "072")
             );
         }
-        addGridRegions(3, 2, level3Cam2Grids);
+        addGridRegions(5, 2, level3Cam2Grids);
 
 
         // ------------------------------
         // 第2层 摄像头2（cameraNum=2）
         // ------------------------------
-        List<GridRegion> level2Cam2Grids = GridConfigHandler.getLocalGridRegions(2, 2);
+        List<GridRegion> level2Cam2Grids = GridConfigHandler.getLocalGridRegions(4, 2);
         if (level2Cam2Grids == null) {
             level2Cam2Grids = List.of(
                     new GridRegion(729, 481, 585, 919, "051"),
@@ -293,13 +293,13 @@ public class GridRegionManager {
                     new GridRegion(2895, 481, 556, 922, "055")
             );
         }
-        addGridRegions(2, 2, level2Cam2Grids);
+        addGridRegions(4, 2, level2Cam2Grids);
 
 
         // ------------------------------
         // 第1层 摄像头2（cameraNum=2）
         // ------------------------------
-        List<GridRegion> level1Cam2Grids = GridConfigHandler.getLocalGridRegions(1, 2);
+        List<GridRegion> level1Cam2Grids = GridConfigHandler.getLocalGridRegions(3, 2);
         if (level1Cam2Grids == null) {
             level1Cam2Grids = List.of(
                     new GridRegion(729, 481, 585, 919, "036"),
@@ -309,13 +309,13 @@ public class GridRegionManager {
                     new GridRegion(2895, 481, 556, 922, "040")
             );
         }
-        addGridRegions(1, 2, level1Cam2Grids);
+        addGridRegions(3, 2, level1Cam2Grids);
 
 
         // ------------------------------
         // 第0层 摄像头2（cameraNum=2）
         // ------------------------------
-        List<GridRegion> level0Cam2Grids = GridConfigHandler.getLocalGridRegions(0, 2);
+        List<GridRegion> level0Cam2Grids = GridConfigHandler.getLocalGridRegions(2, 2);
         if (level0Cam2Grids == null) {
             level0Cam2Grids = List.of(
                     new GridRegion(711, 451, 799, 877, "020"),
@@ -324,13 +324,13 @@ public class GridRegionManager {
                     new GridRegion(2733, 451, 708, 877, "023")
             );
         }
-        addGridRegions(0, 2, level0Cam2Grids);
+        addGridRegions(2, 2, level0Cam2Grids);
 
 
         // ------------------------------
         // 第10层 摄像头2（cameraNum=2）
         // ------------------------------
-        List<GridRegion> level10Cam2Grids = GridConfigHandler.getLocalGridRegions(10, 2);
+        List<GridRegion> level10Cam2Grids = GridConfigHandler.getLocalGridRegions(1, 2);
         if (level10Cam2Grids == null) {
             level10Cam2Grids = List.of(
                     new GridRegion(711, 451, 799, 877, "005"),
@@ -339,54 +339,9 @@ public class GridRegionManager {
                     new GridRegion(2733, 451, 708, 877, "008")
             );
         }
-        addGridRegions(10, 2, level10Cam2Grids);
+        addGridRegions(1, 2, level10Cam2Grids);
     }
 
-    public static HashMap<Integer, Integer> imageLevelMapLayer = new HashMap<Integer, Integer>() {{
-        put(1, 10);
-        put(2, 0);
-        put(3, 1);
-        put(4, 2);
-        put(5, 3);
-        put(6, 4);
-        put(7, 5);
-        put(8, 6);
-        put(9, 7);
-    }};
-    public static HashMap<Integer, Integer> imageNameLevelMapLayer = new HashMap<Integer, Integer>() {{
-        put(1, 0);
-        put(2, 1);
-        put(3, 2);
-        put(4, 3);
-        put(5, 4);
-        put(6, 5);
-        put(7, 6);
-        put(8, 7);
-        put(9, 10);
-    }};
-
-    public static HashMap<Integer, Integer> LevelMapLayer = new HashMap<Integer, Integer>() {{
-        put(0, 10);
-        put(1, 0);
-        put(2, 1);
-        put(3, 2);
-        put(4, 3);
-        put(5, 4);
-        put(6, 5);
-        put(7, 6);
-        put(10, 7);
-    }};
-    // 定义在LevelMapLayer所在的类中
-    public static Integer GetKeyByValue(int targetValue) {
-        // 遍历HashMap的所有键值对
-        for (Map.Entry<Integer, Integer> entry : LevelMapLayer.entrySet()) {
-            // 找到值等于目标值的键
-            if (entry.getValue() == targetValue) {
-                return entry.getKey();
-            }
-        }
-        return null; // 若没有匹配的值，返回null
-    }
     /**
      * 添加某一层某一摄像头的格子区域数据
      *
@@ -434,15 +389,4 @@ public class GridRegionManager {
         return laneCodeToGrid.get(code);
     }
 
-    /**
-     * 根据层号和摄像头编号，获取对应的格子区域列表
-     *
-     * @param level     层号（如0、1、2、7、10等）
-     * @param cameraNum 摄像头编号（1：左摄像头，2：右摄像头）
-     * @return 格子区域列表（无数据则返回空列表，避免空指针）
-     */
-    public List<GridRegion> getGridRegionsByLevel(int level, int cameraNum) {
-        String key = getKey(imageLevelMapLayer.get(level), cameraNum);
-        return gridRegionMap.getOrDefault(key, new ArrayList<>());
-    }
 }

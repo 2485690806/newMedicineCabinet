@@ -4,8 +4,6 @@ import static com.ycmachine.smartdevice.constent.ClientConstant.DEVICE_CLICK_INT
 import static com.ycmachine.smartdevice.constent.ClientConstant.DEVICE_CLICK_NUM;
 import static com.ycmachine.smartdevice.constent.ClientConstant.DEVICE_clickNum;
 import static com.ycmachine.smartdevice.constent.ClientConstant.DEVICE_lastClickTime;
-import static com.ycmachine.smartdevice.manager.GridRegionManager.GetKeyByValue;
-import static com.ycmachine.smartdevice.manager.GridRegionManager.LevelMapLayer;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -409,6 +407,7 @@ public class UserMedPointActivity extends BaseActivity implements RxTimer.OnTime
         // 查询这个码对应的是第几层第几个货道
         QrCodeBinding qrCodeBinding = CabinetQrManager.getInstance().findByItemQr(code);
 
+        Logger.d("选中的层数: " + JSON.toJSONString(qrCodeBinding));
         if (qrCodeBinding == null) {
             onToast("未找到对应二维码");
             return;
@@ -421,6 +420,7 @@ public class UserMedPointActivity extends BaseActivity implements RxTimer.OnTime
             return;
         }
 
+        onToast("二维码识别成功");
         // 可能被取走了
         DataSourceOperator.getInstance().deleteByItemQrCode(code);
         // 发送取走
@@ -428,25 +428,13 @@ public class UserMedPointActivity extends BaseActivity implements RxTimer.OnTime
             MedHttpHandler.getInstance().BagRemove(qrCodeBinding.getBagId());
 
         // 打印日志（示例）
-        Logger.d("选中的层数: " + qrCodeBinding.getLevel() + ", 数字: " + qrCodeBinding.getGridNumber());
+        Logger.d("选中的层数222: " + JSON.toJSONString(qrCodeBinding));
         ClientConstant.currentWorkFlow = ClientConstant.WorkFlow.Standard;
 
         // 一键出货
-        YpgLogicHandler.getInstance().handleLayerOperation(qrCodeBinding.getLevel() +1, Integer.parseInt(qrCodeBinding.getGridNumber()));
+        YpgLogicHandler.getInstance().handleLayerOperation(qrCodeBinding.getLevel(), Integer.parseInt(qrCodeBinding.getGridNumber()));
     }
 
-    public void snapTwoCamera() {
-        // 第一个任务：发送第一个EventBus事件（立即执行，之后延迟500ms执行第二个任务）
-        mainHandler.post(() -> {
-            EventBus.getDefault().post(new BasicMessageEvent(EventType.BasicEvent.SNAP_CAMERA_NUM, 0));
-
-            // 第二个任务：延迟500ms发送第二个EventBus事件
-            mainHandler.postDelayed(() -> {
-                EventBus.getDefault().post(new BasicMessageEvent(EventType.BasicEvent.SNAP_CAMERA_NUM, 1));
-
-            }, 500); // 第一个到第二个间隔500ms
-        });
-    }
 
     @Override
     public void onTimeEnd() {
@@ -470,7 +458,7 @@ public class UserMedPointActivity extends BaseActivity implements RxTimer.OnTime
 //        int nowLevel = ClientConstant.nowFloor;
 
         new  Thread(()->{
-            List<GridRegion> gridRegions = GridRegionManager.getInstance().getGridRegions(LevelMapLayer.get(nowLevel), cameraNum);
+            List<GridRegion> gridRegions = GridRegionManager.getInstance().getGridRegions(nowLevel, cameraNum);
             Logger.i("当前key:"+ JSON.toJSONString(gridRegions));
             if(gridRegions==null || gridRegions.size()==0){
                 Logger.e("没有配置层级"+nowLevel+"摄像头"+cameraNum+"的识别区域");

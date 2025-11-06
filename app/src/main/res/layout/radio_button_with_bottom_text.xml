@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <!-- 数字按钮（原RadioButton） -->
+    <RadioButton
+        android:id="@+id/rb_number"
+        android:layout_width="33dp"
+        android:layout_height="34dp"
+        android:background="@drawable/number_layers_bg_selector"
+        android:button="@null"
+        android:gravity="center"
+        android:textColor="@drawable/number_layers_text_color_selector"
+        android:textSize="17sp" />
+
+    <!-- 底部文本（红底白字） -->
+    <TextView
+        android:id="@+id/tv_bottom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/RED"
+        android:padding="2dp"
+        android:textColor="@color/white"
+        android:textSize="12sp"
+        android:visibility="gone" />
+</LinearLayout>

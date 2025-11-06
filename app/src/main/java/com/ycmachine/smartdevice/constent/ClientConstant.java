@@ -12,7 +12,7 @@ public class ClientConstant {
     public static WorkFlow currentWorkFlow = WorkFlow.Forward; // 当前工作流程
     public static boolean IS_DOING = false; // 是否第一次登录调试
 
-    public static int ResetFloor = 10; // 复位层数
+    public static int ResetFloor = 8; // 复位层数
     public static int nowFloor = ResetFloor;
     public static Layer[] medicineCabinetLayer = new Layer[]{ // 每层对应的步数
             new Layer(467), // 7
@@ -23,9 +23,9 @@ public class ClientConstant {
             new Layer(150), // 2
             new Layer(101), // 1
             new Layer(51), // 0 第八层
+            new Layer(0),// 10 第九层
             new Layer(456), // 取货层
             new Layer(80), // 回收层
-            new Layer(0),// 10 第九层
     };
 
 
@@ -42,7 +42,7 @@ public class ClientConstant {
         add(new LayerParam(9,"T9", 121, 132));
     }};
 
-    public static int[] LayerValues = new int[]{1, 3, 5, 7}; // 一键拍照的层数
+    public static int[] LayerValues = new int[]{0,1,2, 3,4, 5,6, 7,8}; // 一键拍照的层数
 
     public interface PageFlag {
         int componentTestFragment = 0;

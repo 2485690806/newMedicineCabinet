@@ -143,13 +143,13 @@ public class ComponentTestNumberFragment  extends BaseFragment implements RxTime
             handleNumberLayerOperation(7);
         } else if (layerId == R2.id.rb_layer_8) {
             handleNumberLayerOperation(8);
-        } else if (layerId == R2.id.rb_pick_layer) {
-            handleNumberLayerOperation(9);
-        } else if (layerId == R2.id.rb_recycle_layer) {
-            handleNumberLayerOperation(10);
         } else if (layerId == R2.id.rb_layer_9) {
+            handleNumberLayerOperation(9);
+        }  else if (layerId == R2.id.rb_pick_layer) {
+            handleNumberLayerOperation(10);
+        } else if (layerId == R2.id.rb_recycle_layer) {
             handleNumberLayerOperation(11);
-        } else if (layerId == R2.id.rb_reposition) {
+        }else if (layerId == R2.id.rb_reposition) {
             handleReposition();
         }
     }

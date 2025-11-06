@@ -1,8 +1,6 @@
 package com.ycmachine.smartdevice.activity.cameraTest;
 
 import static com.ycmachine.smartdevice.constent.ClientConstant.medicineCabinetLayer;
-import static com.ycmachine.smartdevice.manager.GridRegionManager.GetKeyByValue;
-import static com.ycmachine.smartdevice.manager.GridRegionManager.LevelMapLayer;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
@@ -192,14 +190,15 @@ public class CameraActivity extends BaseActivity implements RxTimer.OnTimeCounte
         checkBoxList.add(findViewById(R.id.cb_8));
         checkBoxIndexMap.put(checkBoxList.get(7), 7);
 
-        checkBoxList.add(findViewById(R.id.cb_pick));
+        checkBoxList.add(findViewById(R.id.cb_9));
         checkBoxIndexMap.put(checkBoxList.get(8), 8);
 
-        checkBoxList.add(findViewById(R.id.cb_recycle));
+        checkBoxList.add(findViewById(R.id.cb_pick));
         checkBoxIndexMap.put(checkBoxList.get(9), 9);
 
-        checkBoxList.add(findViewById(R.id.cb_9));
+        checkBoxList.add(findViewById(R.id.cb_recycle));
         checkBoxIndexMap.put(checkBoxList.get(10), 10);
+
         // 设置CheckBox监听
         setCheckboxListeners();
 
@@ -355,14 +354,14 @@ public class CameraActivity extends BaseActivity implements RxTimer.OnTimeCounte
     }
 
     @Override
-    public void onImageSaved(int cameraNum, String filePath,int nowLevel) {
+    public void onImageSaved(int cameraNum, String filePath,int nowLevel) { // 6
         Logger.i(nowLevel+"摄像头" + cameraNum + "保存图片：" + filePath);
         // 可在这里处理图片保存后的逻辑（如上传）
 
 //        int nowLevel = ClientConstant.nowFloor;
 
         new  Thread(()->{
-            List<GridRegion> gridRegions = GridRegionManager.getInstance().getGridRegions(LevelMapLayer.get(nowLevel), cameraNum);
+            List<GridRegion> gridRegions = GridRegionManager.getInstance().getGridRegions(nowLevel, cameraNum);
             Logger.i("当前key:"+ JSON.toJSONString(gridRegions));
             if(gridRegions==null || gridRegions.size()==0){
                 Logger.e("没有配置层级"+nowLevel+"摄像头"+cameraNum+"的识别区域");
@@ -528,12 +527,12 @@ public class CameraActivity extends BaseActivity implements RxTimer.OnTimeCounte
         layerRadioButtons.add(rbLayer2);
         layerRadioButtons.add(rbLayer3);
         layerRadioButtons.add(rbLayer4);
-        layerRadioButtons.add(rbPickLayer);
         layerRadioButtons.add(rbLayer5);
         layerRadioButtons.add(rbLayer6);
         layerRadioButtons.add(rbLayer7);
         layerRadioButtons.add(rbLayer8);
         layerRadioButtons.add(rbLayer9);
+        layerRadioButtons.add(rbPickLayer);
         layerRadioButtons.add(rbRecycleLayer);
 
         // 设置全局单选监听器
@@ -622,9 +621,7 @@ public class CameraActivity extends BaseActivity implements RxTimer.OnTimeCounte
             handleLayerOperation(3); // 3层逻辑
         } else if (layerId == R.id.rb_layer_4) {
             handleLayerOperation(4); // 4层逻辑
-        } else if (layerId == R.id.rb_pick_layer) {
-            handleLayerOperation(9); // 取货层逻辑
-        } else if (layerId == R.id.rb_layer_5) {
+        }else if (layerId == R.id.rb_layer_5) {
             handleLayerOperation(5); // 5层逻辑
         } else if (layerId == R.id.rb_layer_6) {
             handleLayerOperation(6); // 6层逻辑
@@ -632,10 +629,14 @@ public class CameraActivity extends BaseActivity implements RxTimer.OnTimeCounte
             handleLayerOperation(7); // 7层逻辑
         } else if (layerId == R.id.rb_layer_8) {
             handleLayerOperation(8); // 8层逻辑
+        }else if (layerId == R.id.rb_layer_9) {
+            handleLayerOperation(9); // 9层逻辑
+        } else if (layerId == R.id.rb_pick_layer) {
+            handleLayerOperation(10); // 取货层逻辑
         } else if (layerId == R.id.rb_recycle_layer) {
-            handleLayerOperation(10); // 回收层逻辑
-        } else if (layerId == R.id.rb_layer_9) {
             handleLayerOperation(11); // 回收层逻辑
+        } else if (layerId == R.id.rb_reposition) {
+            handleReposition(); // 执行复位操作
         }
     }
 

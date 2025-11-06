@@ -90,16 +90,16 @@ public class CabinetQrManager {
                                 Logger.d("Already bound (same): " + JSON.toJSONString(byGridQr));
                                 continue; // 已绑定且相同，跳过
                             }
-                            if (!StringUtils.isBlank(itemQr)) {
-                                Logger.d("Item QR code is empty, skipping binding.");
-                                // 可能被取走了
-                                DataSourceOperator.getInstance().deleteByItemQrCode(itemQr);
-                                // 发送取走
-                                if (!StringUtils.isBlank(byGridQr.getBagId()))
-                                    MedHttpHandler.getInstance().BagRemove(byGridQr.getBagId());
-
-                                continue; // 物品二维码为空，跳过
-                            }
+//                            if (!StringUtils.isBlank(itemQr)) {
+//                                Logger.d("Item QR code is empty, skipping binding.");
+//                                // 可能被取走了
+//                                DataSourceOperator.getInstance().deleteByItemQrCode(itemQr);
+//                                // 发送取走
+//                                if (!StringUtils.isBlank(byGridQr.getBagId()))
+//                                    MedHttpHandler.getInstance().BagRemove(byGridQr.getBagId());
+//
+//                                continue; // 物品二维码为空，跳过
+//                            }
 
                             // 已绑定但不同，删除旧的，继续绑定新的，再发更新给后台
                             Logger.d("Already bound (different), updating: " + JSON.toJSONString(byGridQr));

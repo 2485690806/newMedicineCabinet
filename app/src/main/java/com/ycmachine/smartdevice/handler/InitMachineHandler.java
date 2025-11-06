@@ -48,22 +48,22 @@ public class InitMachineHandler {
     // 提取默认值为单独方法，提高代码复用性
     private static Layer[] getDefaultLayers() {
         return new Layer[]{
-                new Layer(450),
-                new Layer(365),
-                new Layer(295),
-                new Layer(215),
-                new Layer(160),
-                new Layer(105),
-                new Layer(50),
-                new Layer(0),
-                new Layer(450),
-                new Layer(80),
-                new Layer(0),
+                new Layer(467), // 7
+                new Layer(390), // 6
+                new Layer(318), // 5
+                new Layer(250), // 4
+                new Layer(199), // 3
+                new Layer(150), // 2
+                new Layer(101), // 1
+                new Layer(51), // 0 第八层
+                new Layer(0),// 10 第九层
+                new Layer(456), // 取货层
+                new Layer(80), // 回收层
         };
     }
     private static int[] getDefaultLayersValues() {
 
-        return  new int[]{1, 3, 5, 7};
+        return  new int[]{0,1,2, 3,4, 5,6, 7,8};
     }
 
     private static void initLayerValue() {

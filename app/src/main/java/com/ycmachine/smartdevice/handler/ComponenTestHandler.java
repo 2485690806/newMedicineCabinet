@@ -90,7 +90,7 @@ public class ComponenTestHandler {
      */
     public void YaxisReset() {
         nowFloor = ResetFloor; // 重置当前楼层为7（第8层）
-        Logger.e("nowFloor"+ClientConstant.nowFloor);
+        Logger.e("nowFloor"+(ClientConstant.nowFloor+1));
         String str = "AA000B0101BB";
 
         sendSerialPort(hexStringToByteArray(str));
@@ -212,7 +212,7 @@ public class ComponenTestHandler {
         }
 
         // 打印日志（对应JS中的console.log）
-        Logger.d("目标楼层（处理后）: " + targetFloor);
+        Logger.d("目标楼层（处理后）: " + targetFloor +1);
         Logger.d("当前楼层步数: " + medicineCabinetLayer[nowFloor].getBushu());
         Logger.d("目标楼层步数: " + medicineCabinetLayer[targetFloor].getBushu());
 
@@ -243,7 +243,7 @@ public class ComponenTestHandler {
         // 更新当前楼层
         nowFloor = targetFloor;
 
-        Logger.e("nowFloor"+ClientConstant.nowFloor);
+        Logger.e("nowFloor"+(ClientConstant.nowFloor + 1));
         return cmd;
     }
 

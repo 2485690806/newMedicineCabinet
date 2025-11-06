@@ -730,18 +730,20 @@ public class DataSourceOperator {
 
     public long insertQrCodeBindingToDb(QrCodeBinding containers) {
 
-        return  getQrCodeBindingDao().insertOrReplace(containers);
+        return getQrCodeBindingDao().insertOrReplace(containers);
 
     }
+
     public void updateQrCodeBindingToDb(QrCodeBinding containers) {
         getQrCodeBindingDao().update(containers);
     }
+
     public void updateBagIdByItemQr(String itemQr, String BagId) {
         QrCodeBinding qrCodeBinding = findByItemQrCode(itemQr);
         if (qrCodeBinding != null) {
             qrCodeBinding.setBagId(BagId);
             getQrCodeBindingDao().update(qrCodeBinding);
-        }else{
+        } else {
             Logger.e("【QrCodeBinding】itemQr not exist: " + itemQr);
         }
     }
@@ -755,10 +757,12 @@ public class DataSourceOperator {
         return getQrCodeBindingDao().queryBuilder()
                 .where(QrCodeBindingDao.Properties.ItemQrCode.eq(itemQr)).limit(1).unique();
     }
+
     public void deleteByItemQrCode(String itemQr) {
         QrCodeBinding unique = getQrCodeBindingDao().queryBuilder()
                 .where(QrCodeBindingDao.Properties.ItemQrCode.eq(itemQr)).limit(1).unique();
 
-         getQrCodeBindingDao().delete(unique);
+        if (unique != null)
+            getQrCodeBindingDao().delete(unique);
     }
 }
