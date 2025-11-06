@@ -4,6 +4,8 @@ import static com.ycmachine.smartdevice.constent.ClientConstant.DEVICE_CLICK_INT
 import static com.ycmachine.smartdevice.constent.ClientConstant.DEVICE_CLICK_NUM;
 import static com.ycmachine.smartdevice.constent.ClientConstant.DEVICE_clickNum;
 import static com.ycmachine.smartdevice.constent.ClientConstant.DEVICE_lastClickTime;
+import static com.ycmachine.smartdevice.manager.GridRegionManager.GetKeyByValue;
+import static com.ycmachine.smartdevice.manager.GridRegionManager.LevelMapLayer;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -15,9 +17,7 @@ import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.Looper;
 import android.os.SystemClock;
-import android.text.InputFilter;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.TextureView;
 import android.view.View;
 import android.widget.CheckBox;
@@ -29,6 +29,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.alibaba.fastjson.JSON;
 import com.bigkoo.convenientbanner.ConvenientBanner;
 import com.bigkoo.convenientbanner.holder.CBViewHolderCreator;
 import com.bigkoo.convenientbanner.holder.Holder;
@@ -36,11 +37,13 @@ import com.leesche.logger.Logger;
 import com.ycmachine.smartdevice.R;
 import com.ycmachine.smartdevice.R2;
 import com.ycmachine.smartdevice.constent.ClientConstant;
+import com.ycmachine.smartdevice.creator.CameraWrapper;
 import com.ycmachine.smartdevice.creator.UnVisityCameraWrapper;
 import com.ycmachine.smartdevice.handler.InitMachineHandler;
 import com.ycmachine.smartdevice.handler.MedHttpHandler;
 import com.ycmachine.smartdevice.handler.YpgLogicHandler;
 import com.ycmachine.smartdevice.manager.CabinetQrManager;
+import com.ycmachine.smartdevice.manager.GridRegionManager;
 
 import org.apache.commons.lang3.StringUtils;
 import org.greenrobot.eventbus.EventBus;
@@ -60,7 +63,6 @@ import leesche.smartrecycling.base.entity.GridRegion;
 import leesche.smartrecycling.base.entity.QrCodeBinding;
 import leesche.smartrecycling.base.eventbus.BasicMessageEvent;
 import leesche.smartrecycling.base.handler.LocalConfigManager;
-import leesche.smartrecycling.base.qrcode.GridRegionManager;
 import leesche.smartrecycling.base.utils.DataSourceOperator;
 import leesche.smartrecycling.base.utils.RxTimer;
 import leesche.smartrecycling.base.view.LocalVImageHolderView;
@@ -136,12 +138,12 @@ public class UserMedPointActivity extends BaseActivity implements RxTimer.OnTime
         cIdleBanner.stopTurning();
         super.onDestroy();
 
-        MedHttpHandler.getInstance().onDestroy();
+//        MedHttpHandler.getInstance().onDestroy();
         // 关闭所有摄像头
         for (UnVisityCameraWrapper wrapper : cameraWrappers) {
             wrapper.closeCamera();
         }
-        MedHttpHandler.getInstance().onDestroy();
+//        MedHttpHandler.getInstance().onDestroy();
         stopBackgroundThread();
     }
 
@@ -243,10 +245,10 @@ public class UserMedPointActivity extends BaseActivity implements RxTimer.OnTime
     public void onMessageEvent(BasicMessageEvent event) {
         switch (event.getMessage_id()) {
             case EventType.BasicEvent.SNAP_CAMERA_NUM:
-                Logger.e("收到拍照事件，摄像头编号：" + event.getMsg_flag());
                 int numCamera = event.getMsg_flag();
+                int msg_nowlevel = event.getMsg_level();
                 UnVisityCameraWrapper cameraWrapper = cameraWrappers.get(numCamera);
-                cameraWrapper.takePictureFromExternal();
+                cameraWrapper.takePictureFromExternal(msg_nowlevel);
                 break;
         }
     }
@@ -412,7 +414,7 @@ public class UserMedPointActivity extends BaseActivity implements RxTimer.OnTime
             return;
         }
 
-        if(ClientConstant.IS_DOING){
+        if (ClientConstant.IS_DOING) {
             onToast("操作正在执行中");
 
             ClientConstant.IS_DOING = false;
@@ -428,8 +430,9 @@ public class UserMedPointActivity extends BaseActivity implements RxTimer.OnTime
         // 打印日志（示例）
         Logger.d("选中的层数: " + qrCodeBinding.getLevel() + ", 数字: " + qrCodeBinding.getGridNumber());
         ClientConstant.currentWorkFlow = ClientConstant.WorkFlow.Standard;
+
         // 一键出货
-        YpgLogicHandler.getInstance().handleLayerOperation(qrCodeBinding.getLevel(), Integer.parseInt(qrCodeBinding.getGridNumber()));
+        YpgLogicHandler.getInstance().handleLayerOperation(qrCodeBinding.getLevel() +1, Integer.parseInt(qrCodeBinding.getGridNumber()));
     }
 
     public void snapTwoCamera() {
@@ -460,17 +463,22 @@ public class UserMedPointActivity extends BaseActivity implements RxTimer.OnTime
     }
 
     @Override
-    public void onImageSaved(int cameraNum, String filePath) {
-        Logger.d("摄像头" + cameraNum + "保存图片：" + filePath);
+    public void onImageSaved(int cameraNum, String filePath,int nowLevel) {
+        Logger.i(nowLevel+"摄像头" + cameraNum + "保存图片：" + filePath);
         // 可在这里处理图片保存后的逻辑（如上传）
-        int nowLevel = ClientConstant.nowFloor;
-        List<GridRegion> gridRegions = GridRegionManager.getInstance().getGridRegions(nowLevel, cameraNum);
-        if(gridRegions==null || gridRegions.size()==0){
-            Logger.e("没有配置层级"+nowLevel+"摄像头"+cameraNum+"的识别区域");
-            return;
-        }
 
-        CabinetQrManager.getInstance().processPhoto(String.valueOf(cameraNum), nowLevel, filePath, gridRegions, listener);
+//        int nowLevel = ClientConstant.nowFloor;
+
+        new  Thread(()->{
+            List<GridRegion> gridRegions = GridRegionManager.getInstance().getGridRegions(LevelMapLayer.get(nowLevel), cameraNum);
+            Logger.i("当前key:"+ JSON.toJSONString(gridRegions));
+            if(gridRegions==null || gridRegions.size()==0){
+                Logger.e("没有配置层级"+nowLevel+"摄像头"+cameraNum+"的识别区域");
+                return;
+            }
+            CabinetQrManager.getInstance().processPhoto(String.valueOf(cameraNum), nowLevel, filePath, gridRegions, listener);
+
+        }).start();
 
     }
 

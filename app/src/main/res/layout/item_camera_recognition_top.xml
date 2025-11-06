@@ -1,14 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout android:layout_width="match_parent"
+<LinearLayout android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="horizontal"
     android:paddingLeft="13dp"
     android:paddingTop="8dp"
     android:paddingRight="13dp"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toTopOf="parent"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
         <LinearLayout
@@ -38,36 +35,6 @@
             </LinearLayout>
 
         </LinearLayout>
-
-
-    <LinearLayout
-        android:layout_width="180dp"
-        android:layout_height="50dp"
-        android:background="@drawable/image_recognition"
-        android:gravity="center"
-        android:onClick="toImageRecognition"
-        android:paddingLeft="20dp"
-        android:orientation="horizontal">
-
-        <!-- 左侧图片 -->
-        <ImageView
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:background="@drawable/image_shibie"
-            android:contentDescription="@string/app_name" />
-
-        <!-- 右侧文字 -->
-        <TextView
-            android:layout_marginLeft="8dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/image_recognition"
-            android:textColor="#FFFFFF"
-            android:gravity="center"
-            android:textSize="@dimen/item_main_machine_status" />
-
-    </LinearLayout>
-
 
 
 

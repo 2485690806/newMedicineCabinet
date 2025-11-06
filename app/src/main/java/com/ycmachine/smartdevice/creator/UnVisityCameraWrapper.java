@@ -32,15 +32,11 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 
-import com.alibaba.fastjson.JSON;
 import com.leesche.logger.Logger;
 import com.ycmachine.smartdevice.R;
-import com.ycmachine.smartdevice.constent.ClientConstant;
 import com.ycmachine.smartdevice.manager.CabinetQrManager;
 
 import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -49,6 +45,9 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.concurrent.Semaphore;
 import java.util.concurrent.TimeUnit;
+
+import leesche.smartrecycling.base.common.Constants;
+import leesche.smartrecycling.base.utils.FileUtil;
 
 /**
  * 单个摄像头的封装类，管理单个摄像头的所有操作
@@ -94,11 +93,18 @@ public class UnVisityCameraWrapper {
     private Surface recorderSurface;
     private String fileUrl;
 
+    // 预览帧超时检测（10秒无帧更新则判定为卡住）
+    private static final long PREVIEW_TIMEOUT = 10000;
+    private Handler timeoutHandler; // 用于执行超时检测和延迟重启
+    private Runnable previewTimeoutRunnable; // 超时任务
+    private boolean isRestarting = false; // 避免重复触发重启
+
+
     // 回调接口：通知Activity状态变化
     public interface CameraCallback {
         void onToast(String message);
 
-        void onImageSaved(int cameraNum, String filePath);
+        void onImageSaved(int cameraNum, String filePath, int currentFloor);
 
         void onVideoSaved(int cameraNum, String filePath);
 
@@ -183,15 +189,15 @@ public class UnVisityCameraWrapper {
         }
     }
 
-    /**
-     * 暴露给外部的拍照方法
-     */
-    public void takePictureFromExternal() {
+    int Message_NowLevel;
+    public void takePictureFromExternal(int Message_NowLevel) {
         // 确保摄像头处于激活状态
         if (!isActive) {
             Log.w(TAG, "摄像头" + cameraNum + "未激活，无法拍照");
             return;
         }
+
+        this.Message_NowLevel = Message_NowLevel;
         // 调用内部拍照逻辑
         takePicture();
     }
@@ -235,7 +241,7 @@ public class UnVisityCameraWrapper {
             } else {
                 callback.onToast("打开摄像头" + cameraNum + "超时");
             }
-            if(cameraNum == 1){
+            if (cameraNum == 1) {
                 configureTransform(textureView.getWidth(), textureView.getHeight());
             }
         } catch (CameraAccessException | InterruptedException e) {
@@ -429,7 +435,7 @@ public class UnVisityCameraWrapper {
                 ByteBuffer buffer = image.getPlanes()[0].getBuffer();
                 byte[] bytes = new byte[buffer.remaining()];
                 buffer.get(bytes);
-                saveImageToFile(bytes);
+                saveImageToFile(bytes,Message_NowLevel);
             }
         } finally {
             if (image != null) image.close();
@@ -437,41 +443,16 @@ public class UnVisityCameraWrapper {
     }
 
     // 保存照片
-    private void saveImageToFile(byte[] bytes) {
-        Bitmap bitmap = android.graphics.BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-        try {
-            if (cameraNum == 1 ){
-                Matrix matrix = new Matrix();
-                matrix.postScale(-1, 1); // 水平镜像
-                Bitmap mirroredBitmap = Bitmap.createBitmap(bitmap, 0, 0,
-                        bitmap.getWidth(), bitmap.getHeight(), matrix, true);
-                bitmap.recycle();
-                bitmap = mirroredBitmap;
-            }
 
-            File file = new File(callback.getExternalFilesDir(),
-                    "photo_cam" + cameraNum + "_level_" + ClientConstant.nowFloor + "_" + System.currentTimeMillis() + ".jpg");
-            if (!file.getParentFile().exists()) {
-                file.getParentFile().mkdirs();
-            }
+    private void saveImageToFile(byte[] bytes, int currentFloor) {
 
-            FileOutputStream fos = new FileOutputStream(file);
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos);
-            fos.flush();
-            fos.close();
+        new Thread(()->{
+            Bitmap bitmap = android.graphics.BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+            String abs = FileUtil.saveBitmapToTempFile(bitmap, "photo_cam" + cameraNum + "_level_" + currentFloor + "_");
 
-            try {
-                callback.onImageSaved(cameraNum, file.getAbsolutePath());
-                callback.onToast("摄像头" + cameraNum + "照片已保存");
-            }catch (Exception e){
-                Logger.e(JSON.toJSONString(e));
-            }
-
-
-        } catch (IOException e) {
-            callback.onToast("摄像头" + cameraNum + "保存失败");
-            Log.e(TAG, "saveImage error", e);
-        }
+            callback.onImageSaved(cameraNum, abs, currentFloor);
+            callback.onToast("摄像头" + cameraNum + "照片已保存");
+        }).start();
     }
     CabinetQrManager.OnProcessListener listener = new CabinetQrManager.OnProcessListener() {
         @Override
@@ -498,7 +479,7 @@ public class UnVisityCameraWrapper {
             mediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4);
 
             // 输出文件
-            File videoFile = new File(callback.getExternalFilesDir(),
+            File videoFile = new File(Constants.IMAGE_FILE,
                     "video" + cameraNum + "_" + System.currentTimeMillis() + ".mp4");
             fileUrl = videoFile.getAbsolutePath();
             mediaRecorder.setOutputFile(fileUrl);

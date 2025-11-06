@@ -6,6 +6,16 @@ public class BasicMessageEvent {
     private String content;
     private int msg_flag;
 
+    public int getMsg_level() {
+        return msg_level;
+    }
+
+    public void setMsg_level(int msg_level) {
+        this.msg_level = msg_level;
+    }
+
+    private int msg_level;
+
     public Object getObject() {
         return object;
     }
@@ -23,6 +33,12 @@ public class BasicMessageEvent {
     public BasicMessageEvent(int message_id, int msg_flag) {
         this.message_id = message_id;
         this.msg_flag = msg_flag;
+    }
+
+    public BasicMessageEvent(int message_id, int msg_flag, int msg_level) {
+        this.message_id = message_id;
+        this.msg_flag = msg_flag;
+        this.msg_level = msg_level;
     }
 
     public BasicMessageEvent(int message_id, String content) {

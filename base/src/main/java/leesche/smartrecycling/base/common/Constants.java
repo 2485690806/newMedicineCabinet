@@ -25,6 +25,7 @@ public class Constants {
     public static final String BASE_CACHE_DIR = SDCARD_DIR + "/YCEquipment";
     public static final String BASE_APP_UPDATE = SDCARD_DIR + "/AutoInstaller";
     public static String LOGGER = BASE_CACHE_DIR + "/logger";
+    public static String IMAGE_FILE = BASE_CACHE_DIR + "/imagefile";
     public static String LAYER_LIST = BASE_CACHE_DIR + "/layer_list.txt";
     public static String LAYER_VALUE = BASE_CACHE_DIR + "/layer_value.txt";
     public static String WELCOME_AUDIO_OGG = BASE_CACHE_DIR + "/welocome.OGG";
@@ -40,6 +41,7 @@ public class Constants {
     public static final String POC_CAMERA_DIR = BASE_CACHE_DIR + "/poc_video";
     public static final String FFMPEG_RECORD_VIDEO = Constants.POC_CAMERA_DIR + "/FFMPEG";
     public static final String UPDATE_CONFIG = BASE_CACHE_DIR + "/update.json";
+    public static final String GRID_CONFIG_FILE = BASE_CACHE_DIR + "/grid_config.json";
     public static final String FACE_FEATURES = Constants.ACFACE_DIR + File.separator + "register" + File.separator + "features";
     public static final String FACE_IMGS = Constants.ACFACE_DIR + File.separator + "register" + File.separator + "imgs";
     public static final String FACE_SYNC = FACE_FEATURES + File.separator + "/sync_record.txt";

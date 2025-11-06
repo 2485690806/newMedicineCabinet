@@ -3,6 +3,8 @@
 
     <string name="one_click_testing">一键测试</string>
     <string name="back">返回</string>
+    <string name="image_recognition">图片识别</string>
+    <string name="image_recognition_tip">注：上面是货道号，下面是货物编码</string>
     <string name="devic_number">当前设备号：云创主板</string>
     <string name="replace_serial_port">更换串口</string>
     <string name="camera">摄像头</string>
@@ -35,6 +37,7 @@
     <string name="enter_the_direction">请输入方向</string>
     <string name="enter_the_steps">请输入步数</string>
     <string name="save_settings">保存设置</string>
+    <string name="confirm_recognition">确认识别</string>
     <string name="rise">上升</string>
     <string name="decline">下降</string>
     <string name="reposition">复位</string>
@@ -53,6 +56,13 @@
     <string name="off">无</string>
     <string name="open">打开</string>
     <string name="snap">拍照</string>
+    <string name="x_axis">x轴</string>
+    <string name="y_axis">y轴</string>
+    <string name="height">高度</string>
+    <string name="width">宽度</string>
+    <string name="number">号</string>
+    <string name="aisle_number">货道号</string>
+    <string name="goods_code">货物编码</string>
     <string name="start_record">开始录像</string>
     <string name="stop_record">停止录像</string>
     <string name="one_key_photo">一键拍照</string>

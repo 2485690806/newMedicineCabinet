@@ -27,17 +27,6 @@ import leesche.smartrecycling.base.utils.RxTimer;
 
 public class PlanImageFragment  extends BaseFragment implements RxTimer.OnTimeCounterListener{
 
-    private List<LayerParam> layerParams = new ArrayList<LayerParam>() {{
-        add(new LayerParam(1,"T1", 1, 8));
-        add(new LayerParam(2,"T2", 16, 23));
-        add(new LayerParam(3,"T3", 31, 40));
-        add(new LayerParam(4,"T4", 46, 55));
-        add(new LayerParam(5,"T5", 61, 72));
-        add(new LayerParam(6,"T6", 76, 87));
-        add(new LayerParam(7,"T7", 91, 102));
-        add(new LayerParam(8,"T8", 106, 117));
-        add(new LayerParam(9,"T9", 121, 132));
-    }};
 
 
     @BindView(R2.id.radio_group_layers)
@@ -62,7 +51,7 @@ public class PlanImageFragment  extends BaseFragment implements RxTimer.OnTimeCo
 
 
         // 2. 循环生成每层布局
-        for (LayerParam param : layerParams) {
+        for (LayerParam param : ClientConstant.layerParams) {
             // 当前层的层数（关键：需要传递给按钮）
             int currentLayer = param.getLayerNumber();
 

@@ -70,6 +70,7 @@ public class HeatParser {
             antipinchlighteye = bytes[6] == 0x01;
             scmsxw = bytes[7] == 0x01;
             scmxxw = bytes[8] == 0x01;
+            scmxxw = bytes[8] == 0x01;
             xcmsxw = bytes[9] == 0x01;
             xcmxxw = bytes[10] == 0x01;
             hsmdkxw = bytes[11] == 0x01;

@@ -13,6 +13,7 @@ import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.alibaba.fastjson.JSON;
 import com.leesche.logger.Logger;
 import com.ycmachine.smartdevice.constent.ClientConstant;
 import com.ycmachine.smartdevice.entity.ypg.LayerNumber;
@@ -22,13 +23,13 @@ import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 
 import leesche.smartrecycling.base.common.EventType;
 import leesche.smartrecycling.base.eventbus.BasicMessageEvent;
 import leesche.smartrecycling.base.serial.SerialHelper;
+import leesche.smartrecycling.base.utils.DataSourceOperator;
 import leesche.smartrecycling.base.utils.HexUtil;
 import leesche.smartrecycling.base.utils.StringUtil;
 import leesche.smartrecycling.base.utils.TTSUtils;
@@ -567,6 +568,11 @@ public class YpgLogicHandler implements SerialHelper.OnSerialListener {
     public List<Integer> selectedLayerValues = new ArrayList<>();
 
     public void snapDevice(List<Integer> layerValues) {
+
+        DataSourceOperator.getInstance().deleteQrCodeBindingDao(); // 清空数据库
+
+        Logger.i("layerValues"+ JSON.toJSONString(layerValues));
+
         // 1. 清除所有旧的状态监听（避免旧任务的状态回调影响新任务）
         clearAllStatusListeners();
 
@@ -582,6 +588,7 @@ public class YpgLogicHandler implements SerialHelper.OnSerialListener {
         if (selectedLayerValues != null) {
             selectedLayerValues.clear(); // 清空旧的层级列表
         }
+
         // ---------------------------------------------------
 
         // 显示“正在一键拍照”提示（替换原有的重复检查提示）
@@ -688,11 +695,11 @@ public class YpgLogicHandler implements SerialHelper.OnSerialListener {
     public void snapTwoCamera() {
         // 第一个任务：发送第一个EventBus事件（立即执行，之后延迟500ms执行第二个任务）
         mainHandler.post(() -> {
-            EventBus.getDefault().post(new BasicMessageEvent(EventType.BasicEvent.SNAP_CAMERA_NUM, 0));
+            EventBus.getDefault().post(new BasicMessageEvent(EventType.BasicEvent.SNAP_CAMERA_NUM, 0,ClientConstant.nowFloor));
 
             // 第二个任务：延迟500ms发送第二个EventBus事件
             mainHandler.postDelayed(() -> {
-                EventBus.getDefault().post(new BasicMessageEvent(EventType.BasicEvent.SNAP_CAMERA_NUM, 1));
+                EventBus.getDefault().post(new BasicMessageEvent(EventType.BasicEvent.SNAP_CAMERA_NUM, 1,ClientConstant.nowFloor));
 
                 // 第三个任务：再延迟500ms执行snapAllLayer()
                 mainHandler.postDelayed(this::snapAllLayer, 500); // 第二个到第三个间隔500ms
@@ -720,20 +727,10 @@ public class YpgLogicHandler implements SerialHelper.OnSerialListener {
         currentIndex = 0; // 重置索引
 
         // 定义各层货道范围
-        List<LayerParam> layerParams = new ArrayList<LayerParam>() {{
-            add(new LayerParam(1, "T1", 1, 8));    // 层数1（T1）对应货道1-8
-            add(new LayerParam(2, "T2", 16, 23));  // 层数2（T2）对应货道16-23
-            add(new LayerParam(3, "T3", 31, 40));  // 层数3（T3）对应货道31-40
-            add(new LayerParam(4, "T4", 46, 55));  // 层数4（T4）对应货道46-55
-            add(new LayerParam(5, "T5", 61, 72));  // 层数5（T5）对应货道61-72
-            add(new LayerParam(6, "T6", 76, 87));  // 层数6（T6）对应货道76-87
-            add(new LayerParam(7, "T7", 91, 102)); // 层数7（T7）对应货道91-102
-            add(new LayerParam(8, "T8", 106, 117));// 层数8（T8）对应货道106-117
-            add(new LayerParam(9,"T9", 121, 132));
-        }};
+
 
         // 2. 遍历所有层，存储「层数-货道编号」关联数据
-        for (LayerParam param : layerParams) {
+        for (LayerParam param : ClientConstant.layerParams) {
             int layerId = param.getLayerNumber(); // 获取当前层数（1-8）
             // 遍历当前层的所有货道编号，关联层数并存储
             for (int num = param.getStartNum(); num <= param.getEndNum(); num++) {
@@ -763,7 +760,7 @@ public class YpgLogicHandler implements SerialHelper.OnSerialListener {
         }};
 
         // 2. 遍历所有层，存储「层数-货道编号」关联数据
-        for (LayerParam param : layerParams) {
+        for (LayerParam param : ClientConstant.layerParams) {
             int layerId = param.getLayerNumber(); // 获取当前层数（1-8）
             if(currentLayer == layerId){
                 // 遍历当前层的所有货道编号，关联层数并存储

@@ -6,6 +6,9 @@
     <string name="devic_number">Device: Cloud Creation Mainboard</string>
     <string name="replace_serial_port">Change Serial Port</string>
     <string name="camera">Camera</string>
+
+    <string name="image_recognition">Image Recognition</string>
+    <string name="image_recognition_tip">Note: The upper part shows the channel number, and the lower part shows the cargo code.</string>
     <string name="system_settings">System Settings</string>
     <string name="real_machine_diagram">Real\nMachine\nDiagram</string>
     <string name="plan_image">Floor\nPlan</string>
@@ -35,12 +38,20 @@
     <string name="enter_the_direction">Enter Direction</string>
     <string name="enter_the_steps">Enter Steps</string>
     <string name="save_settings">Save</string>
+    <string name="x_axis">X-axis</string>
+    <string name="y_axis">Y-axis</string>
+    <string name="confirm_recognition">Confirm recognition</string>
     <string name="rise">Up</string>
     <string name="decline">Down</string>
     <string name="reposition">Reset</string>
     <string name="no_status">No Status</string>
     <string name="lift">Lift</string>
     <string name="X_axis">X Axis</string>
+    <string name="height">Height</string>
+    <string name="width">Width</string>
+    <string name="number">number</string>
+    <string name="aisle_number">Aisle Number</string>
+    <string name="goods_code">Goods Code</string>
     <string name="upper_side_door">Upper Door</string>
     <string name="lower_side_door">Lower Door</string>
     <string name="recycling_door">Recycling Door</string>

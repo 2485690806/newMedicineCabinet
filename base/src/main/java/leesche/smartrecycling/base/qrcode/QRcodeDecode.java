@@ -123,7 +123,6 @@ public class QRcodeDecode {
             }
         } else {
             list.add(qRcode);
-            Logger.i("---1---" + qRcode);
         }
         // 每次检查处理图片时是否有生成图片，若存在，则删除，避免干扰下一次图像识别结果
         File file2 = new File(PATH);
@@ -466,7 +465,6 @@ public class QRcodeDecode {
             hints.put(DecodeHintType.CHARACTER_SET, "UTF-8");
             Result result = new MultiFormatReader().decode(binaryBitmap, hints);
             qrCodeText = result.getText();
-            Logger.i("qrCodeText" + qrCodeText);
         } catch (Exception e) {
             Logger.e(JSON.toJSONString(e));
             qrCodeText = detector.detectAndDecode(Imgcodecs.imread(qrCodePath, 1));

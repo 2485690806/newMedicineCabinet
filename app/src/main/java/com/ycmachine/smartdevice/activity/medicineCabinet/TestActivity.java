@@ -2,25 +2,21 @@ package com.ycmachine.smartdevice.activity.medicineCabinet;
 
 import static leesche.smartrecycling.base.common.Constants.TEST_IMG;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 
-import androidx.appcompat.content.res.AppCompatResources;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.alibaba.fastjson.JSON;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.leesche.logger.Logger;
 import com.ycmachine.smartdevice.R;
 import com.ycmachine.smartdevice.R2;
 import com.ycmachine.smartdevice.manager.CabinetQrManager;
 import com.ycmachine.smartdevice.manager.GridImageAdapter;
+import com.ycmachine.smartdevice.manager.GridRegionManager;
 
 import java.io.File;
 import java.util.List;
@@ -29,11 +25,7 @@ import butterknife.BindView;
 import leesche.smartrecycling.base.BaseActivity;
 import leesche.smartrecycling.base.entity.GridRegion;
 import leesche.smartrecycling.base.entity.QrCodeBinding;
-import leesche.smartrecycling.base.qrcode.GridRegionManager;
 import leesche.smartrecycling.base.qrcode.ImageCropper;
-import leesche.smartrecycling.base.qrcode.QRcodeDecode;
-import leesche.smartrecycling.base.qrcode.QrCodeScanner;
-import leesche.smartrecycling.base.utils.DrawableToBitmapUtil;
 
 public class TestActivity extends BaseActivity {
 
@@ -162,6 +154,20 @@ public class TestActivity extends BaseActivity {
 
     @Override
     public void initData() {
+        // 创建BarcodeScanner对象
+//        BarcodeScanner scanner = new BarcodeScanner();
+//
+//        // 设置识别模式为高斯模糊
+//        scanner.setBinarizationMode(BinarizationMode.GAUSSIAN_BLUR);
+//
+//        // 从图片文件中读取条形码
+//        scanner.scan("EAN-13.png");
+//
+//        // 获取识别的条形码数据
+//        String barcodeData = scanner.getResults().get(0).getBarcodeData();
+//
+//        // 输出识别结果
+//        System.out.println("识别结果：" + barcodeData);
 
     }
 }

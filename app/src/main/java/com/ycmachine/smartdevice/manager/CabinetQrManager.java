@@ -58,7 +58,7 @@ public class CabinetQrManager {
                     GridRegion region = gridRegions.get(i);
 
                     List<String> qrCodes = QrCodeScanner.scan(croppedPath);
-                    Logger.i("level:"+region.gridNumber+"qrCodes:"+JSON.toJSONString(qrCodes));
+                    Logger.w(level+ "level:"+region.gridNumber+"qrCodes:"+JSON.toJSONString(qrCodes));
                     if (qrCodes != null && !qrCodes.isEmpty()) {
                         // 假设第1个是“格子二维码”，第2个是“物品二维码”
                         String gridQr = null;
@@ -127,7 +127,7 @@ public class CabinetQrManager {
                 // 回调成功
                 if (listener != null) listener.onSuccess();
             } catch (Exception e) {
-                Logger.e("Process failed", e);
+                Logger.e("Process failed"+ JSON.toJSONString(e));
                 if (listener != null) listener.onError(e);
             }
         });

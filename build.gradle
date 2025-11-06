@@ -29,6 +29,6 @@ ext {
     javaSourceCompatibility = JavaVersion.VERSION_1_8
     javaTargetCompatibility = JavaVersion.VERSION_1_8
     versionCode = 2507
-    versionName = '1.0.1.10171151' // 继承原项目版本号
+    versionName = '1.0.1.11031557' // 继承原项目版本号
     aiVersion = '1.0.0' // ai版本号
 }

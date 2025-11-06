@@ -1,10 +1,13 @@
 package com.ycmachine.smartdevice.activity.cameraTest;
 
 import static com.ycmachine.smartdevice.constent.ClientConstant.medicineCabinetLayer;
+import static com.ycmachine.smartdevice.manager.GridRegionManager.GetKeyByValue;
+import static com.ycmachine.smartdevice.manager.GridRegionManager.LevelMapLayer;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.hardware.camera2.CameraManager;
 import android.os.Bundle;
@@ -24,6 +27,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 
+import com.alibaba.fastjson.JSON;
 import com.google.gson.Gson;
 import com.leesche.logger.Logger;
 import com.ycmachine.smartdevice.R;
@@ -34,6 +38,7 @@ import com.ycmachine.smartdevice.entity.ypg.Layer;
 import com.ycmachine.smartdevice.handler.ComponenTestHandler;
 import com.ycmachine.smartdevice.handler.YpgLogicHandler;
 import com.ycmachine.smartdevice.manager.CabinetQrManager;
+import com.ycmachine.smartdevice.manager.GridRegionManager;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -54,7 +59,6 @@ import leesche.smartrecycling.base.common.Constants;
 import leesche.smartrecycling.base.common.EventType;
 import leesche.smartrecycling.base.entity.GridRegion;
 import leesche.smartrecycling.base.eventbus.BasicMessageEvent;
-import leesche.smartrecycling.base.qrcode.GridRegionManager;
 import leesche.smartrecycling.base.utils.FileUtil;
 import leesche.smartrecycling.base.utils.RxTimer;
 
@@ -96,6 +100,13 @@ public class CameraActivity extends BaseActivity implements RxTimer.OnTimeCounte
         startBackgroundThread();
         // 初始化3个摄像头封装类
         initCameraWrappers();
+    }
+    public void toImageRecognition(View view) {
+
+        for (CameraWrapper wrapper : cameraWrappers) {
+            wrapper.closeCamera();
+        }
+        startActivity(new Intent(this, ImageRecognitionActivity.class));
     }
 
     // 初始化摄像头封装类
@@ -142,13 +153,17 @@ public class CameraActivity extends BaseActivity implements RxTimer.OnTimeCounte
 
     // 返回按钮
     public void backToActivity(View view) {
+        for (CameraWrapper wrapper : cameraWrappers) {
+            wrapper.closeCamera();
+        }
         finish();
     }
 
     // 批量拍照逻辑
     public void snapDevice(View view) {
+        Logger.e(ClientConstant.nowFloor+ "onCameraStuck");
 
-        YpgLogicHandler.getInstance().snapDevice(selectedLayerValues);
+        YpgLogicHandler.getInstance().snapDevice(new ArrayList<>(selectedLayerValues));
     }
 
     // 初始化CheckBox
@@ -198,8 +213,9 @@ public class CameraActivity extends BaseActivity implements RxTimer.OnTimeCounte
         switch (event.getMessage_id()) {
             case EventType.BasicEvent.SNAP_CAMERA_NUM:
                 int numCamera = event.getMsg_flag();
+                int msg_nowlevel = event.getMsg_level();
                 CameraWrapper cameraWrapper = cameraWrappers.get(numCamera);
-                cameraWrapper.takePictureFromExternal();
+                cameraWrapper.takePictureFromExternal(msg_nowlevel);
                 break;
         }
     }
@@ -266,6 +282,7 @@ public class CameraActivity extends BaseActivity implements RxTimer.OnTimeCounte
                 removeDuplicates();
                 FileUtil.writeFileSdcardFile(Constants.LAYER_VALUE, gson.toJson(ClientConstant.LayerValues));
                 Log.d("LayerValue", "当前选中的层级值：" + Arrays.toString(ClientConstant.LayerValues));
+                Log.d("LayerValue", "selectedLayerValues：" + JSON.toJSONString(selectedLayerValues));
 
             });
         }
@@ -338,20 +355,22 @@ public class CameraActivity extends BaseActivity implements RxTimer.OnTimeCounte
     }
 
     @Override
-    public void onImageSaved(int cameraNum, String filePath) {
-        Logger.i("摄像头" + cameraNum + "保存图片：" + filePath);
+    public void onImageSaved(int cameraNum, String filePath,int nowLevel) {
+        Logger.i(nowLevel+"摄像头" + cameraNum + "保存图片：" + filePath);
         // 可在这里处理图片保存后的逻辑（如上传）
 
-        // 可在这里处理图片保存后的逻辑（如上传）
-        int nowLevel = ClientConstant.nowFloor;
-        List<GridRegion> gridRegions = GridRegionManager.getInstance().getGridRegions(nowLevel, cameraNum);
-        Logger.i("当前key:"+GridRegionManager.getKey(nowLevel, cameraNum));
-        if(gridRegions==null || gridRegions.size()==0){
-            Logger.e("没有配置层级"+nowLevel+"摄像头"+cameraNum+"的识别区域");
-            return;
-        }
-        CabinetQrManager.getInstance().processPhoto(String.valueOf(cameraNum), nowLevel, filePath, gridRegions, listener);
+//        int nowLevel = ClientConstant.nowFloor;
 
+        new  Thread(()->{
+            List<GridRegion> gridRegions = GridRegionManager.getInstance().getGridRegions(LevelMapLayer.get(nowLevel), cameraNum);
+            Logger.i("当前key:"+ JSON.toJSONString(gridRegions));
+            if(gridRegions==null || gridRegions.size()==0){
+                Logger.e("没有配置层级"+nowLevel+"摄像头"+cameraNum+"的识别区域");
+                return;
+            }
+            CabinetQrManager.getInstance().processPhoto(String.valueOf(cameraNum), nowLevel, filePath, gridRegions, listener);
+
+        }).start();
 
     }
     CabinetQrManager.OnProcessListener listener = new CabinetQrManager.OnProcessListener() {
@@ -382,6 +401,13 @@ public class CameraActivity extends BaseActivity implements RxTimer.OnTimeCounte
     @Override
     public File getExternalFilesDir() {
         return getExternalFilesDir(null);
+    }
+
+    @Override
+    public void onCameraStuck(int cameraNum) {
+        Logger.e(ClientConstant.nowFloor+ "onCameraStuck"+cameraNum);
+        YpgLogicHandler.getInstance().snapDevice(new ArrayList<>(selectedLayerValues));
+
     }
 
     // 生命周期

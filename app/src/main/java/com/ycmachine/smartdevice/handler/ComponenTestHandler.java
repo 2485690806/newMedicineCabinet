@@ -10,6 +10,7 @@ import android.app.Activity;
 import android.widget.TextView;
 
 import com.leesche.logger.Logger;
+import com.ycmachine.smartdevice.constent.ClientConstant;
 
 import leesche.smartrecycling.base.serial.SerialHelper;
 import leesche.smartrecycling.base.utils.HexUtil;
@@ -89,6 +90,7 @@ public class ComponenTestHandler {
      */
     public void YaxisReset() {
         nowFloor = ResetFloor; // 重置当前楼层为7（第8层）
+        Logger.e("nowFloor"+ClientConstant.nowFloor);
         String str = "AA000B0101BB";
 
         sendSerialPort(hexStringToByteArray(str));
@@ -241,6 +243,7 @@ public class ComponenTestHandler {
         // 更新当前楼层
         nowFloor = targetFloor;
 
+        Logger.e("nowFloor"+ClientConstant.nowFloor);
         return cmd;
     }
 

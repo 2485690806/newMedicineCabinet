@@ -1,0 +1,378 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/ypg_bacc">
+
+
+    <include
+        android:id="@+id/item_camera_top"
+        layout="@layout/item_camera_recognition_top"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+
+    <LinearLayout
+        android:id="@+id/camera_area_center"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/theme_30dp"
+        android:paddingRight="@dimen/theme_30dp"
+        android:weightSum="10">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="500dp"
+            android:layout_marginTop="100dp"
+            android:layout_weight="4"
+            android:gravity="center_vertical"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/theme_20dp"
+                android:gravity="center"
+                android:text="@string/image_recognition_tip"
+                android:textColor="#FFFFFF"
+                android:textSize="@dimen/item_main_control_conponent" />
+
+            <!-- 左侧：RadioGroup -->
+            <RadioGroup
+                android:id="@+id/radio_group_layers"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/machine_bac_xian"
+                android:gravity="left"
+                android:orientation="vertical"
+                android:paddingTop="5dp">
+
+            </RadioGroup>
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="20dp"
+            android:layout_weight="6"
+            android:gravity="center_vertical"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="580dp"
+                android:background="@drawable/image_recognition_bac"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <!-- 左图区域（左摄像头） -->
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center">
+
+                    <!-- 替换为自定义View：支持绘制红色框 -->
+                    <com.ycmachine.smartdevice.manager.GridImageBoxView
+                        android:id="@+id/grid_left"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="26dp"
+                        android:layout_marginTop="26dp"
+                        android:layout_marginEnd="26dp"
+                        android:layout_marginBottom="6dp"
+                        android:background="#424242"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/tv_left_camera"
+                        android:layout_width="55dp"
+                        android:layout_height="55dp"
+                        android:layout_marginLeft="30dp"
+                        android:background="@drawable/machine_test_layers_number"
+                        android:gravity="center"
+                        android:paddingLeft="3dp"
+                        android:text="左"
+                        android:textColor="@color/white"
+                        android:textSize="22sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <!-- 右图区域（右摄像头） -->
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center">
+
+                    <!-- 替换为自定义View：支持绘制红色框 -->
+                    <com.ycmachine.smartdevice.manager.GridImageBoxView
+                        android:id="@+id/grid_right"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="26dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginEnd="26dp"
+                        android:layout_marginBottom="16dp"
+                        android:background="#424242"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/tv_right_camera"
+                        android:layout_width="55dp"
+                        android:layout_height="55dp"
+                        android:layout_marginLeft="30dp"
+                        android:background="@drawable/machine_test_layers_number"
+                        android:gravity="center"
+                        android:paddingLeft="3dp"
+                        android:text="右"
+                        android:textColor="@color/white"
+                        android:textSize="22sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </LinearLayout>
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="150dp">
+
+                <LinearLayout
+                    android:id="@+id/white_container"
+                    android:layout_width="600dp"
+                    android:layout_height="125dp"
+                    android:background="@drawable/ll_image_recognition"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <!-- 长度、宽度布局（左侧区域） -->
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:layout_weight="3"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="5dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginRight="@dimen/theme_10dp"
+                                android:text="@string/x_axis"
+                                android:textSize="20dp" />
+
+                            <EditText
+                                android:id="@+id/x_et"
+                                android:layout_width="80dp"
+                                android:layout_height="40dp"
+                                android:background="@drawable/et_wight_text"
+                                android:hint="120"
+                                android:imeOptions="actionDone"
+                                android:inputType="number" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="20dp"
+                                android:layout_marginRight="@dimen/theme_10dp"
+                                android:text="@string/y_axis"
+                                android:textSize="20dp" />
+
+                            <EditText
+                                android:id="@+id/y_et"
+                                android:layout_width="80dp"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/et_wight_text"
+                                android:hint="120"
+                                android:imeOptions="actionDone"
+                                android:inputType="number" />
+                        </LinearLayout>
+
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="5dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginRight="@dimen/theme_10dp"
+                                android:text="@string/height"
+                                android:textSize="20dp" />
+
+                            <EditText
+                                android:id="@+id/h_et"
+                                android:layout_width="80dp"
+                                android:layout_height="40dp"
+                                android:background="@drawable/et_wight_text"
+                                android:hint="120mm"
+                                android:imeOptions="actionDone"
+                                android:inputType="number" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="20dp"
+                                android:layout_marginRight="@dimen/theme_10dp"
+                                android:text="@string/width"
+                                android:textSize="20dp" />
+
+                            <EditText
+                                android:id="@+id/w_et"
+                                android:layout_width="80dp"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/et_wight_text"
+                                android:hint="120mm"
+                                android:imeOptions="actionDone"
+                                android:inputType="number" />
+                        </LinearLayout>
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:paddingTop="20dp"
+                        android:paddingBottom="20dp">
+
+
+                        <ImageView
+                            android:layout_width="1dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginEnd="10dp"
+                            android:background="@drawable/camera_zhixian" />
+                    </LinearLayout>
+
+                    <!-- 货道号、货物编码布局（右侧区域） -->
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="5dp">
+
+                            <TextView
+                                android:layout_width="150dp"
+                                android:layout_height="wrap_content"
+                                android:text="@string/aisle_number"
+                                android:textColor="@android:color/black"
+                                android:textSize="20dp" />
+
+                            <TextView
+                                android:id="@+id/layer_num"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="56号"
+                                android:textColor="@android:color/holo_orange_light"
+                                android:textSize="20dp" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:layout_width="150dp"
+                                android:layout_height="wrap_content"
+                                android:text="@string/goods_code"
+                                android:textColor="@android:color/black"
+                                android:textSize="20dp" />
+
+                            <TextView
+                                android:id="@+id/goods_num"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text=""
+                                android:textColor="@android:color/holo_purple"
+                                android:textSize="20dp" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <!-- 悬浮在左下角的“确认识别”按钮 -->
+                <!--                <Button-->
+                <!--                    android:id="@+id/btn_confirm"-->
+                <!--                    android:layout_width="wrap_content"-->
+                <!--                    android:layout_height="wrap_content"-->
+                <!--                    android:layout_marginStart="16dp"-->
+                <!--                    android:layout_marginBottom="16dp"-->
+                <!--                    android:background="@drawable/gradient_button"-->
+                <!--                    android:text="确认识别"-->
+                <!--                    android:textColor="@android:color/white"-->
+                <!--                    app:layout_constraintBottom_toBottomOf="@id/white_container"-->
+                <!--                    app:layout_constraintStart_toStartOf="@id/white_container" />-->
+
+
+                <LinearLayout
+                    android:id="@+id/ll_save_setting"
+                    android:layout_width="200dp"
+                    android:layout_height="50dp"
+                    android:layout_marginStart="96dp"
+                    android:background="@drawable/yijianpaizhao_bac"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="@id/white_container">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/save_settings"
+                        android:textColor="#FFFFFF"
+                        android:textSize="19dp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_confirm_recognition"
+                    android:layout_width="200dp"
+                    android:layout_height="50dp"
+                    android:layout_marginStart="386dp"
+                    android:background="@drawable/yijianpaizhao_bac"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="@id/white_container">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/confirm_recognition"
+                        android:textColor="#FFFFFF"
+                        android:textSize="19dp" />
+                </LinearLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        </LinearLayout>
+    </LinearLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

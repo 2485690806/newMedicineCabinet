@@ -119,6 +119,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".activity.cameraTest.ImageRecognitionActivity"
+            android:exported="false"
+            tools:node="merge">
+            <intent-filter tools:node="remove">
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
 <!--        <activity-->
 <!--            android:name=".activity.medicineCabinet.TestActivity"-->
 <!--            android:exported="false"-->
