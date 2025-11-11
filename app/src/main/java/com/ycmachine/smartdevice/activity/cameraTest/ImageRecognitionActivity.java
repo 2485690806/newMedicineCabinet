@@ -20,6 +20,7 @@ import androidx.annotation.Nullable;
 import com.alibaba.fastjson.JSON;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.DecodeFormat;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.target.CustomTarget;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.target.Target;
@@ -141,9 +142,8 @@ public class ImageRecognitionActivity extends BaseActivity implements RxTimer.On
             // 添加数字按钮
             for (int num = param.getStartNum(); num <= param.getEndNum(); num++) {
 //                RadioButton radioButton = viewCreator.createNumberRadioButton(num);
-
                 String itemQrCode = null;
-                QrCodeBinding byGridQr = DataSourceOperator.getInstance().findByGridQr("0"+String.valueOf(num));
+                QrCodeBinding byGridQr = DataSourceOperator.getInstance().findByGridQr(String.format("%03d", num));
                 if(byGridQr !=null){
                     itemQrCode = byGridQr.getItemQrCode();
                 }
@@ -325,7 +325,7 @@ public class ImageRecognitionActivity extends BaseActivity implements RxTimer.On
                     String itemQr = null;
                     for (String qr : results) {
                         Logger.d("Detected QR: " + qr);
-                        if (!qr.equals(selectedRegion.gridNumber)) {
+                        if (!Integer.valueOf(qr).equals(Integer.valueOf(selectedRegion.gridNumber))) {
                             itemQr = qr;
                         }
                     }
@@ -337,10 +337,15 @@ public class ImageRecognitionActivity extends BaseActivity implements RxTimer.On
 
                     goodsNum.setText(itemQr + getString(R.string.number));
 
-                    QrCodeBinding binding = new QrCodeBinding(
-                            "0"+gridQr, itemQr, level, gridQr,
-                            originalPath, tempImagePath
-                    );
+                    QrCodeBinding binding = null;
+                   try{
+                        binding = new QrCodeBinding(
+                               String.format("%03d", buttonNumber), itemQr, level, gridQr,
+                               originalPath, tempImagePath
+                       );
+                   }catch (Exception e){
+                       return;
+                   }
                     Logger.i("binding"+JSON.toJSONString(binding));
 
 
@@ -417,6 +422,8 @@ public class ImageRecognitionActivity extends BaseActivity implements RxTimer.On
                     .asBitmap()
                     .override(Target.SIZE_ORIGINAL) // 自动按View尺寸压缩
                     .load(latestImageFile) // 支持File、资源ID、URL
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)  // 禁用磁盘缓存
+                    .skipMemoryCache(true)                     // 禁用内存缓存
                     .format(DecodeFormat.PREFER_RGB_565) // 降低色彩精度（2字节/像素，比ARGB_8888省一半内存）
                     .into(new SimpleTarget<Bitmap>() {
                         @Override
@@ -440,6 +447,8 @@ public class ImageRecognitionActivity extends BaseActivity implements RxTimer.On
                 Glide.with(this)
                         .asBitmap()
                         .load(imageResId)
+                        .diskCacheStrategy(DiskCacheStrategy.NONE)  // 禁用磁盘缓存
+                        .skipMemoryCache(true)                     // 禁用内存缓存
                         .override(Target.SIZE_ORIGINAL) // 自动按View尺寸压缩
                         .format(DecodeFormat.PREFER_RGB_565) // 优先RGB_565格式
                         .into(new CustomTarget<Bitmap>() {
@@ -461,6 +470,8 @@ public class ImageRecognitionActivity extends BaseActivity implements RxTimer.On
                 Glide.with(this)
                         .asBitmap()
                         .load(imageResId)
+                        .diskCacheStrategy(DiskCacheStrategy.NONE)  // 禁用磁盘缓存
+                        .skipMemoryCache(true)                     // 禁用内存缓存
                         .override(Target.SIZE_ORIGINAL) // 自动按View尺寸压缩
                         .format(DecodeFormat.PREFER_RGB_565) // 优先RGB_565格式
                         .into(new CustomTarget<Bitmap>() {

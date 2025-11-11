@@ -65,7 +65,7 @@ public class CabinetQrManager {
                         String itemQr = null;
                         for (String qr : qrCodes) {
                             Logger.d("Detected QR: " + qr);
-                            if (qr.equals(region.gridNumber)) {
+                            if (Integer.valueOf(qr).equals(Integer.valueOf(region.gridNumber))) {
                                 gridQr = qr;
                             } else {
                                 itemQr = qr; // 药袋的二维码

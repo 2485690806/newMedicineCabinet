@@ -354,7 +354,7 @@ public class CameraActivity extends BaseActivity implements RxTimer.OnTimeCounte
     }
 
     @Override
-    public void onImageSaved(int cameraNum, String filePath,int nowLevel) { // 6
+    public void onImageSaved(int cameraNum, String filePath,int nowLevel) {
         Logger.i(nowLevel+"摄像头" + cameraNum + "保存图片：" + filePath);
         // 可在这里处理图片保存后的逻辑（如上传）
 

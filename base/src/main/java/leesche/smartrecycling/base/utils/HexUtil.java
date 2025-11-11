@@ -20,7 +20,7 @@ public class HexUtil {
             //奇数
             hexlen++;
             result = new byte[(hexlen/2)];
-            hexString="0"+hexString;
+            hexString= "0"+hexString;
         }else {
             //偶数
             result = new byte[(hexlen/2)];
